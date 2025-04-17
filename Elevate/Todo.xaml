@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Elevate.Todo">
+
+
+    <Grid RowDefinitions="Auto, *"  >
+        <Button Grid.Row="0"
+                x:Name="AppearButton"
+                Text="Punkt erscheinen lassen!"
+                Clicked="OnAppearButtonClicked"
+                Margin="20"
+                     />
+                
+            <AbsoluteLayout Grid.Row="1"
+                    x:Name="DrawingCanvas"
+                    BackgroundColor="LightYellow">
+            </AbsoluteLayout>
+
+        </Grid>
+
+</ContentPage>

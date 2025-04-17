@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+            xmlns:viewModels="clr-namespace:DragAndDropDemo.ViewModels;assembly=DragAndDropDemo"  
+            xmlns:models="clr-namespace:models"  
+            x:DataType="viewModels:DashboardViewModel"  
+            x:Class="Elevate.Mappping"  
+            Title="Mappping">  
+   <VerticalStackLayout Padding="10">  
+       <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="50*,50*">  
+           <Border Grid.Row="0" Grid.Column="0">  
+               <VerticalStackLayout>  
+                   <Label Text="New Task" />  
+               </VerticalStackLayout>  
+
+               <Border.Triggers>  
+                   <DataTrigger TargetType="Border" Binding="{Binding selected}">  
+
+                   </DataTrigger>  
+               </Border.Triggers>  
+           </Border>  
+
+           <Border Grid.Row="0" Grid.Column="1">  
+               <VerticalStackLayout>  
+                   <Label Text="New Task" />  
+               </VerticalStackLayout>  
+           </Border>  
+
+           <Border Grid.Row="1" Grid.Column="0">  
+               <VerticalStackLayout>  
+                   <Label Text="New Task" />  
+               </VerticalStackLayout>  
+           </Border>  
+
+           <Border Grid.Row="1" Grid.Column="1">  
+               <VerticalStackLayout>  
+                   <Label Text="New Task" />  
+               </VerticalStackLayout>  
+           </Border>  
+       </Grid>  
+   </VerticalStackLayout>  
+</ContentPage>
