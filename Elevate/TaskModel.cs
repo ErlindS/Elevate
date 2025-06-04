@@ -11,6 +11,9 @@ namespace Elevate
         public string TaskName { get; set; }
         public int TaskStatus { get; set; }
         public int TaskId { get; set; }
+        public Models.TaskStatus Status { get; internal set; }
+        public object Id { get; internal set; }
+        public object Name { get; internal set; }
     }
 
     public enum TaskStatusOption

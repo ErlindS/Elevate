@@ -69,6 +69,9 @@
 	  <Compile Update="Mapping.xaml.cs">
 	    <DependentUpon>Mapping.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Sequence.xaml.cs">
+	    <DependentUpon>Sequence.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Todo.xaml.cs">
 	    <DependentUpon>Todo.xaml</DependentUpon>
 	  </Compile>
@@ -76,6 +79,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Mapping.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Sequence.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Todo.xaml">
