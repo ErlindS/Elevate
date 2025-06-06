@@ -13,11 +13,6 @@
         Route="Home" />
 
     <ShellContent
-        Title="TODO"
-        ContentTemplate="{DataTemplate local:Todo}"
-        Route="Todo" />
-
-    <ShellContent
         Title="Mapping"
         ContentTemplate="{DataTemplate local:Mapping}"
         Route="Mapping" />
