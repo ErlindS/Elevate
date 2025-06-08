@@ -1,5 +1,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:as="http://mindfusion.eu/scheduling/maui"
              x:Class="Elevate.Sequence"
              Title="Basic Grid demo">
 
@@ -38,10 +39,6 @@
             Padding="10"
             HorizontalOptions="Center"
             VerticalOptions="Center">
-            <Label.GestureRecognizers>
-                <DragGestureRecognizer
-                    DragStarting="OnDragStarting" />
-            </Label.GestureRecognizers>
         </Label>
 
         <BoxView Grid.Row="0" Grid.Column="0"
@@ -96,19 +93,6 @@
                HorizontalOptions="Center"
                VerticalOptions="Center" 
                Style="{StaticResource TextStyle}"/>
-
-
-        <Border Grid.Row="0" Grid.Column="6"
-        BackgroundColor="#EEEEEE"
-        Stroke="Gray"
-        StrokeShape="RoundRectangle 8">
-            <Border.GestureRecognizers>
-                <DropGestureRecognizer
-            AllowDrop="True"
-            Drop="OnDrop"
-            DragOver="OnDragOver" />
-            </Border.GestureRecognizers>
-        </Border>
 
     </Grid>
 </ContentPage>

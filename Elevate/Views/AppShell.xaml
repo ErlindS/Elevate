@@ -24,8 +24,8 @@
 
     <ShellContent
         Title="Week"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate local:Analytic}"
+        Route="Analytic" />
 
     <ShellContent
         Title="Analytics"

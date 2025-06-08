@@ -1,4 +1,4 @@
-namespace Elevate
+﻿namespace Elevate
 {
 	
     public partial class Sequence : ContentPage
@@ -9,29 +9,35 @@ namespace Elevate
 
         }
 
-        private void OnDragStarting(object sender, DragStartingEventArgs e)
+        string draggedItem;
+        /*
+        void OnDragStarting(object sender, DragStartingEventArgs e)
         {
-            e.Data.Text = "Task A"; // Or some unique ID or object info
+            draggedItem = (sender as Element)?.BindingContext as string;
+            e.Data.Properties.Add("Item", draggedItem);
         }
 
-        private void OnDragOver(object sender, DragEventArgs e)
+        void OnDragOver(object sender, DragEventArgs e)
         {
-            e.AcceptedOperation = DataPackageOperation.Copy;
+            e.AcceptedOperation = DataPackageOperation.Move;
         }
 
-        private async void OnDrop(object sender, DropEventArgs e)
+        void OnDrop(object sender, DropEventArgs e)
         {
-            var data = await e.Data.GetTextAsync();
-
-            if (sender is Border targetBorder)
+            if (e.Data.Properties.TryGetValue("Item", out object itemObj)
+                && itemObj is string droppedItem)
             {
-                targetBorder.Content = new Label
-                {
-                    Text = data,
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.Center
-                };
+                var collection = (BindingContext as MainViewModel)?.Items;
+                if (collection == null)
+                    return;
+
+                // Optional: Neue Position berechnen, z. B. basierend auf Drop-Location
+                // Hier: ans Ende schieben
+                collection.Remove(droppedItem);
+                collection.Add(droppedItem);
             }
         }
+        */
+
     }
 }
