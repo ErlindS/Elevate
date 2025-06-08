@@ -3,46 +3,4 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Elevate.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout Spacing="10" Padding="20">
-
-            <Label Text="Meine TODOs"
-                   FontSize="Header"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   Margin="0,0,0,20" />
-
-            <Grid ColumnDefinitions="*,Auto">
-                <Entry x:Name="NewTodoEntry"
-                       Placeholder="Neues TODO hinzufügen..."
-                       Grid.Column="0" />
-                <Button Text="Hinzufügen"
-                        Grid.Column="1"
-                        Clicked="OnAddTodoClicked" />
-            </Grid>
-
-            <CollectionView x:Name="TodoItemsCollectionView"
-                            Margin="0,20,0,0">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid ColumnDefinitions="Auto,*,Auto" Padding="5">
-                            <CheckBox IsChecked="{Binding IsDone}"
-                                      Grid.Column="0"
-                                      CheckedChanged="OnTodoStatusChanged" />
-                            <Label Text="{Binding Text}"
-                                   Grid.Column="1"
-                                   VerticalOptions="Center"
-                                   LineBreakMode="WordWrap" />
-                            <Button Text="Löschen"
-                                    Grid.Column="2"
-                                    BackgroundColor="Red"
-                                    TextColor="White"
-                                    Clicked="OnDeleteTodoClicked" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-        </VerticalStackLayout>
-    </ScrollView>
 </ContentPage>

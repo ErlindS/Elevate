@@ -34,7 +34,7 @@
 
         <Label 
             Grid.Column="7"
-            Text="Task A"
+            Text="ElevateTask A"
             BackgroundColor="LightBlue"
             Padding="10"
             HorizontalOptions="Center"

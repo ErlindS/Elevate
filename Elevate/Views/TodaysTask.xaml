@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Elevate.TodaysTask">
+
+
+    <CollectionView x:Name="TodoItemsCollectionView"
+                 Margin="0,20,0,0">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Grid ColumnDefinitions="Auto,*,Auto" Padding="5">
+                    <!--<CheckBox IsChecked="{Binding IsDone}"
+                           Grid.Column="0"
+                           CheckedChanged="OnTodoStatusChanged" />-->
+                    <Label Text="{Binding Name}"
+                        Grid.Column="1"
+                        VerticalOptions="Center"
+                        LineBreakMode="WordWrap" />
+
+                    <Grid.Triggers>
+                        <DataTrigger TargetType="Grid"
+                                 Binding="{Binding IsDueToday}"
+                                 Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Grid.Triggers>
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Elevate.AddTask">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="20">
+
+            <Label Text="Meine TODOs"
+                   FontSize="Header"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20" />
+
+            <Grid ColumnDefinitions="*,Auto" >
+                <Entry x:Name="NewTodoEntry"
+                       Placeholder="Neues TODO hinzufügen..."
+                       Grid.Column="0"
+                       Grid.Row="0"/>
+                <Button Text="Hinzufügen"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Clicked="OnAddTodoClicked" />
+            </Grid>
+
+            <Grid RowDefinitions="Auto" ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
+                <CheckBox IsChecked="{Binding IsDone}"
+                          Grid.Column="0"
+                          Grid.Row="0"
+                          CheckedChanged="OnTodoStatusChanged" />
+                <Label Text="Project"  Grid.Column="1" Grid.Row="0" VerticalOptions="Center"/>
+
+                <CheckBox IsChecked="{Binding IsDueToday}"
+                          Grid.Column="2"
+                          Grid.Row="0"
+                          CheckedChanged="OnTodoStatusChanged" />
+                <Label Text="Today"  Grid.Column="3" Grid.Row="0" VerticalOptions="Center"/>
+
+                <CheckBox IsChecked="{Binding IsDone}"
+                        Grid.Column="4"
+                        Grid.Row="0"
+                        CheckedChanged="OnTodoStatusChanged" />
+                <Label Text="Atomic"  Grid.Column="5" Grid.Row="0" VerticalOptions="Center"/>
+            </Grid>
+
+            <CollectionView x:Name="TodoItemsCollectionView"
+                            Margin="0,20,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="Auto,*,Auto" Padding="5">
+                            <!--<CheckBox IsChecked="{Binding IsDone}"
+                                      Grid.Column="0"
+                                      CheckedChanged="OnTodoStatusChanged" />-->
+                            <Label Text="{Binding Name}"
+                                   Grid.Column="1"
+                                   VerticalOptions="Center"
+                                   LineBreakMode="WordWrap" />
+                            <Button Text="Löschen"
+                                    Grid.Column="2"
+                                    BackgroundColor="Red"
+                                    TextColor="White"
+                                    Clicked="OnDeleteTodoClicked" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

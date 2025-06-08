@@ -8,6 +8,16 @@
     Title="Elevate">
 
     <ShellContent
+    Title="Todays ElevateTasks"
+    ContentTemplate="{DataTemplate local:TodaysTask}"
+    Route="TodaysTask" />
+
+    <ShellContent
+    Title="Home"
+    ContentTemplate="{DataTemplate local:AddTask}"
+    Route="AddTask" />
+
+    <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="Home" />
@@ -31,5 +41,6 @@
         Title="Analytics"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
 
 </Shell>
