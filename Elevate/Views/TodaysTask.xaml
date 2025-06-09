@@ -9,14 +9,10 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <Grid ColumnDefinitions="Auto,*,Auto" Padding="5">
-                    <!--<CheckBox IsChecked="{Binding IsDone}"
-                           Grid.Column="0"
-                           CheckedChanged="OnTodoStatusChanged" />-->
                     <Label Text="{Binding Name}"
                         Grid.Column="1"
                         VerticalOptions="Center"
                         LineBreakMode="WordWrap" />
-
                     <Grid.Triggers>
                         <DataTrigger TargetType="Grid"
                                  Binding="{Binding IsDueToday}"

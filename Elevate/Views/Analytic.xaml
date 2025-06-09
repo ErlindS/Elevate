@@ -2,7 +2,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:as="http://mindfusion.eu/scheduling/maui"
              x:Class="Elevate.Analytic"
-             Title="Basic Grid demo">
-    
-    
+             Title="Analytic">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="20">
+            <CollectionView x:Name="TodoItemsCollectionView"
+                        Margin="0,20,0,0">
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                 Span="4" 
+                                 VerticalItemSpacing="10"
+                                 HorizontalItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5">
+                            <Border>
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding Name}"
+                                       FontAttributes="Bold"
+                                       LineBreakMode="WordWrap"
+                                       HorizontalTextAlignment="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

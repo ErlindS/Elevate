@@ -10,7 +10,7 @@ namespace Elevate.Models
     {
         string Name { get; }
         string Description { get; }
-        bool IsComposite { get;  }
+        bool IsComposite { get; }
         bool IsDueToday { get; }
     }
 }
