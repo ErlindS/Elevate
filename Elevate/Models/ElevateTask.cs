@@ -10,14 +10,17 @@ namespace Elevate.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
-
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public bool IsDueToday { get; set; }
         public bool IsComposite => false;
 
-        public ElevateTask(string name, bool IsDueToday)
+        public ElevateTask(string name, bool IsDueToday, string t1, string t2)
         {
             Name = name;
             IsDueToday = IsDueToday;
+            StartTime = t1;
+            EndTime = t2;
         }
     }
 }

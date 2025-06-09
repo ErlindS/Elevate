@@ -11,6 +11,7 @@ namespace Elevate.Services
     public class ElevateTaskService
     {
         public ObservableCollection<IElevateTaskComponent> Tasks { get; } = new ObservableCollection<IElevateTaskComponent>();
+        public ObservableCollection<IElevateTaskComponent> Projects { get; } = new ObservableCollection<IElevateTaskComponent>();
 
         public GroupElevateTask RootElevateTaskGroup { get; private set; }
 

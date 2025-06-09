@@ -6,6 +6,16 @@
 
     <ScrollView>
         <VerticalStackLayout Spacing="10" Padding="20">
+
+            <HorizontalStackLayout Spacing="10">
+                <CollectionView x:Name="ProjectsCollectionView" Margin="0,20,0,0">
+
+                </CollectionView>
+                <Label Text="Here are your Projects listed" VerticalOptions="Center" />
+                <Entry Placeholder="Search..." />
+            </HorizontalStackLayout>
+
+
             <CollectionView x:Name="TodoItemsCollectionView"
                         Margin="0,20,0,0">
 
@@ -26,6 +36,10 @@
                                        LineBreakMode="WordWrap"
                                        HorizontalTextAlignment="Center" />
                                 </VerticalStackLayout>
+                                <Border.GestureRecognizers>
+                                    <DragGestureRecognizer DragStarting="OwnDragStarting"/>
+                                    <DropGestureRecognizer DragOver="OwnDropOver" Drop="OwnDropGesture"/>
+                                </Border.GestureRecognizers>
                             </Border>
                         </Grid>
                     </DataTemplate>

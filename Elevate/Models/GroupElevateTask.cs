@@ -11,9 +11,11 @@ namespace Elevate.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsDueToday { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public bool IsComposite => true;
 
-        private readonly List<IElevateTaskComponent> _children = new();
+        private List<IElevateTaskComponent> _children = new();
 
         public GroupElevateTask(string name, string description)
         {

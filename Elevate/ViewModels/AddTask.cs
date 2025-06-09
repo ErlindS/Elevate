@@ -25,7 +25,7 @@ namespace Elevate
 
             if (!string.IsNullOrWhiteSpace(newTodoText)) // Überprüfe, ob der Text nicht leer oder nur Leerzeichen ist
             {
-                _taskService.Tasks.Add(new ElevateTask(newTodoText, true));
+                _taskService.Tasks.Add(new ElevateTask(newTodoText, true, "11:00", "12:00")); 
                 NewTodoEntry.Text = string.Empty; // Eingabefeld leeren
             }
         }

@@ -8,39 +8,28 @@
     Title="Elevate">
 
     <ShellContent
-    Title="Todays ElevateTasks"
+    Title="Todays Task"
     ContentTemplate="{DataTemplate local:TodaysTask}"
     Route="TodaysTask" />
 
     <ShellContent
-    Title="Home"
+    Title="Add Task"
     ContentTemplate="{DataTemplate local:AddTask}"
     Route="AddTask" />
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="Home" />
+    Title="Combine Task"
+    ContentTemplate="{DataTemplate local:Analytic}"
+    Route="Analytic" />
+    
+    <ShellContent
+    Title="Sequence"
+    ContentTemplate="{DataTemplate local:Sequence}"
+    Route="Sequence" />
 
     <ShellContent
         Title="Mapping"
         ContentTemplate="{DataTemplate local:Mapping}"
         Route="Mapping" />
-
-    <ShellContent
-        Title="Sequence"
-        ContentTemplate="{DataTemplate local:Sequence}"
-        Route="Sequence" />
-
-    <ShellContent
-        Title="Week"
-        ContentTemplate="{DataTemplate local:Analytic}"
-        Route="Analytic" />
-
-    <ShellContent
-        Title="Analytics"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
 
 </Shell>

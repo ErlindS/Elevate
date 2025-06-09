@@ -7,7 +7,7 @@ namespace Elevate
     {
         public Mapping()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
         
         private async void OwnDragStarting(object sender, DragStartingEventArgs e)

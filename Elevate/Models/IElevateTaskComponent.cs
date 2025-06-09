@@ -12,5 +12,9 @@ namespace Elevate.Models
         string Description { get; }
         bool IsComposite { get; }
         bool IsDueToday { get; }
+
+        string StartTime { get; }
+
+        string EndTime { get; }
     }
 }
