@@ -1,24 +1,37 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
-using System.Collections.ObjectModel;
 using Elevate.Services;
 
-namespace Elevate
+namespace Elevate.ViewModels
 {
-    public partial class AddTask : ContentPage
+    public partial class AddTaskViewModel : ObservableObject
     {
         private ElevateTaskService _taskService;
 
+        //[ObservableProperty]
+        //private string _newTodoText = string.Empty; // Holds the text for the new task entry
 
-        public AddTask(ElevateTaskService taskService)
+        //[ObservableProperty]
+        //private string _newTodoHours = string.Empty; // Holds the hours for the new task entry
+
+        //// Properties for filter checkboxes (assuming these control filters for the list)
+        //[ObservableProperty]
+        //private bool _isProjectFilterActive;
+
+        //[ObservableProperty]
+        //private bool _isDueTodayFilterActive;
+
+        //[ObservableProperty]
+        //private bool _isAtomicFilterActive;
+
+
+        public AddTaskViewModel(ElevateTaskService taskService)
         {
-            InitializeComponent();
-
             _taskService = taskService;
-            TodoItemsCollectionView.ItemsSource = _taskService.Tasks;
-
+            //TodoItemsCollectionView.ItemsSource = _taskService.Tasks;
         }
+
+        /*
         private void OnAddTodoClicked(object sender, EventArgs e)
         {
             string newTodoText = NewTodoEntry.Text?.Trim(); // Hole den Text aus dem Eingabefeld
@@ -48,7 +61,7 @@ namespace Elevate
             {
                 //_todoItems.Remove(todoItemToDelete); // Entferne das TodoItem aus der Liste
             }
-        }
+        }*/
     }
 
 }

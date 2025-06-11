@@ -68,25 +68,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="ViewModels\Mapping.xaml.cs">
+	  <Compile Update="ViewModels\MapTaskViewModel.cs">
 	    <DependentUpon>Mapping.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="ViewModels\Sequence.xaml.cs">
+	  <Compile Update="ViewModels\CombineTaskViewModel.cs">
 	    <DependentUpon>Sequence.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AddTaskPage.xaml.cs">
+	    <DependentUpon>AddTaskPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\TodaysTask.xaml">
+	  <MauiXaml Update="Views\TodaysTaskPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Mapping.xaml">
+	  <MauiXaml Update="Views\MapTaskPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Analytic.xaml">
+	  <MauiXaml Update="Views\CombineTaskPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Sequence.xaml">
+	  <MauiXaml Update="Views\AnalyticsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

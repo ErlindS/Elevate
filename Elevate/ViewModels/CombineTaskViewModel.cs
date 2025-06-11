@@ -1,15 +1,13 @@
-﻿namespace Elevate
+﻿namespace Elevate.ViewModels
 {
 	
-    public partial class Sequence : ContentPage
+    public partial class CombineTaskViewModel
     {
-        public Sequence()
+        public CombineTaskViewModel()
         {
-            InitializeComponent();
+            //InitializeComponent();
 
         }
-
-        string draggedItem;
         /*
         void OnDragStarting(object sender, DragStartingEventArgs e)
         {

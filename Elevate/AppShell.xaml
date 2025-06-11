@@ -9,27 +9,27 @@
 
     <ShellContent
     Title="Todays Task"
-    ContentTemplate="{DataTemplate local:TodaysTask}"
-    Route="TodaysTask" />
+    ContentTemplate="{DataTemplate local:TodaysTaskPage}"
+    Route="TodaysTaskPage" />
 
     <ShellContent
     Title="Add Task"
-    ContentTemplate="{DataTemplate local:AddTask}"
-    Route="AddTask" />
+    ContentTemplate="{DataTemplate local:AddTaskPage}"
+    Route="AddTaskPage" />
 
     <ShellContent
-    Title="Combine Task"
-    ContentTemplate="{DataTemplate local:Analytic}"
-    Route="Analytic" />
+    Title="Task Mapping"
+    ContentTemplate="{DataTemplate local:MapTaskPage}"
+    Route="MapTaskPage" />
     
     <ShellContent
-    Title="Sequence"
-    ContentTemplate="{DataTemplate local:Sequence}"
-    Route="Sequence" />
+    Title="Combine Tasks"
+    ContentTemplate="{DataTemplate local:CombineTaskPage}"
+    Route="CombineTaskPage" />
 
     <ShellContent
-        Title="Mapping"
-        ContentTemplate="{DataTemplate local:Mapping}"
-        Route="Mapping" />
+    Title="Analytics"
+    ContentTemplate="{DataTemplate local:AnalyticsPage}"
+    Route="AnalyticsPage" />
 
 </Shell>
