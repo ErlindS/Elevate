@@ -2,21 +2,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Elevate.CombineTaskPage">
 
-    <!--<ScrollView>
+    <ScrollView>
         <VerticalStackLayout Spacing="10" Padding="20">
 
-            <HorizontalStackLayout Spacing="10">
-                <CollectionView x:Name="ProjectsCollectionView" Margin="0,20,0,0">
+            <HorizontalStackLayout>
+                <CollectionView ItemsSource="{Binding Projects}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Horizontal" Span="2" HorizontalItemSpacing="10"  VerticalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
 
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.Triggers>
+                                    <DataTrigger TargetType="Grid" Binding="{Binding IsProject}" Value="False">
+                                        <Setter Property="IsVisible" Value="False" />
+                                    </DataTrigger>
+                                </Grid.Triggers>
+                                <Label Text="{Binding Name}"/>
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Label Text="Here are your Projects listed" VerticalOptions="Center" />
-                <Entry Placeholder="Search..." />
             </HorizontalStackLayout>
 
 
-            <CollectionView x:Name="TodoItemsCollectionView"
-                        Margin="0,20,0,0">
-
+            <CollectionView ItemsSource="{Binding Projects}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical"
                                  Span="4" 
@@ -26,7 +38,7 @@
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="5">
+                        <Grid Padding="20">
                             <Border>
                                 <VerticalStackLayout Spacing="5">
                                     <Label Text="{Binding Name}"
@@ -34,16 +46,16 @@
                                        LineBreakMode="WordWrap"
                                        HorizontalTextAlignment="Center" />
                                 </VerticalStackLayout>
-                                <Border.GestureRecognizers>
+                                <!--<Border.GestureRecognizers>
                                     <DragGestureRecognizer DragStarting="OwnDragStarting"/>
                                     <DropGestureRecognizer DragOver="OwnDropOver" Drop="OwnDropGesture"/>
-                                </Border.GestureRecognizers>
+                                </Border.GestureRecognizers>-->
                             </Border>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </VerticalStackLayout>
-    </ScrollView>-->
+    </ScrollView>
 
 </ContentPage>

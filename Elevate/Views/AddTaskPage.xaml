@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Elevate.AddTaskPage">
 
-    <!--<ScrollView>
+    <ScrollView>
         <VerticalStackLayout Spacing="10" Padding="20">
 
             <Label Text="Meine TODOs"
@@ -13,11 +13,11 @@
                    Margin="0,0,0,20" />
 
             <Grid ColumnDefinitions="*, Auto, Auto" >
-                <Entry x:Name="NewTodoEntry"
+                <Entry Text="{Binding NewTodoText}"
                        Placeholder="Add your task"
                        Grid.Column="0"
                        Grid.Row="0"/>
-                <Entry x:Name="Timetaken"
+                <Entry Text="{Binding NewTodoHours}"
                        Placeholder="Hours"
                        Grid.Column="1"
                        Grid.Row="0"
@@ -25,51 +25,38 @@
                 <Button Text="Hinzufügen"
                         Grid.Column="2"
                         Grid.Row="0"
-                        Clicked="OnAddTodoClicked" />
+                        Command="{Binding AddItemCommand}" />
             </Grid>
 
             <Grid RowDefinitions="Auto" ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
-                <CheckBox IsChecked="{Binding IsDone}"
+                <CheckBox IsChecked="{Binding IsToday}"
                           Grid.Column="0"
                           Grid.Row="0"
-                          CheckedChanged="OnTodoStatusChanged" />
-                <Label Text="Project"  Grid.Column="1" Grid.Row="0" VerticalOptions="Center"/>
-
-                <CheckBox IsChecked="{Binding IsDueToday}"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"/>
+                <Label Text="Task Should be done today"  Grid.Column="1" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <CheckBox IsChecked="{Binding IsProject}"
                           Grid.Column="2"
                           Grid.Row="0"
-                          CheckedChanged="OnTodoStatusChanged" />
-                <Label Text="Today"  Grid.Column="3" Grid.Row="0" VerticalOptions="Center"/>
-
-                <CheckBox IsChecked="{Binding IsDone}"
-                        Grid.Column="4"
-                        Grid.Row="0"
-                        CheckedChanged="OnTodoStatusChanged" />
-                <Label Text="Atomic"  Grid.Column="5" Grid.Row="0" VerticalOptions="Center"/>
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"/>
+                <Label Text="Creates a project"  Grid.Column="3" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
             </Grid>
 
-            <CollectionView x:Name="TodoItemsCollectionView"
+            <CollectionView ItemsSource="{Binding Projects}"
                             Margin="0,20,0,0">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid ColumnDefinitions="Auto,*,Auto" Padding="5">
-                            --><!--<CheckBox IsChecked="{Binding IsDone}"
-                                      Grid.Column="0"
-                                      CheckedChanged="OnTodoStatusChanged" />--><!--
                             <Label Text="{Binding Name}"
                                    Grid.Column="1"
                                    VerticalOptions="Center"
                                    LineBreakMode="WordWrap" />
-                            <Button Text="Löschen"
-                                    Grid.Column="2"
-                                    BackgroundColor="Red"
-                                    TextColor="White"
-                                    Clicked="OnDeleteTodoClicked" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
         </VerticalStackLayout>
-    </ScrollView>-->
+    </ScrollView>
 </ContentPage>

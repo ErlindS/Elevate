@@ -8,8 +8,10 @@ namespace Elevate.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsDueToday { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
+        public TimeOnly StartTime { get; set; }
+        public TimeOnly EndTime { get; set; }
+
+        public  double Duration { get; set; }
         public bool IsComposite => true;
 
         public ElevateTask(string name, string description) {
@@ -17,12 +19,13 @@ namespace Elevate.Models
             Description = description;
         }
 
-        //public ElevateTask(string name, bool isDone, string startTime, string estimatedHours)
-        //{
-        //    Name = name;
-        //    IsDone = isDone;
-        //    StartTime = startTime;
-        //    EstimatedHours = estimatedHours;
-        //}
+        public ElevateTask(string name, string description, TimeOnly startTime, TimeOnly endTime, double duration)
+        {
+            Name = name;
+            Description = description;
+            StartTime = startTime;
+            EndTime = endTime;
+            Duration = duration;
+        }
     }
 }

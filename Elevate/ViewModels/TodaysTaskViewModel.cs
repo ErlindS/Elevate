@@ -12,10 +12,13 @@ namespace Elevate.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<IElevateTaskComponent> tasks;
+
+        [ObservableProperty]
+        private bool _isDone = false;
         public TodaysTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
-            Tasks = new ObservableCollection<IElevateTaskComponent>(_taskService._children);
+            Tasks = new ObservableCollection<IElevateTaskComponent>(_taskService._todaysTask);
         }
 
     }

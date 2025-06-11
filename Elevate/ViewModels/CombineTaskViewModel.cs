@@ -1,41 +1,23 @@
-﻿namespace Elevate.ViewModels
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Elevate.Models;
+using Elevate.Services;
+using System.Collections.ObjectModel;
+
+namespace Elevate.ViewModels
 {
 	
-    public partial class CombineTaskViewModel
+    public partial class CombineTaskViewModel : ObservableObject
     {
-        public CombineTaskViewModel()
+        private ElevateTaskService _taskService;
+
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> projects;
+
+        public CombineTaskViewModel(ElevateTaskService taskService)
         {
-            //InitializeComponent();
-
+            _taskService = taskService;
+            Projects = new ObservableCollection<IElevateTaskComponent>(_taskService._projects);
         }
-        /*
-        void OnDragStarting(object sender, DragStartingEventArgs e)
-        {
-            draggedItem = (sender as Element)?.BindingContext as string;
-            e.Data.Properties.Add("Item", draggedItem);
-        }
-
-        void OnDragOver(object sender, DragEventArgs e)
-        {
-            e.AcceptedOperation = DataPackageOperation.Move;
-        }
-
-        void OnDrop(object sender, DropEventArgs e)
-        {
-            if (e.Data.Properties.TryGetValue("Item", out object itemObj)
-                && itemObj is string droppedItem)
-            {
-                var collection = (BindingContext as MainViewModel)?.Items;
-                if (collection == null)
-                    return;
-
-                // Optional: Neue Position berechnen, z. B. basierend auf Drop-Location
-                // Hier: ans Ende schieben
-                collection.Remove(droppedItem);
-                collection.Add(droppedItem);
-            }
-        }
-        */
-
     }
 }

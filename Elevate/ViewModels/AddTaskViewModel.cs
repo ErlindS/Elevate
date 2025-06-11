@@ -1,67 +1,56 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
 using Elevate.Services;
+using System.Collections.ObjectModel;
 
 namespace Elevate.ViewModels
 {
     public partial class AddTaskViewModel : ObservableObject
     {
+        [ObservableProperty]
+        private string _newTodoText = string.Empty; // Holds the text for the new task entry
+
+        [ObservableProperty]
+        private double _newTodoHours = 0; 
+
+        [ObservableProperty]
+        private bool _isToday = false;
+
+        [ObservableProperty]
+        private bool _isProject = false;
+
         private ElevateTaskService _taskService;
 
-        //[ObservableProperty]
-        //private string _newTodoText = string.Empty; // Holds the text for the new task entry
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> tasks;
 
-        //[ObservableProperty]
-        //private string _newTodoHours = string.Empty; // Holds the hours for the new task entry
-
-        //// Properties for filter checkboxes (assuming these control filters for the list)
-        //[ObservableProperty]
-        //private bool _isProjectFilterActive;
-
-        //[ObservableProperty]
-        //private bool _isDueTodayFilterActive;
-
-        //[ObservableProperty]
-        //private bool _isAtomicFilterActive;
-
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> projects;
 
         public AddTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
-            //TodoItemsCollectionView.ItemsSource = _taskService.Tasks;
+            Tasks = new ObservableCollection<IElevateTaskComponent>(_taskService._todaysTask);
+            Projects = new ObservableCollection<IElevateTaskComponent>(_taskService._projects);
         }
 
-        /*
-        private void OnAddTodoClicked(object sender, EventArgs e)
+        [RelayCommand]
+        private void AddItem()
         {
-            string newTodoText = NewTodoEntry.Text?.Trim(); // Hole den Text aus dem Eingabefeld
-
-            if (!string.IsNullOrWhiteSpace(newTodoText)) // Überprüfe, ob der Text nicht leer oder nur Leerzeichen ist
+            if (_isToday) {
+                var newTask = new ElevateTask(_newTodoText, "placeholderdescription", TimeOnly.FromDateTime(DateTime.Now), new TimeOnly(23, 59), _newTodoHours);
+                Tasks.Add(newTask);
+                _taskService._todaysTask.Add(newTask);
+            }
+            else
             {
-                _taskService.Tasks.Add(new ElevateTask(newTodoText, true, "11:00", "12:00")); 
-                NewTodoEntry.Text = string.Empty; // Eingabefeld leeren
+                var newTask = new GroupElevateTask(_newTodoText, "placeholderdescription", _isProject);
+                Projects.Add(newTask);
+                _taskService._projects.Add(newTask);
             }
         }
 
-        // Methode, die aufgerufen wird, wenn der Status einer Checkbox geändert wird
-        private void OnTodoStatusChanged(object sender, CheckedChangedEventArgs e)
-        {
-            // Finde heraus, welches TodoItem zu dieser Checkbox gehört
-            if (sender is CheckBox checkBox && checkBox.BindingContext is TodoItem todoItem)
-            {
-                todoItem.IsDone = e.Value; // Aktualisiere den IsDone-Status des TodoItem
-            }
-        }
-
-        // Methode, die aufgerufen wird, wenn der "Löschen"-Button geklickt wird
-        private void OnDeleteTodoClicked(object sender, EventArgs e)
-        {
-            // Finde heraus, welches TodoItem zu diesem Button gehört
-            if (sender is Button button && button.BindingContext is TodoItem todoItemToDelete)
-            {
-                //_todoItems.Remove(todoItemToDelete); // Entferne das TodoItem aus der Liste
-            }
-        }*/
     }
 
 }
