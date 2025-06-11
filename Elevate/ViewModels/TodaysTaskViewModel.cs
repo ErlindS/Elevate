@@ -6,18 +6,16 @@ using Elevate.Services;
 
 namespace Elevate.ViewModels
 {
-    public partial class TodaysTaskViewModel
+    public partial class TodaysTaskViewModel : ObservableObject
     {
-        //private ObservableCollection<IElevateTaskComponent> _todoItems;
-        //private ElevateTaskService _taskService;
-        public TodaysTaskViewModel()
+        private ElevateTaskService _taskService;
+
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> tasks;
+        public TodaysTaskViewModel(ElevateTaskService taskService)
         {
-            //InitializeComponent();
-
-            //_taskService = taskService;
-
-            //TodoItemsCollectionView.ItemsSource = _taskService.Tasks;
-
+            _taskService = taskService;
+            Tasks = new ObservableCollection<IElevateTaskComponent>(_taskService._children);
         }
 
     }

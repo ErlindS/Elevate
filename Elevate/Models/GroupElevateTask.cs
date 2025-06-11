@@ -15,19 +15,10 @@ namespace Elevate.Models
         public string EndTime { get; set; }
         public bool IsComposite => true;
 
-        private List<IElevateTaskComponent> _children = new();
-
         public GroupElevateTask(string name, string description)
         {
             Name = name;
             Description = description;
         }
-
-        public void Add(IElevateTaskComponent ElevateTask)
-        {
-            _children.Add(ElevateTask);
-        }
-
-        public IReadOnlyList<IElevateTaskComponent> GetChildren() => _children.AsReadOnly();
     }
 }

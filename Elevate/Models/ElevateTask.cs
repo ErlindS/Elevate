@@ -12,8 +12,9 @@ namespace Elevate.Models
         public string EndTime { get; set; }
         public bool IsComposite => true;
 
-        public ElevateTask(string name) {
+        public ElevateTask(string name, string description) {
             Name = name;
+            Description = description;
         }
 
         //public ElevateTask(string name, bool isDone, string startTime, string estimatedHours)
