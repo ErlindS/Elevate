@@ -30,31 +30,25 @@
 
             <CollectionView ItemsSource="{Binding Projects}">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical"
-                                 Span="4" 
-                                 VerticalItemSpacing="10"
-                                 HorizontalItemSpacing="10"/>
+                    <GridItemsLayout Orientation="Vertical" Span="2"/>
                 </CollectionView.ItemsLayout>
-
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="20">
-                            <Border>
-                                <VerticalStackLayout Spacing="5">
-                                    <Label Text="{Binding Name}"
-                                       FontAttributes="Bold"
-                                       LineBreakMode="WordWrap"
-                                       HorizontalTextAlignment="Center" />
-                                </VerticalStackLayout>
-                                <!--<Border.GestureRecognizers>
-                                    <DragGestureRecognizer DragStarting="OwnDragStarting"/>
-                                    <DropGestureRecognizer DragOver="OwnDropOver" Drop="OwnDropGesture"/>
-                                </Border.GestureRecognizers>-->
-                            </Border>
-                        </Grid>
+                        <Border BackgroundColor="LightGray" Padding="10" Margin="5">
+                            <Border.GestureRecognizers>
+                                <DragGestureRecognizer DragStarting="OnDragStarting"/>
+                                <DropGestureRecognizer Drop="OnDrop" AllowDrop="True"/>
+                            </Border.GestureRecognizers>
+
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Description}" FontSize="12"/>
+                            </VerticalStackLayout>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
         </VerticalStackLayout>
     </ScrollView>
 
