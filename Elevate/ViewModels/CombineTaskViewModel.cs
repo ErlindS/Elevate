@@ -14,10 +14,23 @@ namespace Elevate.ViewModels
         [ObservableProperty]
         private ObservableCollection<IElevateTaskComponent> projects;
 
+        //[ObservableProperty]
+        //private ObservableCollection<string> onWeekdaySelected;
+
+        //[ObservableProperty]
+        //private ObservableCollection<string> description;
+
+        [ObservableProperty]
+        private ObservableCollection<string> weekdays;
+
         public CombineTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
             Projects = new ObservableCollection<IElevateTaskComponent>(_taskService._projects);
+            Weekdays = new ObservableCollection<string>
+            {
+                "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+            };
         }
     }
 }

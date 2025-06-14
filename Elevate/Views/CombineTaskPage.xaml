@@ -2,7 +2,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Elevate.CombineTaskPage">
 
-    <ScrollView>
+
+    <FlexLayout Direction="Column" x:Name="CombineTaskView">
+        <CollectionView ItemsSource="{Binding Projects}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="Auto,Auto,Auto" Margin="10">
+                            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10,10,10,10">
+                                <Label Text="{Binding Name}"
+                                       Grid.Column="0"
+                                       VerticalOptions="Center"
+                                       LineBreakMode="WordWrap" 
+                                       Background="MediumPurple"
+                                       Padding="20"                                        
+                                       HorizontalOptions="Center"/>
+                            </Border>
+
+                            <Picker Title="Select a weekday" Grid.Column="1" 
+                                    Margin="10,10,30,10"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    ItemsSource="{Binding Source={x:Reference CombineTaskView}, Path=BindingContext.Weekdays}"/>
+
+                            <Button Text="Add to Project"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    Command="{Binding DeleteTask}" 
+                                    Grid.Column="2"/>
+                            
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </FlexLayout>
+
+
+
+    <!--<ScrollView>
         <VerticalStackLayout Spacing="10" Padding="20">
 
             <HorizontalStackLayout>
@@ -14,11 +50,11 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Grid.Triggers>
+                                --><!--<Grid.Triggers>
                                     <DataTrigger TargetType="Grid" Binding="{Binding IsProject}" Value="False">
                                         <Setter Property="IsVisible" Value="False" />
                                     </DataTrigger>
-                                </Grid.Triggers>
+                                </Grid.Triggers>--><!--
                                 <Label Text="{Binding Name}"/>
 
                             </Grid>
@@ -28,13 +64,13 @@
             </HorizontalStackLayout>
 
 
-            <CollectionView ItemsSource="{Binding Projects}">
+            --><!--<CollectionView ItemsSource="{Binding Projects}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border BackgroundColor="LightGray" Padding="10" Margin="5">
+                        <Border BackgroundColor="Gray" Stroke="Purple" Padding="10" Margin="5">
                             <Border.GestureRecognizers>
                                 <DragGestureRecognizer DragStarting="OnDragStarting"/>
                                 <DropGestureRecognizer Drop="OnDrop" AllowDrop="True"/>
@@ -43,13 +79,17 @@
                             <VerticalStackLayout>
                                 <Label Text="{Binding Name}" FontAttributes="Bold"/>
                                 <Label Text="{Binding Description}" FontSize="12"/>
+                                --><!--<Picker Title="Select a weekday"
+                                        ItemsSource="{Binding Weekdays}"/>--><!--
                             </VerticalStackLayout>
+
+
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
+            </CollectionView>--><!--
 
         </VerticalStackLayout>
-    </ScrollView>
+    </ScrollView>-->
 
 </ContentPage>

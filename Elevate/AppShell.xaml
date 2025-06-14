@@ -18,14 +18,14 @@
     Route="AddTaskPage" />
 
     <ShellContent
-    Title="Task Mapping"
-    ContentTemplate="{DataTemplate local:MapTaskPage}"
-    Route="MapTaskPage" />
-    
-    <ShellContent
     Title="Combine Tasks"
     ContentTemplate="{DataTemplate local:CombineTaskPage}"
     Route="CombineTaskPage" />
+
+    <ShellContent
+    Title="Task Mapping"
+    ContentTemplate="{DataTemplate local:MapTaskPage}"
+    Route="MapTaskPage" />
 
     <ShellContent
     Title="Analytics"

@@ -4,20 +4,21 @@
              x:Class="Elevate.AddTaskPage">
 
     <ScrollView>
-        <VerticalStackLayout Spacing="10" Padding="20">
+        <VerticalStackLayout Spacing="10" Padding="10">
 
             <Label Text="Meine TODOs"
                    FontSize="Header"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
-                   Margin="0,0,0,20" />
+                   Margin="0,0,0,0" />
 
             <Grid ColumnDefinitions="*, Auto, Auto" Background="MediumPurple">
                 <Entry Text="{Binding NewTodoText}"
                        Placeholder="Add your task"
                        Grid.Column="0"
                        Grid.Row="0"
-                       TextColor="White"/>
+                       TextColor="White"
+                       PlaceholderColor="White"/>
                 <Entry Text="{Binding NewTodoHours}"
                        Placeholder="Hours"
                        Grid.Column="1"
@@ -30,7 +31,7 @@
                         Command="{Binding AddItemCommand}" />
             </Grid>
 
-            <Grid RowDefinitions="Auto" ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" Background="MediumPurple" Padding="5" Margin="5">
+            <Grid RowDefinitions="Auto" ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" Background="MediumPurple">
                 <CheckBox IsChecked="{Binding IsToday}"
                           Grid.Column="0"
                           Grid.Row="0"
@@ -48,13 +49,23 @@
             <CollectionView ItemsSource="{Binding Projects}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="Auto,*,Auto" Padding="5">
-                            <Label Text="{Binding Name}"
-                                   Grid.Column="1"
+                        <Grid ColumnDefinitions="*,Auto,Auto" Margin="10" >
+                            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="0,10,10,10">
+                                <Label Text="{Binding Name}"
+                                   Grid.Column="0"
                                    VerticalOptions="Center"
                                    LineBreakMode="WordWrap" 
                                    Background="MediumPurple"
-                                   Padding="20"/>
+                                   Padding="20"
+                                   />
+                            </Border>
+
+                            <Button Text="Delete Task"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    Command="{Binding DeleteTask}" 
+                                    Grid.Column="1"
+                                    />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

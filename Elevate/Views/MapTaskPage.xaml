@@ -2,45 +2,67 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Elevate.MapTaskPage">
-    <!--<Grid RowDefinitions="Auto, Auto, Auto, Auto">
-        <Border
-            Grid.Row="0"
-                x:Name="dropTargetSquare1"
-                Stroke="Blue"
-                StrokeThickness="4"
-                Padding="10, 5">
-            <Label Text="Drop Zone 1" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-            </Border>
 
-        <Border
-            Grid.Row="1"
-                x:Name="dropTargetSquare2"
-                Stroke="Red"
-                StrokeThickness="4"
-                Padding="10, 5">
-            <Label Text="Drop Zone 2" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-            </Border>
+    <Grid ColumnDefinitions="auto,auto,auto,auto,auto,auto,auto,*"
+          RowDefinitions="auto,*">
+        <Label Text="Monday" Grid.Column="0" Padding="10" HorizontalOptions="Center"/>
+        <Label Text="Tuesday" Grid.Column="1" Padding="10" HorizontalOptions="Center"/>
+        <Label Text="Wednesday" Grid.Column="2" Padding="10" HorizontalOptions="Center"/>
+        <Label Text="Thursday" Grid.Column="3" Padding="10" HorizontalOptions="Center"/>
+        <Label Text="Friday" Grid.Column="4" Padding="10" HorizontalOptions="Center"/>
+        <Label Text="Saturday" Grid.Column="5" Padding="10" HorizontalOptions="Center"/>
+        <Label Text="Sunday" Grid.Column="6" Padding="10" HorizontalOptions="Center"/>
+        <Label Text="Project" Grid.Column="7" Padding="10" HorizontalOptions="Center"/>
 
-            <Border 
-                Grid.Row="2"
-                x:Name="dropTargetSquare3"
-                Stroke="Green"
-                StrokeThickness="4"
-                Padding="10, 5">
-                <Border.GestureRecognizers>
-                <DragGestureRecognizer DragStarting="OwnDragStarting"/>
-                <DropGestureRecognizer DragOver="OwnDropOver" Drop="OwnDropGesture"/>
-                </Border.GestureRecognizers>
-            </Border>
+        <!--<CollectionView ItemsSource="{Binding Projects}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid RowDefinitions="Auto, Auto, Auto">
+                        <Label Text="{Binding ProjectsName}" Grid.Row="0"/>
+                        <Label Text="{Binding StartingTime}" Grid.Row="1"/>
+                        <Label Text="{Binding EndingTime}" Grid.Row="2"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>-->
 
-        <Border 
-                Grid.Row="3"
-                x:Name="dropTargetSquare4"
-                Stroke="Purple"
-                StrokeThickness="4"
-                Padding="10, 5">
-            
-        </Border>
-    </Grid>-->
+        <CollectionView ItemsSource="{Binding Projects}" Grid.Column="7" Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" Padding="5" HorizontalOptions="Center">
+                        <Label Text="{Binding Name}"
+                       
+                       Grid.Row="0"
+                       VerticalOptions="Center"
+                       LineBreakMode="WordWrap" 
+                       Background="MediumPurple"
+                       Padding="20"/>
 
+                        <Picker x:Name="weekdayPicker"
+                                    Margin="0,20,0,20"
+                                Grid.Row="1"
+                                Title="Select a weekday"
+                                ItemsSource="{Binding Weekdays}"/>
+
+                        <TimePicker x:Name="StartingTime"
+                                    Time="{Binding SelectedDate}"
+                                    Format="H_mm"
+                                    Grid.Row="2"
+                                    HorizontalOptions="Center"/>
+
+                        <TimePicker x:Name="EndingTime"
+                                    Time="{Binding SelectedDate}"
+                                    Format="H_mm"
+                                    Grid.Row="3"
+                                    HorizontalOptions="Center"/>
+                        <Button Text="Add To week" Grid.Row="4"/>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+
+    </Grid>
 </ContentPage>
