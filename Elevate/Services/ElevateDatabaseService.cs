@@ -8,9 +8,9 @@ using Elevate.Models;
 
 namespace Elevate.Services
 {
-    public class ElevateTaskService
+    public class TaskDatabase
     {
-
+        private SQLite
         public List<GroupElevateTask> _projects = new();
         public List<IElevateTaskComponent> _unassignedGroupTask = new();
         public List<IElevateTaskComponent> _todaysTask = new();

@@ -12,10 +12,6 @@ namespace Elevate.Models
         string Description { get; }
         bool IsComposite { get; }
         bool IsDueToday { get; }
-        TimeOnly StartTime { get; }
-
-        TimeOnly EndTime { get; }
-
         double Duration { get; }
     }
 }

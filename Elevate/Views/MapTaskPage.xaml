@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Elevate.ViewModels"
+             xmlns:models="clr-namespace:Elevate.Models"
+             x:DataType="viewmodels:MapTaskViewModel"
              x:Class="Elevate.MapTaskPage">
 
     <Grid ColumnDefinitions="auto,auto,auto,auto,auto,auto,auto,*"
@@ -14,55 +17,123 @@
         <Label Text="Sunday" Grid.Column="6" Padding="10" HorizontalOptions="Center"/>
         <Label Text="Project" Grid.Column="7" Padding="10" HorizontalOptions="Center"/>
 
-        <!--<CollectionView ItemsSource="{Binding Projects}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid RowDefinitions="Auto, Auto, Auto">
-                        <Label Text="{Binding ProjectsName}" Grid.Row="0"/>
-                        <Label Text="{Binding StartingTime}" Grid.Row="1"/>
-                        <Label Text="{Binding EndingTime}" Grid.Row="2"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>-->
-
         <CollectionView ItemsSource="{Binding Projects}" Grid.Column="7" Grid.Row="1">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" Padding="5" HorizontalOptions="Center">
+                <DataTemplate x:DataType="models:GroupElevateTask">
+                    <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto, Auto" HorizontalOptions="Center">
                         <Label Text="{Binding Name}"
-                       
-                       Grid.Row="0"
-                       VerticalOptions="Center"
-                       LineBreakMode="WordWrap" 
-                       Background="MediumPurple"
-                       Padding="20"/>
+                               Grid.Row="0"
+                               VerticalOptions="Center"
+                               LineBreakMode="WordWrap"
+                               Background="MediumPurple"
+                               Padding="20"/>
 
                         <Picker x:Name="weekdayPicker"
-                                    Margin="0,20,0,20"
+                                Margin="0,20,0,20"
                                 Grid.Row="1"
                                 Title="Select a weekday"
-                                ItemsSource="{Binding Weekdays}"/>
+                                ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Weekdays}"
+                                SelectedItem="{Binding SelectedWeekdayForMapping}"/>
 
-                        <TimePicker x:Name="StartingTime"
-                                    Time="{Binding SelectedDate}"
+                        <TimePicker Time="{Binding StartingTime}"
                                     Format="H_mm"
                                     Grid.Row="2"
                                     HorizontalOptions="Center"/>
 
-                        <TimePicker x:Name="EndingTime"
-                                    Time="{Binding SelectedDate}"
+                        <TimePicker Time="{Binding EndingTime}"
                                     Format="H_mm"
                                     Grid.Row="3"
                                     HorizontalOptions="Center"/>
-                        <Button Text="Add To week" Grid.Row="4"/>
 
+                        <Button Text="Add To week" Grid.Row="4" Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AddtoWeekCommand}" CommandParameter="{Binding .}"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+        <CollectionView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding MappedWeek.Monday}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ElevateTaskTimeSettings">
+                    <VerticalStackLayout Padding="5">
+                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
+                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
+        <CollectionView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding MappedWeek.Tuesday}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ElevateTaskTimeSettings">
+                    <VerticalStackLayout Padding="5">
+                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
+                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView Grid.Column="2" Grid.Row="1" ItemsSource="{Binding MappedWeek.Wednesday}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ElevateTaskTimeSettings">
+                    <VerticalStackLayout Padding="5">
+                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
+                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView Grid.Column="3" Grid.Row="1" ItemsSource="{Binding MappedWeek.Thursday}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ElevateTaskTimeSettings">
+                    <VerticalStackLayout Padding="5">
+                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
+                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView Grid.Column="4" Grid.Row="1" ItemsSource="{Binding MappedWeek.Friday}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ElevateTaskTimeSettings">
+                    <VerticalStackLayout Padding="5">
+                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
+                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView Grid.Column="5" Grid.Row="1" ItemsSource="{Binding MappedWeek.Saturday}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ElevateTaskTimeSettings">
+                    <VerticalStackLayout Padding="5">
+                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
+                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView Grid.Column="6" Grid.Row="1" ItemsSource="{Binding MappedWeek.Sunday}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ElevateTaskTimeSettings">
+                    <VerticalStackLayout Padding="5">
+                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
+                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
     </Grid>
 </ContentPage>

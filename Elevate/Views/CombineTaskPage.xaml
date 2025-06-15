@@ -4,92 +4,36 @@
 
 
     <FlexLayout Direction="Column" x:Name="CombineTaskView">
-        <CollectionView ItemsSource="{Binding Projects}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid ColumnDefinitions="Auto,Auto,Auto" Margin="10">
-                            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10,10,10,10">
-                                <Label Text="{Binding Name}"
-                                       Grid.Column="0"
-                                       VerticalOptions="Center"
-                                       LineBreakMode="WordWrap" 
-                                       Background="MediumPurple"
-                                       Padding="20"                                        
-                                       HorizontalOptions="Center"/>
-                            </Border>
-
-                            <Picker Title="Select a weekday" Grid.Column="1" 
-                                    Margin="10,10,30,10"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="Center"
-                                    ItemsSource="{Binding Source={x:Reference CombineTaskView}, Path=BindingContext.Weekdays}"/>
-
-                            <Button Text="Add to Project"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="Center"
-                                    Command="{Binding DeleteTask}" 
-                                    Grid.Column="2"/>
-                            
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </FlexLayout>
-
-
-
-    <!--<ScrollView>
-        <VerticalStackLayout Spacing="10" Padding="20">
-
-            <HorizontalStackLayout>
-                <CollectionView ItemsSource="{Binding Projects}">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Horizontal" Span="2" HorizontalItemSpacing="10"  VerticalItemSpacing="10"/>
-                    </CollectionView.ItemsLayout>
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                --><!--<Grid.Triggers>
-                                    <DataTrigger TargetType="Grid" Binding="{Binding IsProject}" Value="False">
-                                        <Setter Property="IsVisible" Value="False" />
-                                    </DataTrigger>
-                                </Grid.Triggers>--><!--
-                                <Label Text="{Binding Name}"/>
-
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </HorizontalStackLayout>
-
-
-            --><!--<CollectionView ItemsSource="{Binding Projects}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border BackgroundColor="Gray" Stroke="Purple" Padding="10" Margin="5">
-                            <Border.GestureRecognizers>
-                                <DragGestureRecognizer DragStarting="OnDragStarting"/>
-                                <DropGestureRecognizer Drop="OnDrop" AllowDrop="True"/>
-                            </Border.GestureRecognizers>
-
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Name}" FontAttributes="Bold"/>
-                                <Label Text="{Binding Description}" FontSize="12"/>
-                                --><!--<Picker Title="Select a weekday"
-                                        ItemsSource="{Binding Weekdays}"/>--><!--
-                            </VerticalStackLayout>
-
-
+        <CollectionView ItemsSource="{Binding TasksToCombine}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*, 2*, Auto" Margin="5">
+                        <Border Grid.Column="0">
+                            <Label Text="{Binding Name}"/>
                         </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>--><!--
 
-        </VerticalStackLayout>
-    </ScrollView>-->
+                        <Picker Title="Select a Project"
+                                Grid.Column="1"
+                                ItemsSource="{Binding Path=BindingContext.AvailableProjects, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                ItemDisplayBinding="{Binding Name}"
+                                SelectedItem="{Binding Path=BindingContext.SelectedProject, Source={RelativeSource AncestorType={x:Type ContentPage}}}">
+                        </Picker>
 
+                        <Button Text="Add to Project"
+                                Grid.Column="2"
+                                Command="{Binding Path=BindingContext.AddTaskToSelectedProjectCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                CommandParameter="{Binding .}" />
+                        <Grid.Triggers>
+                            <DataTrigger TargetType="Grid"
+                                         Binding="{Binding IsSorted}"
+                                         Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                                <Setter Property="HeightRequest" Value="0" />
+                            </DataTrigger>
+                        </Grid.Triggers>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </FlexLayout>
 </ContentPage>

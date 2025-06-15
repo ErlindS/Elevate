@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Xml.Linq;
+using SQLite;
 
 namespace Elevate.Models
 {
+    [Table("ElevateTask")]
     public partial class ElevateTask : ObservableObject, IElevateTaskComponent // Make it observable
     {
         public string Name { get; set; }

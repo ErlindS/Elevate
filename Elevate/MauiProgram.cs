@@ -22,11 +22,11 @@ namespace Elevate
 
             //Services
             builder.Services.AddSingleton<ElevateTaskService>();
+            builder.Services.AddSingleton<ElevateTimeService>();
 
 
             //ViewModels
             builder.Services.AddTransient<AddTaskViewModel>();
-            builder.Services.AddTransient<AnalyticsViewModel>();
             builder.Services.AddTransient<CombineTaskViewModel>();
             builder.Services.AddTransient<MapTaskViewModel>();
             builder.Services.AddTransient<TodaysTaskViewModel>();
@@ -34,7 +34,6 @@ namespace Elevate
 
             //Pages
             builder.Services.AddTransient<AddTaskPage>();
-            builder.Services.AddTransient<AnalyticsPage>();
             builder.Services.AddTransient<CombineTaskPage>();
             builder.Services.AddTransient<MapTaskPage>();
             builder.Services.AddTransient<TodaysTaskPage>();
