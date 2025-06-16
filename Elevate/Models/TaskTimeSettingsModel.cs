@@ -3,14 +3,11 @@ using System.Xml.Linq;
 
 namespace Elevate.Models
 {
-    public partial class ElevateTaskTimeSettings
+    public partial class TaskTimeSettingsModel
     {
         public TimeOnly StartTime { get; set; }
         public TimeOnly EndTime { get; set; }
-
         public string Weekday { get; set; }
-
-        public IElevateTaskComponent Project { get; set; }
-        public ElevateTaskTimeSettings() { }
+        public TaskTimeSettingsModel() { }
     }
 }

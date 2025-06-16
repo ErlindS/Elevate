@@ -12,7 +12,7 @@
                    HorizontalOptions="Center"
                    Margin="0,0,0,0" />
 
-            <Grid ColumnDefinitions="*, Auto, Auto" Background="MediumPurple">
+            <Grid ColumnDefinitions="2*, *, Auto" Background="MediumPurple">
                 <Entry Text="{Binding NewTodoText}"
                        Placeholder="Add your task"
                        Grid.Column="0"
@@ -46,7 +46,7 @@
                 <Label Text="Creates a project"  Grid.Column="3" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
             </Grid>
 
-            <Label Text="Here are your created Projects"/>
+            <Label Text="Here are your created Projects"  HorizontalTextAlignment="Center" FontSize="Header"/>
 
             <CollectionView ItemsSource="{Binding Projects}">
                 <CollectionView.ItemTemplate>
@@ -74,7 +74,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Text="Here are your Tasks"/>
+            <Label Text="Here are your Tasks"  HorizontalTextAlignment="Center" FontSize="Header"/>
 
             <CollectionView ItemsSource="{Binding UnassigendGroupTask}">
                 <CollectionView.ItemTemplate>

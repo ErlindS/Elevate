@@ -7,13 +7,15 @@
         <CollectionView ItemsSource="{Binding TasksToCombine}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid ColumnDefinitions="*, 2*, Auto" Margin="5">
-                        <Border Grid.Column="0">
-                            <Label Text="{Binding Name}"/>
+                    <Grid ColumnDefinitions="*, 2*, Auto" Padding="10">
+                        <Border Grid.Column="0" Margin="10" Stroke="MediumPurple" StrokeThickness="3">
+                            <Label Text="{Binding Name}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                         </Border>
 
-                        <Picker Title="Select a Project"
+                        <Picker Margin="10"
                                 Grid.Column="1"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"
                                 ItemsSource="{Binding Path=BindingContext.AvailableProjects, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                 ItemDisplayBinding="{Binding Name}"
                                 SelectedItem="{Binding Path=BindingContext.SelectedProject, Source={RelativeSource AncestorType={x:Type ContentPage}}}">
@@ -21,6 +23,7 @@
 
                         <Button Text="Add to Project"
                                 Grid.Column="2"
+                                Margin="10"
                                 Command="{Binding Path=BindingContext.AddTaskToSelectedProjectCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                 CommandParameter="{Binding .}" />
                         <Grid.Triggers>

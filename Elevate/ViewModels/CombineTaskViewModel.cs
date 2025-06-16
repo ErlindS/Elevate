@@ -13,27 +13,27 @@ namespace Elevate.ViewModels
 
         // Collection of tasks that can be added to a project (displayed in CollectionView)
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> tasksToCombine;
+        private ObservableCollection<IElevateTaskModel> tasksToCombine;
 
         // Collection of available projects (displayed in the Picker)
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> availableProjects;
+        private ObservableCollection<IElevateTaskModel> availableProjects;
 
         // The currently selected project in the Picker
         [ObservableProperty]
-        private GroupElevateTask selectedProject;
+        private GroupTaskModel selectedProject;
 
         public CombineTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
 
-            TasksToCombine = new ObservableCollection<IElevateTaskComponent>(_taskService._unassignedGroupTask);
-            AvailableProjects = new ObservableCollection<IElevateTaskComponent>(_taskService._projects);
+            TasksToCombine = new ObservableCollection<IElevateTaskModel>(_taskService._unassignedGroupTask);
+            AvailableProjects = new ObservableCollection<IElevateTaskModel>(_taskService._projects);
         }
 
         // Command to add a task to the selected project
         [RelayCommand]
-        private void AddTaskToSelectedProject(IElevateTaskComponent taskToAdd)
+        private void AddTaskToSelectedProject(IElevateTaskModel taskToAdd)
         {
             if (SelectedProject != null && taskToAdd != null)
             {
@@ -42,7 +42,7 @@ namespace Elevate.ViewModels
 
                 // If the task is an ElevateTask (simple task), mark it as sorted
                 // This will trigger the DataTrigger in XAML to hide it.
-                if (taskToAdd is GroupElevateTask GroupElevateTask)
+                if (taskToAdd is GroupTaskModel GroupElevateTask)
                 {
                     GroupElevateTask.IsSorted = true;
                 }

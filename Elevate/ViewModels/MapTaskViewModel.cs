@@ -20,7 +20,7 @@ namespace Elevate.ViewModels
         private ObservableCollection<string> weekdays;
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> projects;
+        private ObservableCollection<IElevateTaskModel> projects;
 
         [ObservableProperty]
         private string selectedWeekday;
@@ -35,7 +35,7 @@ namespace Elevate.ViewModels
         {
             _taskService = taskService;
             _weekService = weekService;
-            Projects = new ObservableCollection<IElevateTaskComponent>(_taskService._projects);
+            Projects = new ObservableCollection<IElevateTaskModel>(_taskService._projects);
             Weekdays = new ObservableCollection<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             if (_weekService.MappedWeek == null)
             {
@@ -45,7 +45,7 @@ namespace Elevate.ViewModels
         }
 
         [RelayCommand]
-        void AddtoWeek(GroupElevateTask project)
+        void AddtoWeek(GroupTaskModel project)
         {
 
             if (project.StartingTime == default || project.EndingTime == default || string.IsNullOrEmpty(project.SelectedWeekdayForMapping))
@@ -54,12 +54,11 @@ namespace Elevate.ViewModels
                 return;
             }
 
-            var newTimeSetting = new ElevateTaskTimeSettings
+            var newTimeSetting = new TaskTimeSettingsModel
             {
                 Weekday = project.SelectedWeekdayForMapping,
                 StartTime = TimeOnly.FromTimeSpan(project.StartingTime),
                 EndTime = TimeOnly.FromTimeSpan(project.EndingTime),
-                Project = project // Reference the project itself
             };
 
             project.TimeSettings.Add(newTimeSetting);

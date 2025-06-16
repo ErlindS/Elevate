@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Elevate.Models
 {
-    public interface IElevateTaskComponent
+    public interface IElevateTaskModel
     {
         string Name { get; }
         string Description { get; }
-        bool IsComposite { get; }
-        bool IsDueToday { get; }
         double Duration { get; }
+        int id { get; }
     }
 }

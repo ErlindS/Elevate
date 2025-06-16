@@ -14,17 +14,17 @@ namespace Elevate.ViewModels
         private ElevateTimeService _timeService;
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> tasks;
+        private ObservableCollection<IElevateTaskModel> tasks;
 
         [ObservableProperty]
-        private ObservableCollection<GroupElevateTask> projecttasks;
+        private ObservableCollection<GroupTaskModel> projecttasks;
 
 
         [ObservableProperty]
-        private ObservableCollection<GroupElevateTask> routine;
+        private ObservableCollection<GroupTaskModel> routine;
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> routine2;
+        private ObservableCollection<IElevateTaskModel> routine2;
 
         [ObservableProperty]
         private bool _isDone = false;
@@ -35,11 +35,11 @@ namespace Elevate.ViewModels
         {
             _timeService = taskService1;
             _taskService = taskService;
-            Tasks = new ObservableCollection<IElevateTaskComponent>(_taskService._todaysTask);
-            Projecttasks = new ObservableCollection<GroupElevateTask>(_taskService._projects);
+            Tasks = new ObservableCollection<IElevateTaskModel>(_taskService._todaysTask);
+            Projecttasks = new ObservableCollection<GroupTaskModel>(_taskService._projects);
             Weekday = taskService1.GetDayOfTheWeek();
-            Routine = new ObservableCollection<GroupElevateTask>(); // Initialize Routine as a *new* collection
-            Routine2 = new ObservableCollection<IElevateTaskComponent>(); // Initialize Routine2 as a *new* collection
+            Routine = new ObservableCollection<GroupTaskModel>(); // Initialize Routine as a *new* collection
+            Routine2 = new ObservableCollection<IElevateTaskModel>(); // Initialize Routine2 as a *new* collection
 
             Debug.WriteLine($"TodaysTaskViewModel: Initializing. Current DayOfWeek: {Weekday}");
             Debug.WriteLine($"TodaysTaskViewModel: Number of tasks in _taskService._todaysTask: {_taskService._todaysTask.Count}");

@@ -4,9 +4,9 @@ using SQLite;
 
 namespace Elevate.Models
 {
-    [Table("ElevateTask")]
-    public partial class ElevateTask : ObservableObject, IElevateTaskComponent // Make it observable
+    public partial class TaskModel : ObservableObject, IElevateTaskModel // Make it observable
     {
+        public int id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsDueToday { get; set; }
@@ -16,12 +16,12 @@ namespace Elevate.Models
         public  double Duration { get; set; }
         public bool IsComposite => true;
 
-        public ElevateTask(string name, string description) {
+        public TaskModel(string name, string description) {
             Name = name;
             Description = description;
         }
 
-        public ElevateTask(string name, string description, TimeOnly startTime, TimeOnly endTime, double duration)
+        public TaskModel(string name, string description, TimeOnly startTime, TimeOnly endTime, double duration)
         {
             Name = name;
             Description = description;

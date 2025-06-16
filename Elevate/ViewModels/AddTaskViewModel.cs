@@ -23,28 +23,28 @@ namespace Elevate.ViewModels
         private ElevateTaskService _taskService;
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> tasks;
+        private ObservableCollection<IElevateTaskModel> tasks;
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> projects;
+        private ObservableCollection<IElevateTaskModel> projects;
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> unassigendGroupTask;
+        private ObservableCollection<IElevateTaskModel> unassigendGroupTask;
 
 
         public AddTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
-            Tasks = new ObservableCollection<IElevateTaskComponent>(_taskService._todaysTask);
-            Projects = new ObservableCollection<IElevateTaskComponent>(_taskService._projects);
-            UnassigendGroupTask = new ObservableCollection<IElevateTaskComponent>(_taskService._unassignedGroupTask);
+            Tasks = new ObservableCollection<IElevateTaskModel>(_taskService._todaysTask);
+            Projects = new ObservableCollection<IElevateTaskModel>(_taskService._projects);
+            UnassigendGroupTask = new ObservableCollection<IElevateTaskModel>(_taskService._unassignedGroupTask);
         }
 
         [RelayCommand]
         private void AddItem()
         {
             if (IsToday) {
-                var newTask = new ElevateTask(_newTodoText, "placeholderdescription", TimeOnly.FromDateTime(DateTime.Now), new TimeOnly(23, 59), _newTodoHours);
+                var newTask = new TaskModel(_newTodoText, "placeholderdescription", TimeOnly.FromDateTime(DateTime.Now), new TimeOnly(23, 59), _newTodoHours);
                 Tasks.Add(newTask);
                 _taskService._todaysTask.Add(newTask);
             }
@@ -53,14 +53,14 @@ namespace Elevate.ViewModels
                 if (IsProject)
                 {
                     //This is a project
-                    var newTask = new GroupElevateTask(NewTodoText, "placeholderdescription", IsProject);
+                    var newTask = new GroupTaskModel(NewTodoText, "placeholderdescription", IsProject);
                     newTask.IsSorted = true;
                     Projects.Add(newTask);
                     _taskService._projects.Add(newTask);
                 }
                 else {
                     //This is a groupTask
-                    var newTask = new GroupElevateTask(NewTodoText, "placeholderdescription", IsProject);
+                    var newTask = new GroupTaskModel(NewTodoText, "placeholderdescription", IsProject);
                     UnassigendGroupTask.Add(newTask);
                     _taskService._unassignedGroupTask.Add(newTask);
                 }
@@ -68,15 +68,15 @@ namespace Elevate.ViewModels
         }
 
         [RelayCommand]
-        private void DeleteTask(IElevateTaskComponent itemToDelete) 
+        private void DeleteTask(IElevateTaskModel itemToDelete) 
         {
             Projects.Remove(itemToDelete);
-            if (itemToDelete is GroupElevateTask) {
-                _taskService._projects.Remove((GroupElevateTask)itemToDelete);
+            if (itemToDelete is GroupTaskModel) {
+                _taskService._projects.Remove((GroupTaskModel)itemToDelete);
             }
-            if (itemToDelete is ElevateTask)
+            if (itemToDelete is TaskModel)
             {
-                _taskService._unassignedGroupTask.Remove((GroupElevateTask)itemToDelete);
+                _taskService._unassignedGroupTask.Remove((GroupTaskModel)itemToDelete);
             }
         }
 
