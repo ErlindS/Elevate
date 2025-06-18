@@ -23,6 +23,7 @@ namespace Elevate
             //Services
             builder.Services.AddSingleton<ElevateTaskService>();
             builder.Services.AddSingleton<ElevateTimeService>();
+            builder.Services.AddSingleton<DataService>();
 
 
             //ViewModels

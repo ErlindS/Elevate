@@ -12,9 +12,10 @@ namespace Elevate.ViewModels
     {
         private ElevateTaskService _taskService;
         private ElevateTimeService _timeService;
+        private DataService _dataService;
 
         [ObservableProperty]
-        private ObservableCollection<ITaskModel> tasks;
+        private ObservableCollection<BaseTaskModel> tasks;
 
         [ObservableProperty]
         private ObservableCollection<GroupTaskModel> projecttasks;
@@ -24,41 +25,44 @@ namespace Elevate.ViewModels
         private ObservableCollection<GroupTaskModel> routine;
 
         [ObservableProperty]
-        private ObservableCollection<ITaskModel> routine2;
+        private ObservableCollection<GroupTaskModel> routine2;
 
         [ObservableProperty]
         private bool _isDone = false;
+        
 
         [ObservableProperty]
         private DayOfWeek weekday;
-        public TodaysTaskViewModel(ElevateTaskService taskService, ElevateTimeService taskService1)
+        public TodaysTaskViewModel(ElevateTaskService taskService, ElevateTimeService taskService1, DataService dataService)
         {
             _timeService = taskService1;
             _taskService = taskService;
-            Tasks = new ObservableCollection<ITaskModel>(_taskService._todaysTask);
+            _dataService = dataService;
+            Tasks = new ObservableCollection<BaseTaskModel>(_taskService.GetTodaysTask());
             Projecttasks = new ObservableCollection<GroupTaskModel>(_taskService._projects);
             Weekday = taskService1.GetDayOfTheWeek();
             Routine = new ObservableCollection<GroupTaskModel>(); 
-            Routine2 = new ObservableCollection<ITaskModel>(); 
+            Routine2 = new ObservableCollection<GroupTaskModel>(); 
 
             Debug.WriteLine($"TodaysTaskViewModel: Initializing. Current DayOfWeek: {Weekday}");
             Debug.WriteLine($"TodaysTaskViewModel: Number of tasks in _taskService._todaysTask: {_taskService._todaysTask.Count}");
             Debug.WriteLine($"TodaysTaskViewModel: Number of tasks in _taskService._todaysTask: {_taskService._projects.Count}");
             Debug.WriteLine($"TodaysTaskViewModel: Number of tasks in Tasks collection: {Tasks.Count}");
             UpdateTodaysTask();
+            //LoadContent();
         }
 
         [RelayCommand]
         public void UpdateTodaysTask() {
             
-            Debug.WriteLine("Does button work3");
+            Debug.WriteLine("Does button work");
 
             Routine.Clear();
             Routine2.Clear(); 
 
             foreach (var task in Projecttasks)
             {
-                Debug.WriteLine("Does button work2");
+                Debug.WriteLine("Does button work");
                 foreach (var time in task.TimeSettings)
                 {
                     if (time.Weekday == Weekday)
@@ -75,7 +79,7 @@ namespace Elevate.ViewModels
                 foreach (var subTask in task.SubTasks.ToList())
                 {
                     Debug.WriteLine("do we reach the Routine2 point");
-                    Routine2.Add(subTask);
+                    Routine2.Add((GroupTaskModel)subTask);
                 }
             }
 

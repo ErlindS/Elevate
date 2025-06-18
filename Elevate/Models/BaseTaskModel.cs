@@ -1,13 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Elevate.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Elevate.Models;
 
 namespace Elevate.Models
 {
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
+    [JsonDerivedType(typeof(TaskModel), "task")]
+    [JsonDerivedType(typeof(GroupTaskModel), "groupTask")]
     public abstract class BaseTaskModel : ITaskModel
     {
         public virtual string Name { get; protected set; } = "Unnamed";

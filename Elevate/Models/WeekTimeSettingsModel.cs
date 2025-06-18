@@ -14,5 +14,7 @@ namespace Elevate.Models
             EndTime = endTimeOnly;
             ProjectName = projektname;
         }
+
+        public WeekTimeSettingsModel() { }
     }
 }

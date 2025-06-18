@@ -5,7 +5,8 @@
 
     <ScrollView>
         <VerticalStackLayout Spacing="10" Padding="10">
-
+            <Button Text="Save Data" Command="{Binding SaveContentCommand}" />
+            <Button Text="Load Data" Command="{Binding LoadContentCommand}" />
             <Label Text="Meine TODOs"
                    FontSize="Header"
                    FontAttributes="Bold"

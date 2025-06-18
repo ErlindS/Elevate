@@ -11,5 +11,9 @@ namespace Elevate.Models
             EndTime = endTimeOnly;
             Weekday = weekday;
         }
+        public TaskTimeSettingsModel() { }
+        public TaskTimeSettingsModel(TimeOnly timeOnly1, TimeOnly timeOnly2)
+        {
+        }
     }
 }

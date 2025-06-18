@@ -10,5 +10,14 @@ namespace Elevate
             InitializeComponent();
             BindingContext = viewModel; // This correctly sets the BindingContext via DI
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (BindingContext is AddTaskViewModel vm)
+            {
+                //vm.SaveContentCommand.Execute(null);
+            }
+        }
     }
 }

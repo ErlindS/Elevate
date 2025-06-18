@@ -26,5 +26,10 @@ namespace Elevate.Services
         public WeekModel GetWeek() { 
             return _mappedWeek; 
         }
+
+        public void SetWeek(WeekModel week)
+        {
+            _mappedWeek = week;
+        }
     }
 }

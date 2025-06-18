@@ -30,9 +30,27 @@ namespace Elevate.ViewModels
         private ObservableCollection<BaseTaskModel> unassigendGroupTask = new();
 
         private readonly ElevateTaskService _taskService;
-        public AddTaskViewModel(ElevateTaskService taskService)
+        private readonly ElevateTimeService _timeService;
+        private DataService _dataService;
+        public AddTaskViewModel(ElevateTaskService taskService, ElevateTimeService timeService, DataService dataService)
         {
             _taskService = taskService;
+            _timeService = timeService;
+            _dataService = dataService;
+            Todaystasks = new ObservableCollection<BaseTaskModel>(_taskService.GetTodaysTask());
+            Projects = new ObservableCollection<GroupTaskModel>(_taskService.GetProjects());
+            UnassigendGroupTask = new ObservableCollection<BaseTaskModel>(_taskService.GetUnassignedTasks());
+        }
+
+        [RelayCommand]
+        private void SaveContent() {
+            _dataService.Save(_taskService, _timeService);
+        }
+
+        [RelayCommand]
+        private void LoadContent()
+        {
+            _dataService.Load(_taskService, _timeService);
             Todaystasks = new ObservableCollection<BaseTaskModel>(_taskService.GetTodaysTask());
             Projects = new ObservableCollection<GroupTaskModel>(_taskService.GetProjects());
             UnassigendGroupTask = new ObservableCollection<BaseTaskModel>(_taskService.GetUnassignedTasks());

@@ -11,7 +11,7 @@ namespace Elevate.Models
         public override int Id { get; }
 
         public bool IsCompleted { get; set; }
-        public TaskTimeSettingsModel TimeSettings { get; set; }
+        public TaskTimeSettingsModel TimeSettings { get; set; } = new(TimeOnly.FromDateTime(DateTime.Now), new TimeOnly(23, 59));
 
         public TaskModel(string name, string description)
         {
@@ -19,12 +19,14 @@ namespace Elevate.Models
             Name = name;
             Description = description;
         }
+        public TaskModel() { }
 
-        public TaskModel(string name, string description, TimeOnly startTime, TimeOnly endTime, double duration)
+        public TaskModel(string name, string description, TimeOnly? startTime, TimeOnly? endTime, double duration)
             : this(name, description)
         {
-            TimeSettings.StartTime = startTime;
-            TimeSettings.EndTime = endTime;
+            TimeSettings.StartTime =  TimeOnly.FromDateTime(DateTime.Now);
+            TimeSettings.EndTime = new TimeOnly(23, 59);
+
             Duration = duration;
         }
     }

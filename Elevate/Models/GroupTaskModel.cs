@@ -22,7 +22,7 @@ namespace Elevate.Models
 
         public int Priority { get; set; }
         public List<TaskTimeSettingsModel> TimeSettings { get; set; } = new();
-        public List<BaseTaskModel> SubTasks { get; } = new();
+        public List<BaseTaskModel> SubTasks { get; set; } = new();
 
         public GroupTaskModel(string name, string description)
         {
