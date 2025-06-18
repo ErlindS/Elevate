@@ -4,7 +4,8 @@ using Elevate.Models;
 using Elevate.Services;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Linq;
+using System.Diagnostics;
+
 
 namespace Elevate.ViewModels
 {
@@ -13,90 +14,94 @@ namespace Elevate.ViewModels
         private ElevateTaskService _taskService;
         private ElevateTimeService _weekService;
 
-        [ObservableProperty]
-        private WeekModel mappedWeek;
+        public ObservableCollection<WeekTimeSettingsModel> Monday { get; set; } = new();
+        public ObservableCollection<WeekTimeSettingsModel> Tuesday { get; set; } = new();
+        public ObservableCollection<WeekTimeSettingsModel> Wednesday { get; set; } = new();
+        public ObservableCollection<WeekTimeSettingsModel> Thursday { get; set; } = new();
+        public ObservableCollection<WeekTimeSettingsModel> Friday { get; set; } = new();
+        public ObservableCollection<WeekTimeSettingsModel> Saturday { get; set; } = new();
+        public ObservableCollection<WeekTimeSettingsModel> Sunday { get; set; } = new();
 
         [ObservableProperty]
-        private ObservableCollection<string> weekdays;
+        private List<string> weekdays = new()
+        {
+            "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        };
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskModel> projects;
+        private ObservableCollection<BaseTaskModel> projects;
+
+        [ObservableProperty]
+        private BaseTaskModel selectedProject;
 
         [ObservableProperty]
         private string selectedWeekday;
 
         [ObservableProperty]
-        private TimeSpan selectedStartingTime;
+        private TimeSpan selectedStartingTime = TimeSpan.Zero;
 
         [ObservableProperty]
-        private TimeSpan selectedEndingTime;
+        private TimeSpan selectedEndingTime = TimeSpan.Zero;
+
+        [ObservableProperty]
+        private WeekTimeSettingsModel displayedWeek;
 
         public MapTaskViewModel(ElevateTaskService taskService, ElevateTimeService weekService)
         {
+            
             _taskService = taskService;
             _weekService = weekService;
-            Projects = new ObservableCollection<IElevateTaskModel>(_taskService._projects);
-            Weekdays = new ObservableCollection<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-            if (_weekService.MappedWeek == null)
-            {
-                _weekService.MappedWeek = new WeekModel();
-            }
-            MappedWeek = _weekService.MappedWeek;
+            Projects = new ObservableCollection<BaseTaskModel>(_taskService._projects);
+            Monday = new ObservableCollection<WeekTimeSettingsModel>(_weekService.GetWeek().Monday);
+            Tuesday = new ObservableCollection<WeekTimeSettingsModel>(_weekService.GetWeek().Tuesday);
+            Wednesday = new ObservableCollection<WeekTimeSettingsModel>(_weekService.GetWeek().Wednesday);
+            Thursday = new ObservableCollection<WeekTimeSettingsModel>(_weekService.GetWeek().Thursday);
+            Friday = new ObservableCollection<WeekTimeSettingsModel>(_weekService.GetWeek().Friday);
+            Saturday = new ObservableCollection<WeekTimeSettingsModel>(_weekService.GetWeek().Saturday);
+            Sunday = new ObservableCollection<WeekTimeSettingsModel>(_weekService.GetWeek().Sunday);
         }
 
         [RelayCommand]
-        void AddtoWeek(GroupTaskModel project)
+        void AddtoWeek()
         {
+            Debug.WriteLine("Adding task to week");
 
-            if (project.StartingTime == default || project.EndingTime == default || string.IsNullOrEmpty(project.SelectedWeekdayForMapping))
-            {
-                System.Diagnostics.Debug.WriteLine("Please select a weekday, start time, and end time for the project.");
-                return;
-            }
+            var newTimeSetting = new WeekTimeSettingsModel(TimeOnly.FromTimeSpan(SelectedStartingTime), TimeOnly.FromTimeSpan(SelectedEndingTime), SelectedProject.Name);
+            DayOfWeek day = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), SelectedWeekday);
+            var newProjectTime = new TaskTimeSettingsModel(TimeOnly.FromTimeSpan(SelectedStartingTime), TimeOnly.FromTimeSpan(SelectedEndingTime), day);
+            _taskService.GetProjectById(SelectedProject.Id, _taskService._projects).TimeSettings.Add(newProjectTime);
 
-            var newTimeSetting = new TaskTimeSettingsModel
-            {
-                Weekday = project.SelectedWeekdayForMapping,
-                StartTime = TimeOnly.FromTimeSpan(project.StartingTime),
-                EndTime = TimeOnly.FromTimeSpan(project.EndingTime),
-            };
-
-            project.TimeSettings.Add(newTimeSetting);
-            System.Diagnostics.Debug.WriteLine($"To project: {project.Name} following settings were added {newTimeSetting.Weekday} {newTimeSetting.StartTime} {newTimeSetting.EndTime}");
-
-            switch (newTimeSetting.Weekday)
+            switch (SelectedWeekday)
             {
                 case "Monday":
-                    //_weekService.MappedWeek.Monday.Add(newTimeSetting);
-                    MappedWeek.Monday.Add(newTimeSetting);
+                    Monday.Add(newTimeSetting);
+                    _weekService.GetWeek().Monday.Add(newTimeSetting);
                     break;
                 case "Tuesday":
-                    //_weekService.MappedWeek.Tuesday.Add(newTimeSetting);
-                    MappedWeek.Tuesday.Add(newTimeSetting);
+                    Tuesday.Add(newTimeSetting);
+                    _weekService.GetWeek().Tuesday.Add(newTimeSetting);
                     break;
                 case "Wednesday":
-                    //_weekService.MappedWeek.Wednesday.Add(newTimeSetting);
-                    MappedWeek.Wednesday.Add(newTimeSetting);
+                    Wednesday.Add(newTimeSetting);
+                    _weekService.GetWeek().Wednesday.Add(newTimeSetting);
                     break;
                 case "Thursday":
-                    //_weekService.MappedWeek.Thursday.Add(newTimeSetting);
-                    MappedWeek.Thursday.Add(newTimeSetting);
+                    Thursday.Add(newTimeSetting);
+                    _weekService.GetWeek().Thursday.Add(newTimeSetting);
                     break;
                 case "Friday":
-                    //_weekService.MappedWeek.Friday.Add(newTimeSetting);
-                    MappedWeek.Friday.Add(newTimeSetting);
+                    Friday.Add(newTimeSetting);
+                    _weekService.GetWeek().Friday.Add(newTimeSetting);
                     break;
                 case "Saturday":
-                    //_weekService.MappedWeek.Saturday.Add(newTimeSetting);
-                    MappedWeek.Saturday.Add(newTimeSetting);
+                    Saturday.Add(newTimeSetting);
+                    _weekService.GetWeek().Saturday.Add(newTimeSetting);
                     break;
                 case "Sunday":
-                    //_weekService.MappedWeek.Sunday.Add(newTimeSetting);
-                    MappedWeek.Sunday.Add(newTimeSetting);
+                    Sunday.Add(newTimeSetting);
+                    _weekService.GetWeek().Sunday.Add(newTimeSetting);
                     break;
             }
-
-            System.Diagnostics.Debug.WriteLine($"Added {project.Name} to {newTimeSetting.Weekday} from {newTimeSetting.StartTime} to {newTimeSetting.EndTime}");
         }
     }
 }

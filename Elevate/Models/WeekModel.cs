@@ -4,14 +4,14 @@ using System.Xml.Linq;
 
 namespace Elevate.Models
 {
-    public partial class WeekModel : ObservableObject // Make it observable
+    public partial class WeekModel// Make it observable
     {
-        public ObservableCollection<TaskTimeSettingsModel> Monday { get; set; } = new ObservableCollection<TaskTimeSettingsModel>();
-        public ObservableCollection<TaskTimeSettingsModel> Tuesday { get; set; } = new ObservableCollection<TaskTimeSettingsModel>();
-        public ObservableCollection<TaskTimeSettingsModel> Wednesday { get; set; } = new ObservableCollection<TaskTimeSettingsModel>();
-        public ObservableCollection<TaskTimeSettingsModel> Thursday { get; set; } = new ObservableCollection<TaskTimeSettingsModel>();
-        public ObservableCollection<TaskTimeSettingsModel> Friday { get; set; } = new ObservableCollection<TaskTimeSettingsModel>();
-        public ObservableCollection<TaskTimeSettingsModel> Saturday { get; set; } = new ObservableCollection<TaskTimeSettingsModel>();
-        public ObservableCollection<TaskTimeSettingsModel> Sunday { get; set; } = new ObservableCollection<TaskTimeSettingsModel>();
+        public List<WeekTimeSettingsModel> Monday { get; set; } = new List<WeekTimeSettingsModel>();
+        public List<WeekTimeSettingsModel> Tuesday { get; set; } = new List<WeekTimeSettingsModel>();
+        public List<WeekTimeSettingsModel> Wednesday { get; set; } = new List<WeekTimeSettingsModel>();
+        public List<WeekTimeSettingsModel> Thursday { get; set; } = new List<WeekTimeSettingsModel>();
+        public List<WeekTimeSettingsModel> Friday { get; set; } = new List<WeekTimeSettingsModel>();
+        public List<WeekTimeSettingsModel> Saturday { get; set; } = new List<WeekTimeSettingsModel>();
+        public List<WeekTimeSettingsModel> Sunday { get; set; } = new List<WeekTimeSettingsModel>();
     }
 }

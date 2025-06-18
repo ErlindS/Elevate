@@ -3,40 +3,38 @@
              x:Class="Elevate.CombineTaskPage">
 
 
-    <FlexLayout Direction="Column" x:Name="CombineTaskView">
-        <CollectionView ItemsSource="{Binding TasksToCombine}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid ColumnDefinitions="*, 2*, Auto" Padding="10">
-                        <Border Grid.Column="0" Margin="10" Stroke="MediumPurple" StrokeThickness="3">
-                            <Label Text="{Binding Name}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                        </Border>
+    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto, Auto, Auto">
+        <Border Grid.Row="0" Grid.Column="0" Margin="10" Stroke="MediumPurple" StrokeThickness="3">
+            <Label Text="Here are your unassigend Tasks" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Border>
+        <Picker Margin="10"
+                Grid.Column="1"
+                Grid.Row="0"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                ItemsSource="{Binding TasksToCombine}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedTask}">
+        </Picker>
 
-                        <Picker Margin="10"
-                                Grid.Column="1"
-                                HorizontalTextAlignment="Center"
-                                VerticalTextAlignment="Center"
-                                ItemsSource="{Binding Path=BindingContext.AvailableProjects, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                ItemDisplayBinding="{Binding Name}"
-                                SelectedItem="{Binding Path=BindingContext.SelectedProject, Source={RelativeSource AncestorType={x:Type ContentPage}}}">
-                        </Picker>
+        <Border Grid.Column="0" Grid.Row="1" Margin="10" Stroke="MediumPurple" StrokeThickness="3">
+            <Label Text="Here are your unassigend Projects/Groups" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Border>
 
-                        <Button Text="Add to Project"
-                                Grid.Column="2"
-                                Margin="10"
-                                Command="{Binding Path=BindingContext.AddTaskToSelectedProjectCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                CommandParameter="{Binding .}" />
-                        <Grid.Triggers>
-                            <DataTrigger TargetType="Grid"
-                                         Binding="{Binding IsSorted}"
-                                         Value="True">
-                                <Setter Property="IsVisible" Value="False" />
-                                <Setter Property="HeightRequest" Value="0" />
-                            </DataTrigger>
-                        </Grid.Triggers>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </FlexLayout>
+        <Picker Margin="10"
+                Grid.Column="1"
+                Grid.Row="1"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                ItemsSource="{Binding AvailableProjects}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedProject}">
+        </Picker>
+
+        <Button Text="Add to Project"
+                Grid.Row="2"
+                Margin="10"
+                Grid.ColumnSpan="2"
+                Command="{Binding Path=BindingContext.AddTaskToSelectedProjectCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+    </Grid>
 </ContentPage>

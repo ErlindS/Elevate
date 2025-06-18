@@ -1,32 +1,30 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Xml.Linq;
-using SQLite;
+using Elevate.Models;
+using Microsoft.VisualBasic;
 
 namespace Elevate.Models
 {
-    public partial class TaskModel : ObservableObject, IElevateTaskModel // Make it observable
+    public partial class TaskModel : BaseTaskModel
     {
-        public int id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public bool IsDueToday { get; set; }
-        public TimeOnly StartTime { get; set; }
-        public TimeOnly EndTime { get; set; }
+        private static int _idCounter = 0;
+        public override int Id { get; }
 
-        public  double Duration { get; set; }
-        public bool IsComposite => true;
+        public bool IsCompleted { get; set; }
+        public TaskTimeSettingsModel TimeSettings { get; set; }
 
-        public TaskModel(string name, string description) {
+        public TaskModel(string name, string description)
+        {
+            Id = ++_idCounter;
             Name = name;
             Description = description;
         }
 
         public TaskModel(string name, string description, TimeOnly startTime, TimeOnly endTime, double duration)
+            : this(name, description)
         {
-            Name = name;
-            Description = description;
-            StartTime = startTime;
-            EndTime = endTime;
+            TimeSettings.StartTime = startTime;
+            TimeSettings.EndTime = endTime;
             Duration = duration;
         }
     }

@@ -6,12 +6,12 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace Elevate.Services
 {
-    public partial class ElevateTimeService : ObservableObject
+    public partial class ElevateTimeService
     {
-        [ObservableProperty]
-        private WeekModel mappedWeek;
+        private WeekModel _mappedWeek = new();
 
         public ElevateTimeService()
         {
@@ -21,6 +21,10 @@ namespace Elevate.Services
         public DayOfWeek GetDayOfTheWeek() { 
             DayOfWeek CurrentDayOfWeek = DateTime.Now.DayOfWeek;
             return CurrentDayOfWeek;
+        }
+
+        public WeekModel GetWeek() { 
+            return _mappedWeek; 
         }
     }
 }

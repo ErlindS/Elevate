@@ -3,11 +3,13 @@ using System.Xml.Linq;
 
 namespace Elevate.Models
 {
-    public partial class TaskTimeSettingsModel
+    public partial class TaskTimeSettingsModel : BaseTimeSettingsModel
     {
-        public TimeOnly StartTime { get; set; }
-        public TimeOnly EndTime { get; set; }
-        public string Weekday { get; set; }
-        public TaskTimeSettingsModel() { }
+        public DayOfWeek Weekday { get; set; }
+        public TaskTimeSettingsModel(TimeOnly startTimeOnly, TimeOnly endTimeOnly, DayOfWeek weekday) { 
+            StartTime = startTimeOnly;
+            EndTime = endTimeOnly;
+            Weekday = weekday;
+        }
     }
 }

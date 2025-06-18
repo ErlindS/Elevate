@@ -9,7 +9,7 @@ namespace Elevate.ViewModels
     public partial class AddTaskViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _newTodoText = string.Empty; // Holds the text for the new task entry
+        private string _newTodoText = string.Empty;
 
         [ObservableProperty]
         private double _newTodoHours = 0; 
@@ -20,63 +20,80 @@ namespace Elevate.ViewModels
         [ObservableProperty]
         private bool _isProject = false;
 
-        private ElevateTaskService _taskService;
+        [ObservableProperty]
+        private ObservableCollection<BaseTaskModel> todaystasks = new();
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskModel> tasks;
+        private ObservableCollection<GroupTaskModel> projects = new();
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskModel> projects;
+        private ObservableCollection<BaseTaskModel> unassigendGroupTask = new();
 
-        [ObservableProperty]
-        private ObservableCollection<IElevateTaskModel> unassigendGroupTask;
-
-
+        private readonly ElevateTaskService _taskService;
         public AddTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
-            Tasks = new ObservableCollection<IElevateTaskModel>(_taskService._todaysTask);
-            Projects = new ObservableCollection<IElevateTaskModel>(_taskService._projects);
-            UnassigendGroupTask = new ObservableCollection<IElevateTaskModel>(_taskService._unassignedGroupTask);
+            Todaystasks = new ObservableCollection<BaseTaskModel>(_taskService.GetTodaysTask());
+            Projects = new ObservableCollection<GroupTaskModel>(_taskService.GetProjects());
+            UnassigendGroupTask = new ObservableCollection<BaseTaskModel>(_taskService.GetUnassignedTasks());
         }
 
         [RelayCommand]
         private void AddItem()
         {
-            if (IsToday) {
-                var newTask = new TaskModel(_newTodoText, "placeholderdescription", TimeOnly.FromDateTime(DateTime.Now), new TimeOnly(23, 59), _newTodoHours);
-                Tasks.Add(newTask);
-                _taskService._todaysTask.Add(newTask);
-            }
-            else
+            if (string.IsNullOrWhiteSpace(NewTodoText)) return;
+
+            try
             {
-                if (IsProject)
+                if (IsToday)
                 {
-                    //This is a project
-                    var newTask = new GroupTaskModel(NewTodoText, "placeholderdescription", IsProject);
-                    newTask.IsSorted = true;
-                    Projects.Add(newTask);
-                    _taskService._projects.Add(newTask);
+                    var newTask = new TaskModel(NewTodoText, "placeholderdescription", TimeOnly.FromDateTime(DateTime.Now), new TimeOnly(23, 59), NewTodoHours);
+                    Todaystasks.Add(newTask);
+                    _taskService.GetTodaysTask().Add(newTask);
                 }
-                else {
-                    //This is a groupTask
-                    var newTask = new GroupTaskModel(NewTodoText, "placeholderdescription", IsProject);
-                    UnassigendGroupTask.Add(newTask);
-                    _taskService._unassignedGroupTask.Add(newTask);
+                else
+                {
+                    if (IsProject)
+                    {
+                        var newTask = new GroupTaskModel(NewTodoText, "placeholderdescription");
+                        Projects.Add(newTask);
+                        _taskService.GetProjects().Add(newTask);
+                    }
+                    else
+                    {
+                        var newTask = new GroupTaskModel(NewTodoText, "placeholderdescription");
+                        UnassigendGroupTask.Add(newTask);
+                        _taskService.GetUnassignedTasks().Add(newTask);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
         }
 
         [RelayCommand]
-        private void DeleteTask(IElevateTaskModel itemToDelete) 
+        private void DeleteTask(BaseTaskModel itemToDelete) 
         {
-            Projects.Remove(itemToDelete);
-            if (itemToDelete is GroupTaskModel) {
-                _taskService._projects.Remove((GroupTaskModel)itemToDelete);
-            }
-            if (itemToDelete is TaskModel)
+            try
             {
-                _taskService._unassignedGroupTask.Remove((GroupTaskModel)itemToDelete);
+                if (Projects.Contains(itemToDelete))
+                {
+                    Projects.Remove((GroupTaskModel)itemToDelete);
+                    _taskService.GetProjects().Remove((GroupTaskModel)itemToDelete);
+                }
+                if (UnassigendGroupTask.Contains(itemToDelete))
+                {
+                    UnassigendGroupTask.Remove(itemToDelete);
+                    _taskService.GetUnassignedTasks().Remove(itemToDelete);
+                }
+
+            }
+            catch (Exception ex) 
+            {
+                throw;
             }
         }
 

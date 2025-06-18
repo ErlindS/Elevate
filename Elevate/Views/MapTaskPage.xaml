@@ -7,129 +7,123 @@
              x:Class="Elevate.MapTaskPage">
 
     <Grid ColumnDefinitions="*,*,*,*,*"
-          RowDefinitions="auto, auto, auto">
+          RowDefinitions="auto, auto, auto, Auto">
         <Label Text="Monday" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center"/>
         <Label Text="Tuesday" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"/>
         <Label Text="Wednesday" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center"/>
         <Label Text="Thursday" Grid.Column="3" Grid.Row="0" HorizontalOptions="Center"/>
-        <Label Text="Friday" Grid.Column="0"  Grid.Row="1" HorizontalOptions="Center"/>
-        <Label Text="Saturday" Grid.Column="1" Grid.Row="1" HorizontalOptions="Center"/>
-        <Label Text="Sunday" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center"/>
-        <Label Text="Project" Grid.Column="4" Grid.Row="1" HorizontalOptions="Center"/>
+        <Label Text="Friday" Grid.Column="0"  Grid.Row="2" HorizontalOptions="Center"/>
+        <Label Text="Saturday" Grid.Column="1" Grid.Row="2" HorizontalOptions="Center"/>
+        <Label Text="Sunday" Grid.Column="2" Grid.Row="2" HorizontalOptions="Center"/>
+        <Label Text="Project" Grid.Column="4" Grid.Row="0" HorizontalOptions="Center"/>
 
-        <CollectionView ItemsSource="{Binding Projects}" Grid.Column="4" Grid.RowSpan="2">
+        <Grid Grid.Row="1" Grid.Column="4" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" HorizontalOptions="Center">
+
+            <Picker Margin="0,20,0,20"
+                    Grid.Row="1"
+                    Title="Select a weekday"
+                    ItemsSource="{Binding Weekdays}"
+                    SelectedItem="{Binding SelectedWeekday}"/>
+
+            <Picker Margin="0,20,0,20"
+                    Grid.Row="2"
+                    Title="Select a Project"
+                    ItemsSource="{Binding Projects}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedProject}"/>
+
+            <TimePicker Time="{Binding SelectedStartingTime}"
+                        Format="H:mm"
+                        Grid.Row="3"
+                        HorizontalOptions="Center"/>
+
+            <TimePicker Time="{Binding SelectedEndingTime}"
+                        Format="H:mm"
+                        Grid.Row="4"
+                        HorizontalOptions="Center"/>
+
+            <Button Text="Add To week" Grid.Row="5" Command="{Binding AddtoWeekCommand}"/>
+        </Grid>
+
+        <CollectionView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Monday}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:GroupTaskModel">
-                    <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto, Auto" HorizontalOptions="Center">
-                        <Label Text="{Binding Name}"
-                               Grid.Row="0"
-                               VerticalOptions="Center"
-                               LineBreakMode="WordWrap"
-                               Background="MediumPurple"
-                               Padding="20"/>
-
-                        <Picker x:Name="weekdayPicker"
-                                Margin="0,20,0,20"
-                                Grid.Row="1"
-                                Title="Select a weekday"
-                                ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Weekdays}"
-                                SelectedItem="{Binding SelectedWeekdayForMapping}"/>
-
-                        <TimePicker Time="{Binding StartingTime}"
-                                    Format="H_mm"
-                                    Grid.Row="2"
-                                    HorizontalOptions="Center"/>
-
-                        <TimePicker Time="{Binding EndingTime}"
-                                    Format="H_mm"
-                                    Grid.Row="3"
-                                    HorizontalOptions="Center"/>
-
-                        <Button Text="Add To week" Grid.Row="4" Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AddtoWeekCommand}" CommandParameter="{Binding .}"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-        <CollectionView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding MappedWeek.Monday}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:GroupTaskModel">
+                <DataTemplate x:DataType="models:WeekTimeSettingsModel">
                     <VerticalStackLayout Padding="5">
-                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
-                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
-                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding ProjectName}" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="{Binding StartTime}" HorizontalOptions="Center"/>
+                        <Label Text="{Binding EndTime}" HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <CollectionView Grid.Column="1" Grid.Row="0" ItemsSource="{Binding MappedWeek.Tuesday}">
+        <CollectionView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Tuesday}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:GroupTaskModel">
+                <DataTemplate x:DataType="models:WeekTimeSettingsModel">
                     <VerticalStackLayout Padding="5">
-                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
-                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
-                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding ProjectName}" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="{Binding StartTime}" HorizontalOptions="Center"/>
+                        <Label Text="{Binding EndTime}" HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <CollectionView Grid.Column="2" Grid.Row="0" ItemsSource="{Binding MappedWeek.Wednesday}">
+        <CollectionView Grid.Column="2" Grid.Row="1" ItemsSource="{Binding Wednesday}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:GroupTaskModel">
+                <DataTemplate x:DataType="models:WeekTimeSettingsModel">
                     <VerticalStackLayout Padding="5">
-                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
-                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
-                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding ProjectName}" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="{Binding StartTime}" HorizontalOptions="Center"/>
+                        <Label Text="{Binding EndTime}" HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <CollectionView Grid.Column="3" Grid.Row="0" ItemsSource="{Binding MappedWeek.Thursday}">
+        <CollectionView Grid.Column="3" Grid.Row="1" ItemsSource="{Binding Thursday}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:GroupTaskModel">
+                <DataTemplate x:DataType="models:WeekTimeSettingsModel">
                     <VerticalStackLayout Padding="5">
-                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
-                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
-                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding ProjectName}" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="{Binding StartTime}" HorizontalOptions="Center"/>
+                        <Label Text="{Binding EndTime}" HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <CollectionView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding MappedWeek.Friday}">
+        <CollectionView Grid.Column="0" Grid.Row="3" ItemsSource="{Binding Friday}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:GroupTaskModel">
+                <DataTemplate x:DataType="models:WeekTimeSettingsModel">
                     <VerticalStackLayout Padding="5">
-                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
-                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
-                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding ProjectName}" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="{Binding StartTime}" HorizontalOptions="Center"/>
+                        <Label Text="{Binding EndTime}" HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <CollectionView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding MappedWeek.Saturday}">
+        <CollectionView Grid.Column="1" Grid.Row="3" ItemsSource="{Binding Saturday}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:GroupTaskModel">
+                <DataTemplate x:DataType="models:WeekTimeSettingsModel">
                     <VerticalStackLayout Padding="5">
-                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
-                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
-                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding ProjectName}" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="{Binding StartTime}" HorizontalOptions="Center"/>
+                        <Label Text="{Binding EndTime}" HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <CollectionView Grid.Column="2" Grid.Row="1" ItemsSource="{Binding MappedWeek.Sunday}">
+        <CollectionView Grid.Column="2" Grid.Row="3" ItemsSource="{Binding Sunday}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:GroupTaskModel">
+                <DataTemplate x:DataType="models:WeekTimeSettingsModel">
                     <VerticalStackLayout Padding="5">
-                        <Label Text="{Binding Project.Name}" FontAttributes="Bold"/>
-                        <Label Text="{Binding StartTime, StringFormat='Start: {0:hh\\:mm}'}"/>
-                        <Label Text="{Binding EndTime, StringFormat='End: {0:hh\\:mm}'}"/>
+                        <Label Text="{Binding ProjectName}" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="{Binding StartTime}" HorizontalOptions="Center"/>
+                        <Label Text="{Binding EndTime}" HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

@@ -1,0 +1,25 @@
+﻿1. Nullable Typen Datei: GroupTaskModel
+2. Vererbung Datei: GroupTaskModel
+3. …. virtual /override /new !fehlt
+4. …. Constructor base Datei: GroupTaskModel
+5. Überladung Datei: TaskModel
+6. …. Constructor chaining !fehlt
+7. Properties mit backing field !fehlt
+8. Properties mit Zugriffsschutz / readonly Datei: GroupTaskModel
+9. Auto Properties Datei: GroupTaskModel
+10. Elvis operator fehlt
+11. Lambda-Ausdrücke
+12. Delegates / Events
+13. Anonyme Methoden / Typen
+14. Interface-Verwendung
+15. (z.B. IEnumerable)
+16. Generics (z.B. in  Collections)
+17. …. mit Contraints
+18. Indexer
+19. Custom Iterator
+20. Exceptions
+21. WPF
+22. …. XAML
+23. Reflection
+24. XML-Kommentare
+25. Sonstige Konzepte

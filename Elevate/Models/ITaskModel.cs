@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace Elevate.Models
 {
-    public interface IElevateTaskModel
+    public interface ITaskModel
     {
         string Name { get; }
         string Description { get; }
         double Duration { get; }
-        int id { get; }
+        int Id { get; }
+
+        string GetName();
+        string GetDescription();
+        double GetDuration();
+        int GetId();
     }
 }

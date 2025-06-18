@@ -1,47 +1,39 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Elevate.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Elevate.Models;
+using System.Xml.Linq;
 
 namespace Elevate.Models
 {
-    public partial class GroupTaskModel : ObservableObject, IElevateTaskModel
+    /// <summary>
+    /// Represents a group task model that can contain multiple tasks and associated settings.
+    /// </summary>
+    /// <remarks>This class is used to manage a collection of tasks as a group, with properties for task
+    /// metadata such as name,  description, duration, priority, and project status. It provides methods to add, remove,
+    /// and modify tasks within the group.</remarks>
+    public partial class GroupTaskModel : BaseTaskModel
     {
-        public int id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public double Duration { get; set; }
-        public bool IsProject { get; set; }
+        private static int _idCounter = 0;
+        public override int Id { get; }
 
-        [ObservableProperty]
-        private string selectedWeekdayForMapping; // For the Picker within CollectionView
+        public int Priority { get; set; }
+        public List<TaskTimeSettingsModel> TimeSettings { get; set; } = new();
+        public List<BaseTaskModel> SubTasks { get; } = new();
 
-        [ObservableProperty]
-        private TimeSpan startingTime;
-
-        [ObservableProperty]
-        private TimeSpan endingTime;
-
-        public List<TaskTimeSettingsModel> TimeSettings { get; set; } = new List<TaskTimeSettingsModel>();
-
-        [ObservableProperty]
-        public bool isSorted;
-
-        public List<IElevateTaskModel> _task = new();
-
-        public GroupTaskModel(string name, string description, bool isproject)
+        public GroupTaskModel(string name, string description)
         {
+            Id = ++_idCounter;
             Name = name;
             Description = description;
-            IsProject = isproject;
         }
 
-        public void Add(IElevateTaskModel task)
-        {
-            _task.Add(task);
-        }
+        public void AddTask(BaseTaskModel task) => SubTasks.Add(task);
+        public void RemoveTask(BaseTaskModel task) => SubTasks.Remove(task);
+        public void ChangeName(string newName) => Name = newName;
+        public void ChangeDescription(string newDescription) => Description = newDescription;
     }
 }
