@@ -28,15 +28,21 @@ namespace Elevate.Services
 
         public GroupTaskModel? GetProjectById(int id, List<GroupTaskModel> projects)
         {
-            foreach (var project in projects)
+            try
             {
-                if (project.Id == id)
-                    return project;
-                var result = GetProjectById(id, project.SubTasks.OfType<GroupTaskModel>().ToList());
-                if (result != null)
-                    return result;
+                foreach (var project in projects)
+                {
+                    if (project.Id == id)
+                        return project;
+                    var result = GetProjectById(id, project.SubTasks.OfType<GroupTaskModel>().ToList());
+                    if (result != null)
+                        return result;
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex) {
+                throw;
+            }
         }
 
         public bool AddTaskToProject(BaseTaskModel task, int projectId)

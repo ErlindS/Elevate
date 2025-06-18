@@ -35,5 +35,22 @@ namespace Elevate.Models
         public void RemoveTask(BaseTaskModel task) => SubTasks.Remove(task);
         public void ChangeName(string newName) => Name = newName;
         public void ChangeDescription(string newDescription) => Description = newDescription;
+
+        public string GetFirstTaskName() {
+            return SubTasks?.FirstOrDefault()?.Name ?? "No tasks";
+        }
+
+        public BaseTaskModel? this[string name] {
+            get => SubTasks.FirstOrDefault(t => t.Name == name);
+        }
+
+        public IEnumerable<BaseTaskModel> GetIncompleteTasks() {
+            foreach (var task in SubTasks) { 
+                if(task is TaskModel taskModel && !taskModel.IsCompleted)
+                    yield return taskModel;
+            }
+        }
+
+
     }
 }
