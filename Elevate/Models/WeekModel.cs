@@ -4,7 +4,10 @@ using System.Xml.Linq;
 
 namespace Elevate.Models
 {
-    public partial class WeekModel// Make it observable
+    /// <summary>
+    /// Basic Week Model to map projects
+    /// </summary>
+    public partial class WeekModel
     {
         public List<WeekTimeSettingsModel> Monday { get; set; } = new List<WeekTimeSettingsModel>();
         public List<WeekTimeSettingsModel> Tuesday { get; set; } = new List<WeekTimeSettingsModel>();

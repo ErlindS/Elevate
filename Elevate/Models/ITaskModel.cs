@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Elevate.Models
 {
+    /// <summary>
+    /// Inteface for tasks
+    /// </summary>
     public interface ITaskModel
     {
         string Name { get; }

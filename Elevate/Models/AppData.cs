@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Elevate.Models
 {
+    /// <summary>
+    /// Data for Json
+    /// </summary>
     public class AppData
     {
         public List<GroupTaskModel>? Projects { get; set; }

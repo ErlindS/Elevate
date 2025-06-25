@@ -5,6 +5,9 @@ using Elevate.Models;
 
 namespace Elevate.Models
 {
+    /// <summary>
+    /// Basic Timesettings for a week
+    /// </summary>
     public class WeekTimeSettingsModel : BaseTimeSettingsModel
     {
         public string ProjectName { get; set; } = "No Projectname set";

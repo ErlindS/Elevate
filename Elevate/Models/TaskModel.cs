@@ -5,6 +5,9 @@ using Microsoft.VisualBasic;
 
 namespace Elevate.Models
 {
+    /// <summary>
+    /// Basic Model for Daily tasks
+    /// </summary>
     public partial class TaskModel : BaseTaskModel
     {
         private static int _idCounter = 0;

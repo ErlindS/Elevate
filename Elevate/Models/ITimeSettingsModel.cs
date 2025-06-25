@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Elevate.Models
 {
+    /// <summary>
+    /// Interface for TimeSettings
+    /// </summary>
     public interface ITimeSettingsModel
     {
         TimeOnly StartTime { get; }

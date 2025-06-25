@@ -3,6 +3,9 @@ using System.Xml.Linq;
 
 namespace Elevate.Models
 {
+    /// <summary>
+    /// Basic TaskTime SettingsModel
+    /// </summary>
     public partial class TaskTimeSettingsModel : BaseTimeSettingsModel
     {
         public DayOfWeek Weekday { get; set; }

@@ -7,8 +7,12 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
+
 namespace Elevate.Models
 {
+    /// <summary>
+    /// Basic Model for tasks/groups
+    /// </summary>
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
     [JsonDerivedType(typeof(TaskModel), "task")]
     [JsonDerivedType(typeof(GroupTaskModel), "groupTask")]

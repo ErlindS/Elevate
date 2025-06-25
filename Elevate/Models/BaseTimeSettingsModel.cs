@@ -6,8 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Elevate.Models;
 
+
 namespace Elevate.Models
 {
+    /// <summary>
+    /// Basic time Setting Model with some implemented functions
+    /// </summary>
     public abstract class BaseTimeSettingsModel : ITimeSettingsModel
     {
         public virtual TimeOnly StartTime { get; set; } = TimeOnly.FromDateTime(DateTime.Now);
