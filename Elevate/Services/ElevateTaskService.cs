@@ -18,7 +18,7 @@ namespace Elevate.Services
         public ElevateTaskService()
         {
             //RootElevateTaskGroup = new GroupElevateTask("My Root ElevateTask", "Top level group ElevateTask");
-            _todaysTask.Add(new ElevateTask("name1", "name2"));
+            //_todaysTask.Add(new ElevateTask("name1", "name2"));
         }
     }
 }

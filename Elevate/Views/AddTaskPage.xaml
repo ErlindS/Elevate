@@ -1,49 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Elevate.AddTaskPage">
-
+             x:Class="Elevate.AddTaskPage"
+             BackgroundColor="White"
+             >
     <ScrollView>
         <VerticalStackLayout Spacing="10" Padding="10">
 
-            <Label Text="Meine TODOs"
-                   FontSize="Header"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   Margin="0,0,0,0" />
+            <Border
+                Stroke="#778873"
+                StrokeThickness="4"
+                StrokeShape="RoundRectangle 50"
+                Padding="16,8"
+                HorizontalOptions="Center"
+            >
+                <Label Text="Meine TODOs"
+                       FontSize="Header"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       Margin="0,0,0,0"
+                       TextColor="#778873"
+                 />
+            </Border>
 
-            <Grid ColumnDefinitions="*, Auto, Auto" Background="MediumPurple">
+            <Grid ColumnDefinitions="*, Auto, Auto" Background="White">
                 <Entry Text="{Binding NewTodoText}"
                        Placeholder="Add your task"
                        Grid.Column="0"
                        Grid.Row="0"
                        TextColor="White"
-                       PlaceholderColor="White"/>
+                       PlaceholderColor="White"
+                       BackgroundColor="#A1BC98"
+                       />
                 <Entry Text="{Binding NewTodoHours}"
                        Placeholder="Hours"
                        Grid.Column="1"
                        Grid.Row="0"
                        MinimumWidthRequest="200"
-                       TextColor="White"/>
+                       TextColor="White"
+                       PlaceholderColor="#778873"
+                       BackgroundColor="#A1BC98"/>
                 <Button Text="Hinzufügen"
                         Grid.Column="2"
                         Grid.Row="0"
+                        BorderColor="#778873"
+                        BorderWidth="4"
+                        TextColor="#778873"
+                        BackgroundColor="White"
                         Command="{Binding AddItemCommand}" />
             </Grid>
 
-            <Grid RowDefinitions="Auto" ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" Background="MediumPurple">
+            <Grid RowDefinitions="Auto" ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" Background="White">
                 <CheckBox IsChecked="{Binding IsToday}"
                           Grid.Column="0"
                           Grid.Row="0"
                           VerticalOptions="Center"
-                          HorizontalOptions="Center"/>
-                <Label Text="Task Should be done today"  Grid.Column="1" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                          HorizontalOptions="Center"
+                          Color="#778873"/>
+                <Label Text="Task Should be done today"  
+                       Grid.Column="1" 
+                       Grid.Row="0" 
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center"
+                       TextColor="#778873"/>
                 <CheckBox IsChecked="{Binding IsProject}"
                           Grid.Column="2"
                           Grid.Row="0"
                           VerticalOptions="Center"
-                          HorizontalOptions="Center"/>
-                <Label Text="Creates a project"  Grid.Column="3" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                          HorizontalOptions="Center"
+                          Color="#778873"/>
+                <Label Text="Creates a project"  
+                       Grid.Column="3" 
+                       Grid.Row="0" 
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center"
+                       TextColor="#778873"/>
             </Grid>
 
             <Label Text="Here are your created Projects"/>
@@ -57,7 +88,7 @@
                                    Grid.Column="0"
                                    VerticalOptions="Center"
                                    LineBreakMode="WordWrap" 
-                                   Background="MediumPurple"
+                                   Background="White"
                                    Padding="20"
                                    />
                             </Border>

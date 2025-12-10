@@ -15,11 +15,14 @@ namespace Elevate
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    //fonts.AddFont("Mulish-Italic-VariableFont_wght.ttf", "OpenSansRegular");
+                    fonts.AddFont("Mulish-VariableFont_wght.ttf", "OpenSansSemibold");
                 });
 
-
+            //F1F3E0
+            //D2DCB6
+            //A1BC98
+            //778873
             //Services
             builder.Services.AddSingleton<ElevateTaskService>();
             builder.Services.AddSingleton<ElevateTimeService>();
