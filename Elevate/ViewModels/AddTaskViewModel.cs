@@ -3,81 +3,51 @@ using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
 using Elevate.Services;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Elevate.ViewModels
 {
     public partial class AddTaskViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _newTodoText = string.Empty; // Holds the text for the new task entry
+        private string _newTodoText = "string.Empty"; // Holds the text for the new task entry
 
         [ObservableProperty]
-        private double _newTodoHours = 0; 
+        private ElevateTaskService _taskService = new();
+
+        public ObservableCollection<ElevateTask> tasks { get; set; } = new();
 
         [ObservableProperty]
-        private bool _isToday = false;
-
-        [ObservableProperty]
-        private bool _isProject = false;
-
-        private ElevateTaskService _taskService;
-
-        [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> tasks;
-
-        [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> projects;
-
-        [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> unassigendGroupTask;
-
+        private ObservableCollection<ElevateTask> tasksnewTask;
 
         public AddTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
-            Tasks = new ObservableCollection<IElevateTaskComponent>(_taskService._todaysTask);
-            Projects = new ObservableCollection<IElevateTaskComponent>(_taskService._projects);
-            UnassigendGroupTask = new ObservableCollection<IElevateTaskComponent>(_taskService._unassignedGroupTask);
+            LoadTasks();
+        }
+
+        private void LoadTasks()
+        {
+            // Populate the collection from your service
+            var data = _taskService;
+            foreach (var task in data.AllTasks)
+            {
+                tasks.Add((ElevateTask)task);
+            }
         }
 
         [RelayCommand]
         private void AddItem()
         {
-            if (IsToday) {
-                var newTask = new ElevateTask(_newTodoText, "placeholderdescription", TimeOnly.FromDateTime(DateTime.Now), new TimeOnly(23, 59), _newTodoHours);
-                Tasks.Add(newTask);
-                _taskService._todaysTask.Add(newTask);
-            }
-            else
+            ElevateTask newTask = new ElevateTask
             {
-                if (IsProject)
-                {
-                    //This is a project
-                    var newTask = new GroupElevateTask(NewTodoText, "placeholderdescription", IsProject);
-                    newTask.IsSorted = true;
-                    Projects.Add(newTask);
-                    _taskService._projects.Add(newTask);
-                }
-                else {
-                    //This is a groupTask
-                    var newTask = new GroupElevateTask(NewTodoText, "placeholderdescription", IsProject);
-                    UnassigendGroupTask.Add(newTask);
-                    _taskService._unassignedGroupTask.Add(newTask);
-                }
-            }
-        }
+                Name = "test"
+            };
 
-        [RelayCommand]
-        private void DeleteTask(IElevateTaskComponent itemToDelete) 
-        {
-            Projects.Remove(itemToDelete);
-            if (itemToDelete is GroupElevateTask) {
-                _taskService._projects.Remove((GroupElevateTask)itemToDelete);
-            }
-            if (itemToDelete is ElevateTask)
-            {
-                _taskService._unassignedGroupTask.Remove((GroupElevateTask)itemToDelete);
-            }
+            _taskService.AllTasks.Add(newTask);
+            tasks.Add(newTask);
+            Debug.WriteLine(newTask.Name);
+            Console.WriteLine(newTask.Name);
         }
 
     }

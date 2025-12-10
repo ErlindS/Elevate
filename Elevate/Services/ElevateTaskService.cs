@@ -10,15 +10,11 @@ namespace Elevate.Services
 {
     public class ElevateTaskService
     {
-
-        public List<GroupElevateTask> _projects = new();
-        public List<IElevateTaskComponent> _unassignedGroupTask = new();
-        public List<IElevateTaskComponent> _todaysTask = new();
+        public List<ElevateTask> AllTasks = new();
 
         public ElevateTaskService()
         {
-            //RootElevateTaskGroup = new GroupElevateTask("My Root ElevateTask", "Top level group ElevateTask");
-            //_todaysTask.Add(new ElevateTask("name1", "name2"));
+
         }
     }
 }

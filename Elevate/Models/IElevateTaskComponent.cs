@@ -9,9 +9,5 @@ namespace Elevate.Models
     public interface IElevateTaskComponent
     {
         string Name { get; }
-        string Description { get; }
-        bool IsComposite { get; }
-        bool IsDueToday { get; }
-        double Duration { get; }
     }
 }

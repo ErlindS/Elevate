@@ -16,7 +16,7 @@ namespace Elevate
                 .ConfigureFonts(fonts =>
                 {
                     //fonts.AddFont("Mulish-Italic-VariableFont_wght.ttf", "OpenSansRegular");
-                    fonts.AddFont("Mulish-VariableFont_wght.ttf", "OpenSansSemibold");
+                    fonts.AddFont("MulishVariableFont.ttf", "OpenSansSemibold");
                 });
 
             //F1F3E0

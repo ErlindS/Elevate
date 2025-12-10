@@ -17,40 +17,6 @@
         <Label Text="Sunday" Grid.Column="6" Padding="10" HorizontalOptions="Center"/>
         <Label Text="Project" Grid.Column="7" Padding="10" HorizontalOptions="Center"/>
 
-        <CollectionView ItemsSource="{Binding Projects}" Grid.Column="7" Grid.Row="1">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:GroupElevateTask">
-                    <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto, Auto" HorizontalOptions="Center">
-                        <Label Text="{Binding Name}"
-                               Grid.Row="0"
-                               VerticalOptions="Center"
-                               LineBreakMode="WordWrap"
-                               Background="White"
-                               Padding="20"/>
-
-                        <Picker x:Name="weekdayPicker"
-                                Margin="0,20,0,20"
-                                Grid.Row="1"
-                                Title="Select a weekday"
-                                ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Weekdays}"
-                                SelectedItem="{Binding SelectedWeekdayForMapping}"/>
-
-                        <TimePicker Time="{Binding StartingTime}"
-                                    Format="H_mm"
-                                    Grid.Row="2"
-                                    HorizontalOptions="Center"/>
-
-                        <TimePicker Time="{Binding EndingTime}"
-                                    Format="H_mm"
-                                    Grid.Row="3"
-                                    HorizontalOptions="Center"/>
-
-                        <Button Text="Add To week" Grid.Row="4" Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AddtoWeekCommand}" CommandParameter="{Binding .}"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
         <CollectionView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding MappedWeek.Monday}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:ElevateTaskTimeSettings">
