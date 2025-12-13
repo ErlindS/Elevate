@@ -14,9 +14,6 @@ namespace Elevate.ViewModels
         private ElevateTimeService _weekService;
 
         [ObservableProperty]
-        private WeekModel mappedWeek;
-
-        [ObservableProperty]
         private ObservableCollection<string> weekdays;
 
         [ObservableProperty]
@@ -33,14 +30,6 @@ namespace Elevate.ViewModels
 
         public MapTaskViewModel(ElevateTaskService taskService, ElevateTimeService weekService)
         {
-            _taskService = taskService;
-            _weekService = weekService;
-            Weekdays = new ObservableCollection<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-            if (_weekService.MappedWeek == null)
-            {
-                _weekService.MappedWeek = new WeekModel();
-            }
-            MappedWeek = _weekService.MappedWeek;
         }
     }
 }

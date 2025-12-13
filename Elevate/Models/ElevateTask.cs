@@ -10,7 +10,8 @@ namespace Elevate.Models
     //778873
     public partial class ElevateTask : ObservableObject, IElevateTaskComponent // Make it observable
     {
-
         public string Name { get; set; }
+
+        public List<IElevateTaskComponent> SubTasks { get; set; } = new List<IElevateTaskComponent>();
     }
 }

@@ -10,9 +10,6 @@ namespace Elevate.Services
 {
     public partial class ElevateTimeService : ObservableObject
     {
-        [ObservableProperty]
-        private WeekModel mappedWeek;
-
         public ElevateTimeService()
         {
 

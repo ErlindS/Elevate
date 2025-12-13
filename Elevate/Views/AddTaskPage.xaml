@@ -2,77 +2,111 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Elevate.AddTaskPage"
-             BackgroundColor="White"
-             >
-    <ScrollView>
-        <VerticalStackLayout Spacing="10" Padding="10">
+             BackgroundColor="#F5F7F5">
+    <ContentPage.Resources>
+        <Color x:Key="PrimaryDark">#778873</Color>
+        <Color x:Key="PrimaryLight">#A1BC98</Color>
+        <Color x:Key="TextDark">#4A4A4A</Color>
+        <Color x:Key="White">#FFFFFF</Color>
+        <Color x:Key="Error">#E57373</Color>
+    </ContentPage.Resources>
 
-            <Border
-                Stroke="#778873"
-                StrokeThickness="4"
-                StrokeShape="RoundRectangle 50"
-                Padding="16,8"
-                HorizontalOptions="Center"
-            >
-                <Label Text="Meine TODOs"
-                       FontSize="Header"
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center"
-                       Margin="0,0,0,0"
-                       TextColor="#778873"
-                 />
-            </Border>
+    <Grid RowDefinitions="Auto, Auto, *" Padding="20,10,20,0">
 
-            <Grid ColumnDefinitions="*, Auto, Auto" Background="White">
-                <Entry Text="{Binding NewTodoText}"
-                       Placeholder="Add your task"
-                       Grid.Column="0"
-                       Grid.Row="0"
-                       TextColor="White"
-                       PlaceholderColor="White"
-                       BackgroundColor="#A1BC98"
-                       />
-                <Button Text="Hinzufügen"
-                        Grid.Column="2"
-                        Grid.Row="0"
-                        BorderColor="#778873"
-                        BorderWidth="4"
-                        TextColor="#778873"
-                        BackgroundColor="White"
+        <VerticalStackLayout Grid.Row="0" Spacing="5" Margin="0,10,0,20">
+            <Label Text="My Tasks"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource PrimaryDark}" />
+            <Label Text="Stay organized and productive"
+                   FontSize="14"
+                   TextColor="#999" />
+        </VerticalStackLayout>
+
+        <Border Grid.Row="1"
+                StrokeShape="RoundRectangle 25"
+                StrokeThickness="0"
+                BackgroundColor="{StaticResource White}"
+                HeightRequest="60"
+                Margin="0,0,0,20">
+
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,4" Radius="10" Opacity="0.05"/>
+            </Border.Shadow>
+
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry Grid.Column="0"
+                       Text="{Binding NewTodoText}"
+                       Placeholder="What needs to be done?"
+                       PlaceholderColor="#CCC"
+                       TextColor="{StaticResource TextDark}"
+                       FontSize="16"
+                       Margin="20,0"
+                       VerticalOptions="Center" />
+
+                <Button Grid.Column="1"
+                        Text="Add"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource White}"
+                        BackgroundColor="{StaticResource PrimaryDark}"
+                        CornerRadius="20"
+                        HeightRequest="40"
+                        WidthRequest="80"
+                        Margin="10"
                         Command="{Binding AddItemCommand}" />
             </Grid>
+        </Border>
 
-            <Label Text="Here are your Tasks" TextColor="#A1BC98" FontSize="50"/>
+        <CollectionView Grid.Row="2" 
+                        ItemsSource="{Binding tasks}"
+                        Margin="0,10,0,0">
 
-            <CollectionView ItemsSource="{Binding tasks}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid ColumnDefinitions="*,Auto,Auto" Margin="10" >
-                            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="0,10,10,10">
-                                <Label 
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.EmptyView>
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <Label Text="No tasks yet." TextColor="#CCC" FontSize="18" HorizontalOptions="Center"/>
+                </StackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 15"
+                            StrokeThickness="0"
+                            BackgroundColor="{StaticResource White}"
+                            Padding="15">
+
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.05"/>
+                        </Border.Shadow>
+
+                        <Grid ColumnDefinitions="*, Auto">
+
+                            <Label Grid.Column="0"
                                    Text="{Binding Name}"
-                                   Grid.Column="0"
+                                   FontSize="16"
                                    VerticalOptions="Center"
-                                   LineBreakMode="WordWrap" 
-                                   Background="White"
-                                   Padding="20"
-                                       TextColor="#A1BC98"
-                                   />
-                            </Border>
+                                   LineBreakMode="TailTruncation"
+                                   TextColor="{StaticResource TextDark}" />
 
-                            <Button Text="Delete Task"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="Center"
+                            <Button Grid.Column="1"
+                                    Text="✕"
+                                    FontSize="14"
+                                    BackgroundColor="#FFF0F0"
+                                    TextColor="{StaticResource Error}"
+                                    CornerRadius="10"
+                                    HeightRequest="35"
+                                    WidthRequest="35"
+                                    Padding="0"
                                     Command="{Binding Path=BindingContext.DeleteTaskCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                    CommandParameter="{Binding .}"
-                                    Grid.Column="1"
-                                    BackgroundColor="#A1BC98"
-                            />
+                                    CommandParameter="{Binding .}" />
                         </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-        </VerticalStackLayout>
-    </ScrollView>
+    </Grid>
 </ContentPage>
