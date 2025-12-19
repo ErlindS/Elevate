@@ -10,56 +10,36 @@ namespace Elevate.ViewModels
     public partial class CombineTaskViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _newTodoText = "string.Empty"; // Holds the text for the new task entry
-
-        [ObservableProperty]
         private ElevateTaskService _taskService = new();
 
-        public ObservableCollection<ElevateTask> tasks { get; set; } = new();
+        [ObservableProperty]
+        private ElevateTask _unsortedtasks = new();
 
         [ObservableProperty]
-        private ObservableCollection<ElevateTask> tasksnewTask;
+        private ElevateTask _sortedtasks = new();
 
         public CombineTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
-            LoadTasks();
-        }
-
-        private void LoadTasks()
-        {
-            // Populate the collection from your service
-            var data = _taskService;
-            foreach (var task in data.AllTasks)
-            {
-                tasks.Add((ElevateTask)task);
-            }
+            _unsortedtasks = taskService.unsortedTasks;
+            _sortedtasks = taskService.sortedTasks;
         }
 
         [RelayCommand]
         private void AddItem()
         {
-            ElevateTask newTask = new ElevateTask
-            {
-                Name = "test"
-            };
-
-            _taskService.AllTasks.Add(newTask);
-            tasks.Add(newTask);
-            Console.WriteLine(newTask.Name);
+            
         }
 
         [RelayCommand]
-        private void MoveTaskCommand() 
+        private void MoveTask(int id) 
         {
-            ElevateTask newTask = new ElevateTask
-            {
-                Name = "test"
-            };
-
-            _taskService.AllTasks.Add(newTask);
-            tasks.Add(newTask);
-            Console.WriteLine(newTask.Name);
+            Console.WriteLine("Hallo");
+            var task = _unsortedtasks.SubTasks.FirstOrDefault(t => t.Id == id);
+            if (task == null)
+                return;
+            //_taskService.unsortedTasks.SubTasks.RemoveAll(t => t.id == id);
+            _taskService.sortedTasks.SubTasks.Add(task);
         }
     }    
 }

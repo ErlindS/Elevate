@@ -1,7 +1,8 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Elevate.CombineTaskPage"
-             BackgroundColor="#F5F7F5">
+             BackgroundColor="#F5F7F5"
+             x:Name="Page2">
 
     <ContentPage.Resources>
         <Color x:Key="PrimaryDark">#778873</Color>
@@ -22,7 +23,51 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <CollectionView ItemsSource="{Binding tasks}" 
+        <!-- Left Side Level of detail -->
+        <Label  Text="{Binding Sortedtasks.Name}"
+                VerticalOptions="Center"
+                LineBreakMode="WordWrap"
+                Grid.Row="0" 
+                Grid.Column="0"
+                TextColor="{StaticResource TextDark}" 
+                />
+
+        <!-- Left Side -->
+        <CollectionView ItemsSource="{Binding Sortedtasks.SubTasks}" 
+                        Grid.Row="0" 
+                        Grid.Column="0"
+                        Margin="0,10,0,0">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10">
+                        <Label  Text="{Binding Sortedtasks.Name}"
+                VerticalOptions="Center"
+                LineBreakMode="WordWrap"
+                TextColor="{StaticResource TextDark}" 
+                />
+
+                        <Button Text="Click to Rotate Text!"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                />
+                        <Border StrokeShape="RoundRectangle 10" 
+                                BackgroundColor="{StaticResource White}"
+                                Stroke="#A1BC98"
+                                StrokeThickness="1"
+                                Padding="15">
+                        <Label Text="{Binding Name}"
+                                VerticalOptions="Center"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource TextDark}" />
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- right side -->
+        <CollectionView ItemsSource="{Binding Unsortedtasks.SubTasks}" 
                         Grid.Row="0" 
                         Grid.Column="1"
                         Margin="0,10,0,0">
@@ -35,18 +80,19 @@
                                 StrokeThickness="1"
                                 Padding="15">
                             <Grid ColumnDefinitions="Auto, *">
+
                                 <Button Grid.Column="0"
-                                        Text="✕"
-                                        FontSize="14"
-                                        BackgroundColor="#FFF0F0"
-                                        TextColor="{StaticResource Error}"
-                                        CornerRadius="10"
-                                        HeightRequest="35"
-                                        WidthRequest="35"
-                                        Padding="0"
-                                        Margin="0,0,10,0"
-                                        Command="{Binding Path=BindingContext.MoveTaskCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                        CommandParameter="{Binding .}" />
+                                    Text="Add"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource White}"
+                                    BackgroundColor="{StaticResource PrimaryDark}"
+                                    CornerRadius="20"
+                                    HeightRequest="40"
+                                    WidthRequest="80"
+                                    Margin="10"
+                                    Command="{Binding Source={x:Reference Page2}, Path=BindingContext.MoveTaskCommand}"
+                                    CommandParameter ="{Binding Id}" 
+                                     />
 
                                 <Label Grid.Column="1" 
                                        Text="{Binding Name}"
@@ -60,28 +106,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <CollectionView ItemsSource="{Binding tasks}" 
-                        Grid.Row="0" 
-                        Grid.Column="0"
-                        Margin="0,10,0,0">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10">
-                        <Border StrokeShape="RoundRectangle 10" 
-                                BackgroundColor="{StaticResource White}"
-                                Stroke="#A1BC98"
-                                StrokeThickness="1"
-                                Padding="15">
-                            <Label Text="{Binding Name}"
-                                    VerticalOptions="Center"
-                                    LineBreakMode="WordWrap"
-                                    TextColor="{StaticResource TextDark}" />
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
+        <!-- Bottom -->
         <Grid Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="{StaticResource PrimaryLight}">
             <StackLayout VerticalOptions="Center" Spacing="5">
                 <Entry x:Name="entry"

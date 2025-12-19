@@ -11,7 +11,6 @@ namespace Elevate.ViewModels
     public partial class TodaysTaskViewModel : ObservableObject
     {
         private ElevateTaskService _taskService;
-        private ElevateTimeService _timeService;
 
         [ObservableProperty]
         private ObservableCollection<IElevateTaskComponent> tasks;
@@ -24,11 +23,9 @@ namespace Elevate.ViewModels
 
         [ObservableProperty]
         private DayOfWeek weekday;
-        public TodaysTaskViewModel(ElevateTaskService taskService, ElevateTimeService taskService1)
+        public TodaysTaskViewModel(ElevateTaskService taskService)
         {
-            _timeService = taskService1;
             _taskService = taskService;
-            Weekday = taskService1.GetDayOfTheWeek();
             Routine2 = new ObservableCollection<IElevateTaskComponent>(); // Initialize Routine2 as a *new* collection
             UpdateTodaysTask();
         }

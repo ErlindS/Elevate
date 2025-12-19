@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Xml.Linq;
 using SQLite;
+using System.Collections.ObjectModel;
 
 namespace Elevate.Models
 {
@@ -8,10 +9,16 @@ namespace Elevate.Models
     //D2DCB6
     //A1BC98
     //778873
-    public partial class ElevateTask : ObservableObject, IElevateTaskComponent // Make it observable
+    public partial class ElevateTask : ObservableObject, IElevateTaskComponent
     {
-        public string Name { get; set; }
+        [ObservableProperty]
+        private string name;
 
-        public List<IElevateTaskComponent> SubTasks { get; set; } = new List<IElevateTaskComponent>();
+        [ObservableProperty]
+        private int id;
+
+        public ObservableCollection<IElevateTaskComponent> SubTasks { get; }
+            = new ObservableCollection<IElevateTaskComponent>();
     }
+
 }

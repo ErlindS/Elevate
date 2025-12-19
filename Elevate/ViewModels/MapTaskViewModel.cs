@@ -11,7 +11,6 @@ namespace Elevate.ViewModels
     public partial class MapTaskViewModel : ObservableObject
     {
         private ElevateTaskService _taskService;
-        private ElevateTimeService _weekService;
 
         [ObservableProperty]
         private ObservableCollection<string> weekdays;
@@ -28,7 +27,7 @@ namespace Elevate.ViewModels
         [ObservableProperty]
         private TimeSpan selectedEndingTime;
 
-        public MapTaskViewModel(ElevateTaskService taskService, ElevateTimeService weekService)
+        public MapTaskViewModel(ElevateTaskService taskService)
         {
         }
     }

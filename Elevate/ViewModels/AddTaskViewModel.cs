@@ -15,25 +15,13 @@ namespace Elevate.ViewModels
         [ObservableProperty]
         private ElevateTaskService _taskService = new();
 
-        public ObservableCollection<ElevateTask> tasks { get; set; } = new();
-
         [ObservableProperty]
-        private ObservableCollection<ElevateTask> tasksnewTask;
+        private ElevateTask _tasks = new();
 
         public AddTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
-            LoadTasks();
-        }
-
-        private void LoadTasks()
-        {
-            // Populate the collection from your service
-            var data = _taskService;
-            foreach (var task in data.AllTasks)
-            {
-                tasks.Add((ElevateTask)task);
-            }
+            _tasks = _taskService.unsortedTasks;
         }
 
         [RelayCommand]
@@ -41,13 +29,21 @@ namespace Elevate.ViewModels
         {
             ElevateTask newTask = new ElevateTask
             {
-                Name = "test"
+                Name = _newTodoText,
+                Id = UniqueIdGenerator.GenerateNewId()
             };
 
-            _taskService.AllTasks.Add(newTask);
-            tasks.Add(newTask);
-            Debug.WriteLine(newTask.Name);
-            Console.WriteLine(newTask.Name);
+            _tasks.SubTasks.Add(newTask);
+        }
+
+        [RelayCommand]
+        private void DeleteItem(int id)
+        {
+            var task = _tasks.SubTasks.FirstOrDefault(t => t.Id == id);
+            if (task == null)
+                return; 
+
+            _tasks.SubTasks.Remove(task);
         }
 
     }
