@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:Elevate.ViewModels"
-             xmlns:models="clr-namespace:Elevate.Models"
-             x:DataType="viewmodels:MapTaskViewModel"
-             x:Class="Elevate.MapTaskPage">
+<ContentPage
+    x:Class="Elevate.MapTaskPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Elevate.Models"
+    xmlns:viewmodels="clr-namespace:Elevate.ViewModels"
+    x:DataType="viewmodels:MapTaskViewModel">
     <!--
     <Grid ColumnDefinitions="auto,auto,auto,auto,auto,auto,auto,*"
       RowDefinitions="auto,*">
@@ -103,5 +104,5 @@
 
 </Grid>
     -->
-    
+
 </ContentPage>
