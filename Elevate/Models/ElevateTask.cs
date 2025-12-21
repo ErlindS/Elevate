@@ -17,6 +17,9 @@ namespace Elevate.Models
         [ObservableProperty]
         private int id;
 
+        [ObservableProperty]
+        private IElevateTaskComponent parentTask;
+
         public ObservableCollection<IElevateTaskComponent> SubTasks { get; }
             = new ObservableCollection<IElevateTaskComponent>();
     }

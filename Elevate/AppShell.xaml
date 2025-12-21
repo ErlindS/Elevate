@@ -4,32 +4,36 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Elevate"
-    Shell.FlyoutBehavior="Locked"
     Title="Elevate"
     BackgroundColor="White"
     FlyoutBackgroundColor="#778873"
-    TitleColor="#778873"
-    >
-    
+    Shell.FlyoutBehavior="Locked"
+    TitleColor="#778873">
+
 
     <ShellContent
-    Title="Todays Task"
-    ContentTemplate="{DataTemplate local:TodaysTaskPage}"
-    Route="TodaysTaskPage" />
+        Title="Todays Task"
+        ContentTemplate="{DataTemplate local:TodaysTaskPage}"
+        Route="TodaysTaskPage" />
 
     <ShellContent
-    Title="Add Task"
-    ContentTemplate="{DataTemplate local:AddTaskPage}"
-    Route="AddTaskPage" />
+        Title="Add Task"
+        ContentTemplate="{DataTemplate local:AddTaskPage}"
+        Route="AddTaskPage" />
 
     <ShellContent
-    Title="Combine Tasks"
-    ContentTemplate="{DataTemplate local:CombineTaskPage}"
-    Route="CombineTaskPage" />
+        Title="Combine Tasks"
+        ContentTemplate="{DataTemplate local:CombineTaskPage}"
+        Route="CombineTaskPage" />
 
     <ShellContent
-    Title="Task Mapping"
-    ContentTemplate="{DataTemplate local:MapTaskPage}"
-    Route="MapTaskPage" />
+        Title="Task Mapping"
+        ContentTemplate="{DataTemplate local:MapTaskPage}"
+        Route="MapTaskPage" />
+
+    <ShellContent
+        Title="Export"
+        ContentTemplate="{DataTemplate local:ExportPage}"
+        Route="ExportPage" />
 
 </Shell>

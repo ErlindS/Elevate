@@ -64,7 +64,7 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
-		<PackageReference Include="MindFusion.Scheduling" Version="5.8.4" />
+		<PackageReference Include="QuestPDF" Version="2025.12.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.11" />
 	</ItemGroup>
@@ -79,9 +79,15 @@
 	  <Compile Update="Views\AddTaskPage.xaml.cs">
 	    <DependentUpon>AddTaskPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\ExportPage.xaml.cs">
+	    <DependentUpon>ExportPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\ExportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\TodaysTaskPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

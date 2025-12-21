@@ -3,11 +3,10 @@ using Elevate.ViewModels;
 
 namespace Elevate
 {
-    public partial class TodaysTaskPage : ContentPage
+    public partial class ExportPage : ContentPage
     {
-        public TodaysTaskPage(TodaysTaskViewModel viewModel)
+        public ExportPage(ExportViewModel viewModel)
         {
-            
         }
     }
 }

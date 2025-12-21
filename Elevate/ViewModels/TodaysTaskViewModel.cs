@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
 using Elevate.Services;
-using MindFusion.Scheduling.WinForms;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 

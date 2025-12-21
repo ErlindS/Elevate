@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Elevate.ExportPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="Page4"
+    BackgroundColor="#F5F7F5">
+
+    <Button Margin="10" BackgroundColor="{StaticResource PrimaryDark}" />
+
+</ContentPage>

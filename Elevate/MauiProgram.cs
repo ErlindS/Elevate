@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
-using MindFusion.Scheduling;
 using Elevate.Services;
 using Elevate.ViewModels;
 
@@ -33,6 +32,7 @@ namespace Elevate
             builder.Services.AddTransient<CombineTaskViewModel>();
             builder.Services.AddTransient<MapTaskViewModel>();
             builder.Services.AddTransient<TodaysTaskViewModel>();
+            builder.Services.AddTransient<ExportViewModel>();
 
 
             //Pages
@@ -40,6 +40,7 @@ namespace Elevate
             builder.Services.AddTransient<CombineTaskPage>();
             builder.Services.AddTransient<MapTaskPage>();
             builder.Services.AddTransient<TodaysTaskPage>();
+            builder.Services.AddTransient<ExportPage>();
 
 
 #if DEBUG
