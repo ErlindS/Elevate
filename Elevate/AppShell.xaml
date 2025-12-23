@@ -27,11 +27,6 @@
         Route="CombineTaskPage" />
 
     <ShellContent
-        Title="Task Mapping"
-        ContentTemplate="{DataTemplate local:MapTaskPage}"
-        Route="MapTaskPage" />
-
-    <ShellContent
         Title="Export"
         ContentTemplate="{DataTemplate local:ExportPage}"
         Route="ExportPage" />

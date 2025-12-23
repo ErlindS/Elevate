@@ -7,6 +7,8 @@ namespace Elevate
     {
         public ExportPage(ExportViewModel viewModel)
         {
+            InitializeComponent();
+            BindingContext = viewModel;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Elevate.Models
         [ObservableProperty]
         private IElevateTaskComponent parentTask;
 
+        [LiteDB.BsonIgnore]
         public ObservableCollection<IElevateTaskComponent> SubTasks { get; }
             = new ObservableCollection<IElevateTaskComponent>();
     }

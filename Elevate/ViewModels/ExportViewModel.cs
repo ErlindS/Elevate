@@ -15,11 +15,13 @@ namespace Elevate.ViewModels
 {
     public partial class ExportViewModel : ObservableObject, IDocument
     {
-        private readonly ElevateTask _rootTasks;
+        private ElevateTask _rootTasks;
+        public LiteDbService db;
 
-        public ExportViewModel(ElevateTaskService taskService)
+        public ExportViewModel(ElevateTaskService taskService, LiteDbService dbService)
         {
             _rootTasks = taskService.sortedTasks;
+            db = dbService;
         }
 
         [RelayCommand]
@@ -43,6 +45,25 @@ namespace Elevate.ViewModels
 
         }
 
+        [RelayCommand]
+        public void Load() { 
+            List<ElevateTask> loadedTasks = db.GetAllRootTasks();
+            if (loadedTasks != null)
+            {
+                // SubTasks ist eine ObservableCollection<IElevateTaskComponent> und schreibgeschützt.
+                // Lösung: Vorherige Einträge entfernen und neue hinzufügen.
+                _rootTasks.SubTasks.Clear();
+                foreach (var task in loadedTasks)
+                {
+                    _rootTasks.SubTasks.Add(task);
+                }
+            }
+        }
+
+        [RelayCommand]
+        public void Save() { 
+            db.SaveTaskTree(_rootTasks);
+        }
 
         public void Compose(IDocumentContainer container)
         {
@@ -85,7 +106,7 @@ namespace Elevate.ViewModels
                     });
             });
         }
-
+        
         // Recursive Helper Method
         private void RenderTaskNode(QuestPDF.Infrastructure.IContainer container, IElevateTaskComponent task)
         {

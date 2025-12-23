@@ -23,14 +23,17 @@ namespace Elevate
             //A1BC98
             //778873
             //Services
+            //
+
             builder.Services.AddSingleton<ElevateTaskService>();
+            builder.Services.AddSingleton<LiteDbService>();
             //builder.Services.AddSingleton<ElevateTimeService>();
 
 
             //ViewModels
             builder.Services.AddTransient<AddTaskViewModel>();
             builder.Services.AddTransient<CombineTaskViewModel>();
-            builder.Services.AddTransient<MapTaskViewModel>();
+            //builder.Services.AddTransient<MapTaskViewModel>();
             builder.Services.AddTransient<TodaysTaskViewModel>();
             builder.Services.AddTransient<ExportViewModel>();
 
@@ -38,7 +41,7 @@ namespace Elevate
             //Pages
             builder.Services.AddTransient<AddTaskPage>();
             builder.Services.AddTransient<CombineTaskPage>();
-            builder.Services.AddTransient<MapTaskPage>();
+            //builder.Services.AddTransient<MapTaskPage>();
             builder.Services.AddTransient<TodaysTaskPage>();
             builder.Services.AddTransient<ExportPage>();
 
@@ -46,7 +49,6 @@ namespace Elevate
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-
             return builder.Build();
         }
     }
