@@ -41,10 +41,14 @@ namespace Elevate.ViewModels
         [RelayCommand]
         private void MoveTask(int id) 
         {
-            var task = Unsortedtasks.SubTasks.FirstOrDefault(t => t.Id == id);
+            ElevateTask? task = Unsortedtasks.SubTasks.FirstOrDefault(t => t.Id == id) as ElevateTask;
 
             if (task == null)
                 return;
+
+            if (Sortedtasks.SubTasks == null) {
+                Sortedtasks.SubTasks = new();
+            }
 
             Sortedtasks.SubTasks.Add(task);
 
@@ -58,12 +62,12 @@ namespace Elevate.ViewModels
         [RelayCommand]
         private void Base(int id)
         {
-            var task = Sortedtasks.SubTasks.FirstOrDefault(t => t.Id == id);
+            ElevateTask? task = Sortedtasks.SubTasks.FirstOrDefault(t => t.Id == id) as ElevateTask;
 
             if (task == null)
                 return;
 
-            Sortedtasks = (ElevateTask)task;
+            Sortedtasks = task;
         }
 
         [RelayCommand]
@@ -80,7 +84,6 @@ namespace Elevate.ViewModels
             var task = Sortedtasks.SubTasks.FirstOrDefault(t => t.Id == id);
             if (task == null)
                 return;
-            //_taskService.unsortedTasks.SubTasks.RemoveAll(t => t.id == id);
             TaskService.unsortedTasks.SubTasks.Add(task);
             TaskService.sortedTasks.SubTasks.Remove(task);
         }

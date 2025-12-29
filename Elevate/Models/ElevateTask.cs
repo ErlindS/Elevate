@@ -1,7 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Xml.Linq;
 using SQLite;
 using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
+using System.Xml.Linq;
 
 namespace Elevate.Models
 {
@@ -18,11 +19,10 @@ namespace Elevate.Models
         private int id;
 
         [ObservableProperty]
+        [JsonIgnore]
         private IElevateTaskComponent parentTask;
 
-        [LiteDB.BsonIgnore]
-        public ObservableCollection<IElevateTaskComponent> SubTasks { get; }
-            = new ObservableCollection<IElevateTaskComponent>();
+        [ObservableProperty]
+        private List<IElevateTaskComponent> subTasks;
     }
-
 }

@@ -33,7 +33,11 @@ namespace Elevate.ViewModels
                 Id = UniqueIdGenerator.GenerateNewId()
             };
 
-            _tasks.SubTasks.Add(newTask);
+            if(Tasks.SubTasks == null)
+            {
+                Tasks.SubTasks = new();
+            }
+            Tasks.SubTasks.Add(newTask);
         }
 
         [RelayCommand]

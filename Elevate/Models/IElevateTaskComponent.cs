@@ -12,7 +12,7 @@ namespace Elevate.Models
         string Name { get; }
         int Id { get; }
         IElevateTaskComponent ParentTask { get; }
-        ObservableCollection<IElevateTaskComponent> SubTasks { get; }
+        List<IElevateTaskComponent> SubTasks { get; }
     }
 
 }

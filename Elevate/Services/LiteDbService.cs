@@ -10,7 +10,8 @@ namespace Elevate.Services
 {
     public class LiteDbService
     {
-        private readonly string _dbPath = "C:\\Users\\Diu\\source\\repos\\ErlindS\\Elevate\\Elevate\\Database.db3";
+        private readonly string _dbPath = "Database.db3";
+        //C:\Users\erlin\source\repos\Elevate\Elevate\Database.db3
 
         public void SaveTaskTree(ElevateTask rootTask)
         {

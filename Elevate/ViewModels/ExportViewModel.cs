@@ -5,10 +5,10 @@ using Elevate.Services;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 
 namespace Elevate.ViewModels
@@ -26,43 +26,26 @@ namespace Elevate.ViewModels
 
         [RelayCommand]
         public void generate() {
-            // REQUIRED: Configure QuestPDF License (Community is free for many use cases)
             QuestPDF.Settings.License = LicenseType.Community;
 
-            // 2. Generate PDF
             var filePath = "TaskReport.pdf";
-            // Fix: Use 'this' (the ExportViewModel, which implements IDocument) as the document
-            this.GeneratePdf(filePath);
 
-            //var filePath = "TaskReport.pdf";
-            //var document = new TaskPdfDocument(myData);
-            //document.GeneratePdf(filePath);
+            this.GeneratePdf(filePath);
 
             Console.WriteLine($"PDF generated successfully at: {Path.GetFullPath(filePath)}");
 
-            // Optional: Open the file automatically on Windows
             try { Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true }); } catch { }
 
         }
 
         [RelayCommand]
-        public void Load() { 
-            List<ElevateTask> loadedTasks = db.GetAllRootTasks();
-            if (loadedTasks != null)
-            {
-                // SubTasks ist eine ObservableCollection<IElevateTaskComponent> und schreibgeschützt.
-                // Lösung: Vorherige Einträge entfernen und neue hinzufügen.
-                _rootTasks.SubTasks.Clear();
-                foreach (var task in loadedTasks)
-                {
-                    _rootTasks.SubTasks.Add(task);
-                }
-            }
+        public async void Load() {
+            _rootTasks = await ElevateTaskStorage.LoadAsync();
         }
 
         [RelayCommand]
-        public void Save() { 
-            db.SaveTaskTree(_rootTasks);
+        public async void Save() {
+            await ElevateTaskStorage.SaveAsync(_rootTasks);
         }
 
         public void Compose(IDocumentContainer container)
