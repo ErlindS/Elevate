@@ -1,7 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui;
-using Elevate.Services;
+﻿using Elevate.Services;
 using Elevate.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace Elevate
 {

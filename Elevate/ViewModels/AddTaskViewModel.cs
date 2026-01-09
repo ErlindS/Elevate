@@ -2,8 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
 using Elevate.Services;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace Elevate.ViewModels
 {
@@ -33,7 +31,7 @@ namespace Elevate.ViewModels
                 Id = UniqueIdGenerator.GenerateNewId()
             };
 
-            if(Tasks.SubTasks == null)
+            if (Tasks.SubTasks == null)
             {
                 Tasks.SubTasks = new();
             }
@@ -45,7 +43,7 @@ namespace Elevate.ViewModels
         {
             var task = _tasks.SubTasks.FirstOrDefault(t => t.Id == id);
             if (task == null)
-                return; 
+                return;
 
             _tasks.SubTasks.Remove(task);
         }

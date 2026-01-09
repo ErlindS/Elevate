@@ -1,8 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using SQLite;
-using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
-using System.Xml.Linq;
 
 namespace Elevate.Models
 {

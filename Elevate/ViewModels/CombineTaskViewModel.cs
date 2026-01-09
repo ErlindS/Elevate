@@ -2,11 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
 using Elevate.Services;
-using System.Collections.ObjectModel;
 
 namespace Elevate.ViewModels
 {
-	
+
     public partial class CombineTaskViewModel : ObservableObject
     {
         [ObservableProperty]
@@ -28,25 +27,26 @@ namespace Elevate.ViewModels
             _taskService = taskService;
             _unsortedtasks = taskService.unsortedTasks;
             _sortedtasks = taskService.sortedTasks;
-            _sortedtasks.Name = "Sorted Tasks"; 
+            _sortedtasks.Name = "Sorted Tasks";
         }
 
         [RelayCommand]
         private void AddItem()
         {
-            
+
         }
 
         //Moves a command
         [RelayCommand]
-        private void MoveTask(int id) 
+        private void MoveTask(int id)
         {
             ElevateTask? task = Unsortedtasks.SubTasks.FirstOrDefault(t => t.Id == id) as ElevateTask;
 
             if (task == null)
                 return;
 
-            if (Sortedtasks.SubTasks == null) {
+            if (Sortedtasks.SubTasks == null)
+            {
                 Sortedtasks.SubTasks = new();
             }
 
@@ -73,7 +73,8 @@ namespace Elevate.ViewModels
         [RelayCommand]
         private void Out()
         {
-            if (Sortedtasks.ParentTask != null) {
+            if (Sortedtasks.ParentTask != null)
+            {
                 Sortedtasks = (ElevateTask)Sortedtasks.ParentTask;
             }
         }
@@ -87,5 +88,5 @@ namespace Elevate.ViewModels
             TaskService.unsortedTasks.SubTasks.Add(task);
             TaskService.sortedTasks.SubTasks.Remove(task);
         }
-    }    
+    }
 }

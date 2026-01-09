@@ -3,13 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
 using Elevate.Services;
 using QuestPDF.Fluent;
-using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 
 namespace Elevate.ViewModels
 {
@@ -25,7 +20,8 @@ namespace Elevate.ViewModels
         }
 
         [RelayCommand]
-        public void generate() {
+        public void generate()
+        {
             QuestPDF.Settings.License = LicenseType.Community;
 
             var filePath = "TaskReport.pdf";
@@ -39,12 +35,14 @@ namespace Elevate.ViewModels
         }
 
         [RelayCommand]
-        public async void Load() {
+        public async void Load()
+        {
             _rootTasks = await ElevateTaskStorage.LoadAsync();
         }
 
         [RelayCommand]
-        public async void Save() {
+        public async void Save()
+        {
             await ElevateTaskStorage.SaveAsync(_rootTasks);
         }
 
@@ -89,7 +87,7 @@ namespace Elevate.ViewModels
                     });
             });
         }
-        
+
         // Recursive Helper Method
         private void RenderTaskNode(QuestPDF.Infrastructure.IContainer container, IElevateTaskComponent task)
         {

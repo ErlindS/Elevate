@@ -30,7 +30,8 @@ namespace Elevate.ViewModels
         }
 
         [RelayCommand]
-        public void UpdateTodaysTask() {
+        public void UpdateTodaysTask()
+        {
             Debug.WriteLine("Does button work3");
 
             // Clear the Routine collection to populate it with fresh data

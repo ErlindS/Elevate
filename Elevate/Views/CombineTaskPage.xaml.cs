@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls; // Make sure this is included for ContentPage
-using Elevate.ViewModels;
-using Elevate.Models;
+﻿using Elevate.ViewModels;
 namespace Elevate
 {
     public partial class CombineTaskPage : ContentPage
@@ -8,7 +6,7 @@ namespace Elevate
         public CombineTaskPage(CombineTaskViewModel viewModel)
         {
             InitializeComponent();
-            BindingContext = viewModel; 
+            BindingContext = viewModel;
         }
 
 

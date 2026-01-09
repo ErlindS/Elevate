@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls; // Make sure this is included for ContentPage
-using Elevate.ViewModels;
+﻿using Elevate.ViewModels;
 
 namespace Elevate
 {
@@ -7,7 +6,7 @@ namespace Elevate
     {
         public TodaysTaskPage(TodaysTaskViewModel viewModel)
         {
-            
+
         }
     }
 }

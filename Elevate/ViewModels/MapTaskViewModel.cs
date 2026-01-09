@@ -1,10 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Maui.Layouts;
 using Elevate.Models;
 using Elevate.Services;
 using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Linq;
 
 namespace Elevate.ViewModels
 {
