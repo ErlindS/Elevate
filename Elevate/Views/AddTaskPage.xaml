@@ -95,10 +95,16 @@
                                 Offset="0,2" />
                         </Border.Shadow>
 
-                        <Grid ColumnDefinitions="*, Auto">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+
+                            <CheckBox
+                                Grid.Column="0"
+                                IsChecked="{Binding IsDone}"
+                                Color="{StaticResource PrimaryDark}"
+                                VerticalOptions="Center" />
 
                             <Label
-                                Grid.Column="0"
+                                Grid.Column="1"
                                 FontSize="16"
                                 LineBreakMode="TailTruncation"
                                 Text="{Binding Name}"
@@ -106,11 +112,11 @@
                                 VerticalOptions="Center" />
 
                             <Button
-                                Grid.Column="1"
+                                Grid.Column="2"
                                 Margin="10"
                                 BackgroundColor="{StaticResource PrimaryDark}"
                                 Command="{Binding Source={x:Reference Page}, Path=BindingContext.DeleteItemCommand}"
-                                CommandParameter="{Binding id}"
+                                CommandParameter="{Binding Id}"
                                 CornerRadius="20"
                                 FontAttributes="Bold"
                                 HeightRequest="40"

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 
 namespace Elevate.Models
@@ -16,10 +17,13 @@ namespace Elevate.Models
         private int id;
 
         [ObservableProperty]
+        private bool isDone;
+
+        [ObservableProperty]
         [JsonIgnore]
         private IElevateTaskComponent parentTask;
 
         [ObservableProperty]
-        private List<IElevateTaskComponent> subTasks;
+        private ObservableCollection<IElevateTaskComponent> subTasks = new();
     }
 }

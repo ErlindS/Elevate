@@ -6,7 +6,8 @@ namespace Elevate
     {
         public TodaysTaskPage(TodaysTaskViewModel viewModel)
         {
-
+            InitializeComponent();
+            BindingContext = viewModel;
         }
     }
 }

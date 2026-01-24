@@ -11,50 +11,131 @@
         <Color x:Key="PrimaryLight">#A1BC98</Color>
         <Color x:Key="TextDark">#4A4A4A</Color>
         <Color x:Key="White">#FFFFFF</Color>
+        <Color x:Key="Success">#4CAF50</Color>
         <Color x:Key="Error">#E57373</Color>
     </ContentPage.Resources>
 
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            
+            <!-- Header -->
+            <Label 
+                Text="Export &amp; Import" 
+                FontSize="28" 
+                FontAttributes="Bold"
+                TextColor="{StaticResource PrimaryDark}"
+                HorizontalOptions="Center"
+                Margin="0,0,0,10"/>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+            <!-- Status Message -->
+            <Border 
+                StrokeShape="RoundRectangle 10"
+                Padding="15"
+                BackgroundColor="#E8F5E9"
+                Stroke="{StaticResource PrimaryLight}">
+                <Label 
+                    Text="{Binding StatusMessage}"
+                    FontSize="14"
+                    HorizontalTextAlignment="Center"
+                    TextColor="{StaticResource TextDark}"/>
+            </Border>
 
+            <!-- Quick Save/Load Section -->
+            <Label 
+                Text="Quick Save/Load" 
+                FontSize="18" 
+                FontAttributes="Bold"
+                TextColor="{StaticResource TextDark}"
+                Margin="0,10,0,5"/>
+            
+            <Label 
+                Text="Save and load from default app location"
+                FontSize="12"
+                TextColor="{StaticResource TextDark}"
+                Opacity="0.7"/>
 
-        <Button
-            Grid.Row="0"
-            Margin="10"
-            BackgroundColor="{StaticResource PrimaryDark}"
-            Command="{Binding Source={x:Reference Page4}, Path=BindingContext.SaveCommand}"
-            CornerRadius="20"
-            FontAttributes="Bold"
-            HeightRequest="40"
-            Text="Save"
-            TextColor="{StaticResource White}" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource PrimaryDark}"
+                    Command="{Binding SaveCommand}"
+                    CornerRadius="15"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    Text="💾 Save"
+                    TextColor="{StaticResource White}" />
 
-        <Button
-            Grid.Row="1"
-            Margin="10"
-            BackgroundColor="{StaticResource PrimaryDark}"
-            Command="{Binding Source={x:Reference Page4}, Path=BindingContext.LoadCommand}"
-            CornerRadius="20"
-            FontAttributes="Bold"
-            HeightRequest="40"
-            Text="Load"
-            TextColor="{StaticResource White}" />
+                <Button
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource PrimaryLight}"
+                    Command="{Binding LoadCommand}"
+                    CornerRadius="15"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    Text="📂 Load"
+                    TextColor="{StaticResource White}" />
+            </Grid>
 
-        <Button
-            Grid.Row="2"
-            Margin="10"
-            BackgroundColor="{StaticResource PrimaryDark}"
-            Command="{Binding Source={x:Reference Page4}, Path=BindingContext.generateCommand}"
-            CornerRadius="20"
-            FontAttributes="Bold"
-            HeightRequest="40"
-            Text="Export to PDF"
-            TextColor="{StaticResource White}" />
-    </Grid>
+            <!-- Custom File Section -->
+            <Label 
+                Text="Custom File Location" 
+                FontSize="18" 
+                FontAttributes="Bold"
+                TextColor="{StaticResource TextDark}"
+                Margin="0,20,0,5"/>
+            
+            <Label 
+                Text="Import from or export to a specific file"
+                FontSize="12"
+                TextColor="{StaticResource TextDark}"
+                Opacity="0.7"/>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource PrimaryDark}"
+                    Command="{Binding SaveToFileCommand}"
+                    CornerRadius="15"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    Text="📤 Export..."
+                    TextColor="{StaticResource White}" />
+
+                <Button
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource PrimaryLight}"
+                    Command="{Binding LoadFromFileCommand}"
+                    CornerRadius="15"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    Text="📥 Import..."
+                    TextColor="{StaticResource White}" />
+            </Grid>
+
+            <!-- PDF Export Section -->
+            <Label 
+                Text="Reports" 
+                FontSize="18" 
+                FontAttributes="Bold"
+                TextColor="{StaticResource TextDark}"
+                Margin="0,20,0,5"/>
+            
+            <Label 
+                Text="Generate a printable task report"
+                FontSize="12"
+                TextColor="{StaticResource TextDark}"
+                Opacity="0.7"/>
+
+            <Button
+                BackgroundColor="{StaticResource PrimaryDark}"
+                Command="{Binding GeneratePdfCommand}"
+                CornerRadius="15"
+                FontAttributes="Bold"
+                HeightRequest="50"
+                Text="📄 Export to PDF"
+                TextColor="{StaticResource White}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

@@ -10,40 +10,185 @@ namespace Elevate.ViewModels
 {
     public partial class ExportViewModel : ObservableObject, IDocument
     {
-        private ElevateTask _rootTasks;
+        private readonly ElevateTaskService _taskService;
         public LiteDbService db;
+
+        [ObservableProperty]
+        private string statusMessage = string.Empty;
+
+        [ObservableProperty]
+        private bool isSuccess = true;
 
         public ExportViewModel(ElevateTaskService taskService, LiteDbService dbService)
         {
-            _rootTasks = taskService.sortedTasks;
+            _taskService = taskService;
             db = dbService;
         }
 
         [RelayCommand]
-        public void generate()
+        public void GeneratePdf()
         {
-            QuestPDF.Settings.License = LicenseType.Community;
+            try
+            {
+                StatusMessage = "Generating PDF...";
+                IsSuccess = true;
 
-            var filePath = "TaskReport.pdf";
+                QuestPDF.Settings.License = LicenseType.Community;
 
-            this.GeneratePdf(filePath);
+                var filePath = Path.Combine(FileSystem.AppDataDirectory, "TaskReport.pdf");
 
-            Console.WriteLine($"PDF generated successfully at: {Path.GetFullPath(filePath)}");
+                // Create a simple PDF document directly
+                QuestPDF.Fluent.Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        page.Margin(50);
+                        page.Header().Text("Task Report").FontSize(24).Bold();
+                        page.Content().Column(col =>
+                        {
+                            col.Item().Text($"Generated: {DateTime.Now}");
+                            col.Item().Text("");
+                            
+                            if (_taskService.sortedTasks?.SubTasks != null)
+                            {
+                                foreach (var task in _taskService.sortedTasks.SubTasks)
+                                {
+                                    col.Item().Text($"• {task.Name ?? "Unnamed"} (ID: {task.Id})");
+                                }
+                            }
+                            else
+                            {
+                                col.Item().Text("No tasks to display.");
+                            }
+                        });
+                    });
+                }).GeneratePdf(filePath);
 
-            try { Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true }); } catch { }
+                StatusMessage = $"PDF saved: {filePath}";
+                IsSuccess = true;
 
+                try { Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true }); } catch { }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Failed: {ex.Message}";
+                IsSuccess = false;
+            }
         }
 
         [RelayCommand]
-        public async void Load()
+        public async Task Load()
         {
-            _rootTasks = await ElevateTaskStorage.LoadAsync();
+            try
+            {
+                var success = await ElevateTaskStorage.LoadAsync(_taskService);
+                if (success)
+                {
+                    StatusMessage = "Tasks loaded successfully!";
+                    IsSuccess = true;
+                }
+                else
+                {
+                    StatusMessage = "No saved data found.";
+                    IsSuccess = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Load failed: {ex.Message}";
+                IsSuccess = false;
+            }
         }
 
         [RelayCommand]
-        public async void Save()
+        public async Task Save()
         {
-            await ElevateTaskStorage.SaveAsync(_rootTasks);
+            try
+            {
+                await ElevateTaskStorage.SaveAsync(_taskService);
+                StatusMessage = $"Saved to: {ElevateTaskStorage.GetDefaultFilePath()}";
+                IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Save failed: {ex.Message}";
+                IsSuccess = false;
+            }
+        }
+
+        [RelayCommand]
+        public async Task LoadFromFile()
+        {
+            try
+            {
+                var result = await FilePicker.Default.PickAsync(new PickOptions
+                {
+                    PickerTitle = "Select a JSON file to load",
+                    FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+                    {
+                        { DevicePlatform.WinUI, new[] { ".json" } },
+                        { DevicePlatform.Android, new[] { "application/json" } },
+                        { DevicePlatform.iOS, new[] { "public.json" } },
+                        { DevicePlatform.MacCatalyst, new[] { "public.json" } }
+                    })
+                });
+
+                if (result == null)
+                {
+                    StatusMessage = "No file selected.";
+                    IsSuccess = false;
+                    return;
+                }
+
+                var success = await ElevateTaskStorage.LoadFromFileAsync(result.FullPath, _taskService);
+                if (success)
+                {
+                    StatusMessage = $"Loaded from: {result.FileName}";
+                    IsSuccess = true;
+                }
+                else
+                {
+                    StatusMessage = "Failed to load file. Invalid format?";
+                    IsSuccess = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Load failed: {ex.Message}";
+                IsSuccess = false;
+            }
+        }
+
+        [RelayCommand]
+        public async Task SaveToFile()
+        {
+            try
+            {
+                // Generate default filename with timestamp
+                var fileName = $"elevate_tasks_{DateTime.Now:yyyyMMdd_HHmmss}.json";
+                var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+
+                await ElevateTaskStorage.SaveToFileAsync(filePath, _taskService);
+                
+                StatusMessage = $"Saved to: {filePath}";
+                IsSuccess = true;
+
+                // Try to open the folder
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = FileSystem.AppDataDirectory,
+                        UseShellExecute = true
+                    });
+                }
+                catch { }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Save failed: {ex.Message}";
+                IsSuccess = false;
+            }
         }
 
         public void Compose(IDocumentContainer container)
@@ -69,9 +214,12 @@ namespace Elevate.ViewModels
                     .PaddingVertical(20)
                     .Column(col =>
                     {
-                        foreach (var task in _rootTasks.SubTasks)
+                        if (_taskService.sortedTasks?.SubTasks != null)
                         {
-                            RenderTaskNode(col.Item(), task);
+                            foreach (var task in _taskService.sortedTasks.SubTasks)
+                            {
+                                RenderTaskNode(col.Item(), task);
+                            }
                         }
                     });
 
@@ -91,6 +239,8 @@ namespace Elevate.ViewModels
         // Recursive Helper Method
         private void RenderTaskNode(QuestPDF.Infrastructure.IContainer container, IElevateTaskComponent task)
         {
+            if (task == null) return;
+
             container.Column(col =>
             {
                 // Render the Task Row
@@ -106,7 +256,7 @@ namespace Elevate.ViewModels
                           .Text(task.Id.ToString()).FontSize(9).Bold();
 
                        // Task Name
-                       row.RelativeItem().PaddingLeft(10).Text(task.Name);
+                       row.RelativeItem().PaddingLeft(10).Text(task.Name ?? "Unnamed");
                    });
 
                 // Render SubTasks (Recursion)
