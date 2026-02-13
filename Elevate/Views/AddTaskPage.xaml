@@ -60,7 +60,7 @@
                     Text="{Binding NewTaskCategory}"
                     TextColor="{StaticResource TextDark}" />
 
-                <Grid ColumnDefinitions="*, Auto">
+                <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
                     <Entry
                         Grid.Column="0"
                         FontSize="14"
@@ -69,6 +69,23 @@
                         Text="{Binding NewTaskPriority}"
                         TextColor="{StaticResource TextDark}"
                         Keyboard="Numeric" />
+
+                    <Picker
+                        Grid.Column="1"
+                        FontSize="14"
+                        ItemsSource="{Binding AvailableDays}"
+                        SelectedItem="{Binding SelectedDay}"
+                        TextColor="{StaticResource TextDark}"
+                        Title="Select Day" />
+                </Grid>
+
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label
+                        Grid.Column="0"
+                        FontSize="12"
+                        Text="{Binding SelectedDay, StringFormat='Scheduled for: {0}'}"
+                        TextColor="#999"
+                        VerticalOptions="Center" />
 
                     <Button
                         Grid.Column="1"
@@ -182,12 +199,12 @@
                                     <Label
                                         FontSize="10"
                                         FontAttributes="Bold"
-                                        Text="DESCRIPTION"
+                                        Text="SCHEDULED"
                                         TextColor="#999" />
                                     <Label
                                         FontSize="12"
                                         LineBreakMode="TailTruncation"
-                                        Text="{Binding Description}"
+                                        Text="{Binding ScheduledDate, StringFormat='{0:dd.MM.yyyy}'}"
                                         TextColor="{StaticResource TextDark}" />
                                 </StackLayout>
                             </Grid>

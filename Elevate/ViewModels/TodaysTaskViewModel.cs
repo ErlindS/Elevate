@@ -3,41 +3,93 @@ using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
 using Elevate.Services;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace Elevate.ViewModels
 {
     public partial class TodaysTaskViewModel : ObservableObject
     {
-        private ElevateTaskService _taskService;
+        private readonly ElevateTaskService _taskService;
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> tasks;
+        private ObservableCollection<IElevateTaskComponent> todaysTasks = new();
 
         [ObservableProperty]
-        private ObservableCollection<IElevateTaskComponent> routine2;
+        private string todayDate = string.Empty;
 
         [ObservableProperty]
-        private bool _isDone = false;
+        private string dayName = string.Empty;
 
         [ObservableProperty]
-        private DayOfWeek weekday;
+        private int totalTaskCount = 0;
+
+        [ObservableProperty]
+        private int completedTaskCount = 0;
+
+        [ObservableProperty]
+        private double completionPercentage = 0;
+
         public TodaysTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
-            Routine2 = new ObservableCollection<IElevateTaskComponent>(); // Initialize Routine2 as a *new* collection
-            UpdateTodaysTask();
+            LoadTodaysTasks();
         }
 
         [RelayCommand]
-        public void UpdateTodaysTask()
+        private void LoadTodaysTasks()
         {
-            Debug.WriteLine("Does button work3");
+            TodaysTasks.Clear();
+            DateTime today = DateTime.Now;
+            
+            DayName = today.ToString("dddd");
+            TodayDate = today.ToString("dd.MM.yyyy");
 
-            // Clear the Routine collection to populate it with fresh data
-            Routine2.Clear(); // Also clear Routine2 if you want to repopulate it
+            var leafTasks = GetAllLeafTasks(_taskService.unsortedTasks);
 
+            foreach (var task in leafTasks)
+            {
+                if (task is ElevateTask elevateTask &&
+                    elevateTask.ScheduledDate.Date == today.Date &&
+                    elevateTask.SubTasks.Count == 0)
+                {
+                    TodaysTasks.Add(task);
+                }
+            }
+
+            CalculateStats();
+        }
+
+        [RelayCommand]
+        private void RefreshTasks()
+        {
+            LoadTodaysTasks();
+        }
+
+        private List<IElevateTaskComponent> GetAllLeafTasks(IElevateTaskComponent root)
+        {
+            var leafTasks = new List<IElevateTaskComponent>();
+
+            if (root == null) return leafTasks;
+
+            if (root.SubTasks == null || root.SubTasks.Count == 0)
+            {
+                leafTasks.Add(root);
+            }
+            else
+            {
+                foreach (var subTask in root.SubTasks)
+                {
+                    leafTasks.AddRange(GetAllLeafTasks(subTask));
+                }
+            }
+
+            return leafTasks;
+        }
+
+        private void CalculateStats()
+        {
+            TotalTaskCount = TodaysTasks.Count;
+            CompletedTaskCount = TodaysTasks.Count(t => t.IsDone);
+            CompletionPercentage = TotalTaskCount > 0 ? (double)CompletedTaskCount / TotalTaskCount * 100 : 0;
         }
     }
-
 }

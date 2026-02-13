@@ -96,6 +96,9 @@
 	  <Compile Update="Views\ExportPage.xaml.cs">
 	    <DependentUpon>ExportPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\WeeklyCalendarPage.xaml.cs">
+	    <DependentUpon>WeeklyCalendarPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -103,6 +106,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ExportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\WeeklyCalendarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\TodaysTaskPage.xaml">

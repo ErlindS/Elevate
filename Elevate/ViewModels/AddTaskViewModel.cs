@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
 using Elevate.Services;
+using System.Collections.ObjectModel;
 
 namespace Elevate.ViewModels
 {
@@ -20,6 +21,12 @@ namespace Elevate.ViewModels
         private string newTaskCategory = string.Empty;
 
         [ObservableProperty]
+        private string selectedDay = "Monday";
+
+        [ObservableProperty]
+        private ObservableCollection<string> availableDays = new();
+
+        [ObservableProperty]
         private ElevateTaskService taskService = new();
 
         [ObservableProperty]
@@ -29,6 +36,19 @@ namespace Elevate.ViewModels
         {
             TaskService = taskService;
             Tasks = taskService.unsortedTasks;
+            InitializeDays();
+        }
+
+        private void InitializeDays()
+        {
+            AvailableDays.Clear();
+            AvailableDays.Add("Monday");
+            AvailableDays.Add("Tuesday");
+            AvailableDays.Add("Wednesday");
+            AvailableDays.Add("Thursday");
+            AvailableDays.Add("Friday");
+            AvailableDays.Add("Saturday");
+            AvailableDays.Add("Sunday");
         }
 
         [RelayCommand]
@@ -37,12 +57,15 @@ namespace Elevate.ViewModels
             if (string.IsNullOrWhiteSpace(NewTodoText))
                 return;
 
+            DateTime scheduledDate = GetDateForDay(SelectedDay);
+
             ElevateTask newTask = new ElevateTask
             {
                 Name = NewTodoText,
                 Priority = NewTaskPriority,
                 Description = NewTaskDescription,
                 Category = NewTaskCategory,
+                ScheduledDate = scheduledDate,
                 Id = UniqueIdGenerator.GenerateNewId()
             };
 
@@ -57,6 +80,7 @@ namespace Elevate.ViewModels
             NewTaskPriority = 1;
             NewTaskDescription = string.Empty;
             NewTaskCategory = string.Empty;
+            SelectedDay = "Monday";
         }
 
         [RelayCommand]
@@ -67,6 +91,20 @@ namespace Elevate.ViewModels
                 return;
 
             Tasks.SubTasks.Remove(task);
+        }
+
+        private DateTime GetDateForDay(string dayName)
+        {
+            DateTime today = DateTime.Now;
+            DayOfWeek targetDay = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), dayName);
+
+            int daysAhead = (int)targetDay - (int)today.DayOfWeek;
+            if (daysAhead <= 0)
+            {
+                daysAhead += 7;
+            }
+
+            return today.AddDays(daysAhead);
         }
     }
 }

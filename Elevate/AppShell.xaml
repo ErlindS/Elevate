@@ -16,6 +16,11 @@
         Route="DashboardPage" />
 
     <ShellContent
+        Title="Weekly Calendar"
+        ContentTemplate="{DataTemplate local:WeeklyCalendarPage}"
+        Route="WeeklyCalendarPage" />
+
+    <ShellContent
         Title="Todays Task"
         ContentTemplate="{DataTemplate local:TodaysTaskPage}"
         Route="TodaysTaskPage" />

@@ -29,6 +29,9 @@ namespace Elevate.Models
         private string category;
 
         [ObservableProperty]
+        private DateTime scheduledDate = DateTime.Now;
+
+        [ObservableProperty]
         [JsonIgnore]
         private IElevateTaskComponent parentTask;
 
