@@ -35,6 +35,7 @@ namespace Elevate
             //builder.Services.AddTransient<MapTaskViewModel>();
             builder.Services.AddTransient<TodaysTaskViewModel>();
             builder.Services.AddTransient<ExportViewModel>();
+            builder.Services.AddTransient<DashboardViewModel>();
 
 
             //Pages
@@ -43,6 +44,7 @@ namespace Elevate
             //builder.Services.AddTransient<MapTaskPage>();
             builder.Services.AddTransient<TodaysTaskPage>();
             builder.Services.AddTransient<ExportPage>();
+            builder.Services.AddTransient<DashboardPage>();
 
 
 #if DEBUG

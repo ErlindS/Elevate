@@ -10,6 +10,10 @@
     Shell.FlyoutBehavior="Locked"
     TitleColor="#778873">
 
+    <ShellContent
+        Title="Dashboard"
+        ContentTemplate="{DataTemplate local:DashboardPage}"
+        Route="DashboardPage" />
 
     <ShellContent
         Title="Todays Task"

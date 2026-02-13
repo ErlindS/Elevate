@@ -8,26 +8,41 @@ namespace Elevate.ViewModels
     public partial class AddTaskViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _newTodoText = "string.Empty"; // Holds the text for the new task entry
+        private string newTodoText = string.Empty;
 
         [ObservableProperty]
-        private ElevateTaskService _taskService = new();
+        private int newTaskPriority = 1;
 
         [ObservableProperty]
-        private ElevateTask _tasks = new();
+        private string newTaskDescription = string.Empty;
+
+        [ObservableProperty]
+        private string newTaskCategory = string.Empty;
+
+        [ObservableProperty]
+        private ElevateTaskService taskService = new();
+
+        [ObservableProperty]
+        private ElevateTask tasks = new();
 
         public AddTaskViewModel(ElevateTaskService taskService)
         {
-            _taskService = taskService;
-            _tasks = _taskService.unsortedTasks;
+            TaskService = taskService;
+            Tasks = taskService.unsortedTasks;
         }
 
         [RelayCommand]
         private void AddItem()
         {
+            if (string.IsNullOrWhiteSpace(NewTodoText))
+                return;
+
             ElevateTask newTask = new ElevateTask
             {
-                Name = _newTodoText,
+                Name = NewTodoText,
+                Priority = NewTaskPriority,
+                Description = NewTaskDescription,
+                Category = NewTaskCategory,
                 Id = UniqueIdGenerator.GenerateNewId()
             };
 
@@ -36,18 +51,22 @@ namespace Elevate.ViewModels
                 Tasks.SubTasks = new();
             }
             Tasks.SubTasks.Add(newTask);
+
+            // Reset form fields
+            NewTodoText = string.Empty;
+            NewTaskPriority = 1;
+            NewTaskDescription = string.Empty;
+            NewTaskCategory = string.Empty;
         }
 
         [RelayCommand]
         private void DeleteItem(int id)
         {
-            var task = _tasks.SubTasks.FirstOrDefault(t => t.Id == id);
+            var task = Tasks.SubTasks.FirstOrDefault(t => t.Id == id);
             if (task == null)
                 return;
 
-            _tasks.SubTasks.Remove(task);
+            Tasks.SubTasks.Remove(task);
         }
-
     }
-
 }

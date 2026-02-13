@@ -9,8 +9,11 @@ namespace Elevate.Models
     {
         string Name { get; }
         int Id { get; }
+        bool IsDone { get; }
+        int Priority { get; }
+        string Description { get; }
+        string Category { get; }
         IElevateTaskComponent ParentTask { get; }
         ObservableCollection<IElevateTaskComponent> SubTasks { get; }
     }
-
 }

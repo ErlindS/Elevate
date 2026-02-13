@@ -3,13 +3,15 @@
     x:Class="Elevate.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Elevate">
+    xmlns:local="clr-namespace:Elevate"
+    xmlns:converters="clr-namespace:Elevate.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:PercentageConverter x:Key="PercentageConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

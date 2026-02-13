@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Elevate.DashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Dashboard"
+    BackgroundColor="#F5F7F5">
+
+    <ContentPage.Resources>
+        <Color x:Key="PrimaryDark">#778873</Color>
+        <Color x:Key="PrimaryLight">#A1BC98</Color>
+        <Color x:Key="TextDark">#4A4A4A</Color>
+        <Color x:Key="White">#FFFFFF</Color>
+        <Color x:Key="Success">#66BB6A</Color>
+        <Color x:Key="Warning">#FFA726</Color>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, Auto, *" Padding="15">
+
+        <!-- Header -->
+        <StackLayout
+            Grid.Row="0"
+            Margin="0,0,0,20"
+            Spacing="15">
+
+            <Label
+                FontSize="28"
+                FontAttributes="Bold"
+                Text="Task Dashboard"
+                TextColor="{StaticResource TextDark}" />
+
+            <!-- Statistics Grid -->
+            <Grid
+                ColumnDefinitions="*, *, *"
+                ColumnSpacing="10"
+                RowSpacing="10">
+
+                <Border
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource White}"
+                    Padding="15"
+                    StrokeShape="RoundRectangle 12"
+                    StrokeThickness="1">
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.05"
+                            Radius="5"
+                            Offset="0,2" />
+                    </Border.Shadow>
+                    <StackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            Text="TOTAL"
+                            TextColor="#999"
+                            HorizontalOptions="Center" />
+                        <Label
+                            FontSize="24"
+                            FontAttributes="Bold"
+                            Text="{Binding TotalTaskCount}"
+                            TextColor="{StaticResource PrimaryDark}"
+                            HorizontalOptions="Center" />
+                    </StackLayout>
+                </Border>
+
+                <Border
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource White}"
+                    Padding="15"
+                    StrokeShape="RoundRectangle 12"
+                    StrokeThickness="1">
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.05"
+                            Radius="5"
+                            Offset="0,2" />
+                    </Border.Shadow>
+                    <StackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            Text="COMPLETED"
+                            TextColor="#999"
+                            HorizontalOptions="Center" />
+                        <Label
+                            FontSize="24"
+                            FontAttributes="Bold"
+                            Text="{Binding CompletedTaskCount}"
+                            TextColor="{StaticResource Success}"
+                            HorizontalOptions="Center" />
+                    </StackLayout>
+                </Border>
+
+                <Border
+                    Grid.Column="2"
+                    BackgroundColor="{StaticResource White}"
+                    Padding="15"
+                    StrokeShape="RoundRectangle 12"
+                    StrokeThickness="1">
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.05"
+                            Radius="5"
+                            Offset="0,2" />
+                    </Border.Shadow>
+                    <StackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            Text="PENDING"
+                            TextColor="#999"
+                            HorizontalOptions="Center" />
+                        <Label
+                            FontSize="24"
+                            FontAttributes="Bold"
+                            Text="{Binding PendingTaskCount}"
+                            TextColor="{StaticResource Warning}"
+                            HorizontalOptions="Center" />
+                    </StackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Progress Bar -->
+            <Border
+                BackgroundColor="{StaticResource White}"
+                Padding="15"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="1">
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Opacity="0.05"
+                        Radius="5"
+                        Offset="0,2" />
+                </Border.Shadow>
+                <StackLayout Spacing="10">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label
+                            Grid.Column="0"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            Text="Completion Rate"
+                            TextColor="{StaticResource TextDark}" />
+                        <Label
+                            Grid.Column="1"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            Text="{Binding CompletionPercentage, StringFormat='{0:F1}%'}"
+                            TextColor="{StaticResource PrimaryDark}" />
+                    </Grid>
+                    <ProgressBar
+                        Progress="{Binding CompletionPercentage, Converter={StaticResource PercentageConverter}}"
+                        ProgressColor="{StaticResource Success}" />
+                </StackLayout>
+            </Border>
+        </StackLayout>
+
+        <!-- Controls -->
+        <StackLayout
+            Grid.Row="1"
+            Orientation="Horizontal"
+            Spacing="10"
+            Margin="0,0,0,15">
+
+            <Button
+                BackgroundColor="{StaticResource PrimaryDark}"
+                Command="{Binding RefreshDataCommand}"
+                CornerRadius="12"
+                FontAttributes="Bold"
+                HeightRequest="40"
+                Text="Refresh"
+                TextColor="{StaticResource White}"
+                WidthRequest="100" />
+
+            <Button
+                BackgroundColor="{StaticResource PrimaryDark}"
+                Command="{Binding CopyJsonToClipboardCommand}"
+                CornerRadius="12"
+                FontAttributes="Bold"
+                HeightRequest="40"
+                Text="Copy JSON"
+                TextColor="{StaticResource White}" />
+        </StackLayout>
+
+        <!-- JSON Viewer -->
+        <Border
+            Grid.Row="2"
+            BackgroundColor="{StaticResource White}"
+            Padding="15"
+            StrokeShape="RoundRectangle 12"
+            StrokeThickness="1">
+            <Border.Shadow>
+                <Shadow
+                    Brush="Black"
+                    Opacity="0.05"
+                    Radius="5"
+                    Offset="0,2" />
+            </Border.Shadow>
+
+            <StackLayout Spacing="10">
+                <Label
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    Text="JSON Output"
+                    TextColor="{StaticResource TextDark}" />
+
+                <ScrollView>
+                    <Label
+                        FontFamily="Courier"
+                        FontSize="11"
+                        LineBreakMode="WordWrap"
+                        Text="{Binding JsonOutput}"
+                        TextColor="{StaticResource TextDark}" />
+                </ScrollView>
+            </StackLayout>
+        </Border>
+
+    </Grid>
+</ContentPage>

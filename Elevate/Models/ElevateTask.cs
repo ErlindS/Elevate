@@ -20,6 +20,15 @@ namespace Elevate.Models
         private bool isDone;
 
         [ObservableProperty]
+        private int priority;
+
+        [ObservableProperty]
+        private string description;
+
+        [ObservableProperty]
+        private string category;
+
+        [ObservableProperty]
         [JsonIgnore]
         private IElevateTaskComponent parentTask;
 
