@@ -1,13 +1,21 @@
 ﻿using Elevate.ViewModels;
 
-namespace Elevate
+namespace Elevate.Views;
+
+public partial class WeeklyCalendarPage : ContentPage
 {
-    public partial class WeeklyCalendarPage : ContentPage
+    public WeeklyCalendarPage(WeeklyCalendarViewModel viewModel)
     {
-        public WeeklyCalendarPage(WeeklyCalendarViewModel viewModel)
+        InitializeComponent();
+        BindingContext = viewModel;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is WeeklyCalendarViewModel viewModel)
         {
-            InitializeComponent();
-            BindingContext = viewModel;
+            viewModel.LoadWeeklyTasksCommand.Execute(null);
         }
     }
 }

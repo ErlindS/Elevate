@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="Elevate.WeeklyCalendarPage"
+    x:Class="Elevate.Views.WeeklyCalendarPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Weekly Calendar"
+    Title="Weekly Planner"
     BackgroundColor="#F5F7F5">
 
     <ContentPage.Resources>
@@ -13,226 +13,151 @@
         <Color x:Key="White">#FFFFFF</Color>
         <Color x:Key="Success">#66BB6A</Color>
         <Color x:Key="Gray">#F0F0F0</Color>
+        <Color x:Key="GridLine">#E0E0E0</Color>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto, Auto, *" Padding="15">
+    <Grid RowDefinitions="Auto, *" Padding="0" RowSpacing="0">
 
-        <!-- Header with Navigation -->
-        <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Margin="0,0,0,20">
-
+        <!-- Navigation Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10" Padding="15" BackgroundColor="{StaticResource White}">
             <Button
                 Grid.Column="0"
                 BackgroundColor="{StaticResource PrimaryDark}"
                 Command="{Binding PreviousWeekCommand}"
-                CornerRadius="12"
+                CornerRadius="8"
                 FontAttributes="Bold"
-                HeightRequest="40"
+                HeightRequest="36"
                 Text="← Prev"
                 TextColor="{StaticResource White}"
-                WidthRequest="85" />
+                WidthRequest="75" />
 
-            <StackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
-                <Label
-                    FontSize="18"
-                    FontAttributes="Bold"
-                    Text="{Binding WeekTitle}"
-                    TextColor="{StaticResource TextDark}"
-                    HorizontalOptions="Center" />
-            </StackLayout>
+            <Label
+                Grid.Column="1"
+                FontSize="16"
+                FontAttributes="Bold"
+                Text="{Binding WeekTitle}"
+                TextColor="{StaticResource TextDark}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
 
-            <Grid Grid.Column="2" ColumnDefinitions="Auto, Auto" ColumnSpacing="10">
+            <Grid Grid.Column="2" ColumnDefinitions="Auto, Auto" ColumnSpacing="8">
                 <Button
                     Grid.Column="0"
                     BackgroundColor="{StaticResource Success}"
                     Command="{Binding GoToTodayCommand}"
-                    CornerRadius="12"
+                    CornerRadius="8"
                     FontAttributes="Bold"
-                    HeightRequest="40"
+                    HeightRequest="36"
                     Text="Today"
                     TextColor="{StaticResource White}"
-                    WidthRequest="70" />
+                    WidthRequest="65" />
 
                 <Button
                     Grid.Column="1"
                     BackgroundColor="{StaticResource PrimaryDark}"
                     Command="{Binding NextWeekCommand}"
-                    CornerRadius="12"
+                    CornerRadius="8"
                     FontAttributes="Bold"
-                    HeightRequest="40"
+                    HeightRequest="36"
                     Text="Next →"
                     TextColor="{StaticResource White}"
-                    WidthRequest="85" />
+                    WidthRequest="75" />
             </Grid>
         </Grid>
 
-        <!-- Week Days Header -->
-        <CollectionView
-            Grid.Row="1"
-            ItemsSource="{Binding WeekDays}"
-            SelectionMode="None">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border
-                        BackgroundColor="{StaticResource White}"
-                        Padding="12,15"
-                        StrokeShape="RoundRectangle 12"
-                        StrokeThickness="1"
-                        WidthRequest="80">
-                        <Border.Shadow>
-                            <Shadow
-                                Brush="Black"
-                                Opacity="0.05"
-                                Radius="5"
-                                Offset="0,2" />
-                        </Border.Shadow>
-                        <StackLayout Spacing="8" HorizontalOptions="Center">
-                            <Label
-                                FontSize="12"
-                                FontAttributes="Bold"
-                                Text="{Binding DayName}"
-                                TextColor="{StaticResource PrimaryDark}"
-                                HorizontalOptions="Center" />
-                            <Label
-                                FontSize="14"
-                                FontAttributes="Bold"
-                                Text="{Binding DayDate}"
-                                TextColor="{StaticResource TextDark}"
-                                HorizontalOptions="Center" />
-                            <Label
-                                FontSize="10"
-                                Text="{Binding TaskCount, StringFormat='{0} tasks'}"
-                                TextColor="#999"
-                                HorizontalOptions="Center" />
+        <!-- Main Schedule Grid -->
+        <ScrollView Grid.Row="1" Orientation="Both">
+            <StackLayout Spacing="0" Padding="0">
+                
+                <!-- Header Row with Day Names -->
+                <Grid ColumnDefinitions="50, 120, 120, 120, 120, 120, 120, 120, 200" ColumnSpacing="0" Padding="0" RowSpacing="0">
+                    
+                    <!-- Time Column Header -->
+                    <BoxView Grid.Column="0" BackgroundColor="{StaticResource Gray}" HeightRequest="50" />
+                    
+                    <!-- Day Headers -->
+                    <Border Grid.Column="1" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                        <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="{Binding WeekDays[0].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[0].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                    
+                    <Border Grid.Column="2" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                        <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="{Binding WeekDays[1].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[1].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Border>
+                    
+                    <Border Grid.Column="3" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                        <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="{Binding WeekDays[2].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[2].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Border>
+                    
+                    <Border Grid.Column="4" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                        <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="{Binding WeekDays[3].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[3].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Border>
+                    
+                    <Border Grid.Column="5" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                        <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="{Binding WeekDays[4].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[4].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Border>
+                    
+                    <Border Grid.Column="6" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                        <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="{Binding WeekDays[5].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[5].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Border>
+                    
+                    <Border Grid.Column="7" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                        <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="{Binding WeekDays[6].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[6].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Border>
+                    
+                    <!-- Projects Header -->
+                    <Border Grid.Column="8" BackgroundColor="{StaticResource PrimaryLight}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                        <Label Text="Projekte" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                </Grid>
 
-        <!-- Tasks by Day -->
-        <ScrollView Grid.Row="2" Margin="0,20,0,0">
-            <StackLayout Spacing="20">
-                <CollectionView
-                    ItemsSource="{Binding WeekDays}"
-                    SelectionMode="None">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="20" Orientation="Vertical" />
-                    </CollectionView.ItemsLayout>
+                <!-- Time Slots - CollectionView für dynamische Zeilen -->
+                <CollectionView ItemsSource="{Binding TimeSlots}" SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Spacing="12">
-
-                                <!-- Day Header -->
-                                <Border
-                                    BackgroundColor="{StaticResource PrimaryLight}"
-                                    Padding="15,12"
-                                    StrokeShape="RoundRectangle 12"
-                                    StrokeThickness="0">
-                                    <Grid ColumnDefinitions="*, Auto">
-                                        <StackLayout Grid.Column="0" Spacing="4">
-                                            <Label
-                                                FontSize="14"
-                                                FontAttributes="Bold"
-                                                Text="{Binding DayName}"
-                                                TextColor="{StaticResource White}" />
-                                            <Label
-                                                FontSize="12"
-                                                Text="{Binding DayDate}"
-                                                TextColor="{StaticResource White}" />
-                                        </StackLayout>
-                                        <Label
-                                            Grid.Column="1"
-                                            FontSize="12"
-                                            FontAttributes="Bold"
-                                            Text="{Binding CompletedCount, StringFormat='{0}/{1}'}"
-                                            TextColor="{StaticResource White}"
-                                            VerticalOptions="Center" />
-                                    </Grid>
+                            <Grid ColumnDefinitions="50, 120, 120, 120, 120, 120, 120, 120, 200" ColumnSpacing="0" Padding="0" RowSpacing="0" HeightRequest="60">
+                                
+                                <!-- Hour Label -->
+                                <Border Grid.Column="0" BackgroundColor="{StaticResource Gray}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4">
+                                    <Label Text="{Binding DisplayTime}" FontSize="9" TextColor="{StaticResource TextDark}" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
 
-                                <!-- Tasks for the Day -->
-                                <CollectionView
-                                    ItemsSource="{Binding Tasks}"
-                                    SelectionMode="None">
-                                    <CollectionView.ItemsLayout>
-                                        <LinearItemsLayout ItemSpacing="8" Orientation="Vertical" />
-                                    </CollectionView.ItemsLayout>
-                                    <CollectionView.EmptyView>
-                                        <StackLayout
-                                            HorizontalOptions="Center"
-                                            Spacing="8"
-                                            VerticalOptions="Center">
-                                            <Label
-                                                FontSize="12"
-                                                HorizontalOptions="Center"
-                                                Text="No tasks for this day"
-                                                TextColor="#CCC" />
-                                        </StackLayout>
-                                    </CollectionView.EmptyView>
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border
-                                                Padding="15"
-                                                BackgroundColor="{StaticResource White}"
-                                                StrokeShape="RoundRectangle 12"
-                                                StrokeThickness="0"
-                                                Margin="0,0,0,8">
+                                <!-- Day Cells (7 Days) -->
+                                <Border Grid.Column="1" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="2" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="3" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="4" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="5" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="6" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="7" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
 
-                                                <Border.Shadow>
-                                                    <Shadow
-                                                        Brush="Black"
-                                                        Opacity="0.05"
-                                                        Radius="5"
-                                                        Offset="0,2" />
-                                                </Border.Shadow>
-
-                                                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
-                                                    <CheckBox
-                                                        Grid.Column="0"
-                                                        IsChecked="{Binding IsDone}"
-                                                        Color="{StaticResource PrimaryDark}"
-                                                        VerticalOptions="Center" />
-
-                                                    <StackLayout Grid.Column="1" Spacing="4">
-                                                        <Label
-                                                            FontSize="14"
-                                                            FontAttributes="Bold"
-                                                            LineBreakMode="TailTruncation"
-                                                            Text="{Binding Name}"
-                                                            TextColor="{StaticResource TextDark}" />
-                                                        <StackLayout Orientation="Horizontal" Spacing="8">
-                                                            <Label
-                                                                FontSize="11"
-                                                                Text="{Binding Priority, StringFormat='Priority: {0}'}"
-                                                                TextColor="#999" />
-                                                            <Label
-                                                                FontSize="11"
-                                                                Text="{Binding Category}"
-                                                                TextColor="#999" />
-                                                        </StackLayout>
-                                                    </StackLayout>
-
-                                                    <Label
-                                                        Grid.Column="2"
-                                                        FontSize="11"
-                                                        FontAttributes="Bold"
-                                                        Text="{Binding Description}"
-                                                        TextColor="#999"
-                                                        VerticalOptions="Center"
-                                                        LineBreakMode="TailTruncation"
-                                                        MaxLines="1" />
-                                                </Grid>
-                                            </Border>
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
-                            </StackLayout>
+                                <!-- Projects Column -->
+                                <Border Grid.Column="8" BackgroundColor="{StaticResource Gray}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                            </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+
             </StackLayout>
         </ScrollView>
 

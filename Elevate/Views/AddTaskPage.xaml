@@ -14,205 +14,207 @@
         <Color x:Key="Error">#E57373</Color>
     </ContentPage.Resources>
 
-    <Grid Padding="20,10,20,0" RowDefinitions="Auto, Auto, *">
+    <!-- Use Grid to constrain ScrollView to page bounds -->
+    <Grid>
+        <ScrollView
+            Orientation="Vertical"
+            VerticalScrollBarVisibility="Always">
+            <VerticalStackLayout
+                Spacing="12"
+                Padding="0,0,0,30">
 
-        <Border
-            Grid.Row="0"
-            Margin="0,0,0,20"
-            BackgroundColor="{StaticResource White}"
-            StrokeShape="RoundRectangle 15"
-            StrokeThickness="1"
-            Padding="15">
+                <!-- Header / New Task Form -->
+                <Border
+                    Margin="20,10,20,10"
+                    BackgroundColor="{StaticResource White}"
+                    StrokeShape="RoundRectangle 15"
+                    StrokeThickness="1"
+                    Padding="15">
 
-            <Border.Shadow>
-                <Shadow
-                    Brush="Black"
-                    Opacity="0.05"
-                    Radius="10"
-                    Offset="0,4" />
-            </Border.Shadow>
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.05"
+                            Radius="10"
+                            Offset="0,4" />
+                    </Border.Shadow>
 
-            <StackLayout Spacing="15">
-                <Label
-                    FontSize="18"
-                    FontAttributes="Bold"
-                    Text="New Task"
-                    TextColor="{StaticResource TextDark}" />
+                    <StackLayout Spacing="15">
+                        <Label
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            Text="New Task"
+                            TextColor="{StaticResource TextDark}" />
 
-                <Entry
-                    FontSize="14"
-                    Placeholder="Task Name *"
-                    PlaceholderColor="#CCC"
-                    Text="{Binding NewTodoText}"
-                    TextColor="{StaticResource TextDark}" />
+                        <Entry
+                            FontSize="14"
+                            Placeholder="Task Name *"
+                            PlaceholderColor="#CCC"
+                            Text="{Binding NewTodoText}"
+                            TextColor="{StaticResource TextDark}" />
 
-                <Entry
-                    FontSize="14"
-                    Placeholder="Description"
-                    PlaceholderColor="#CCC"
-                    Text="{Binding NewTaskDescription}"
-                    TextColor="{StaticResource TextDark}" />
+                        <Entry
+                            FontSize="14"
+                            Placeholder="Description"
+                            PlaceholderColor="#CCC"
+                            Text="{Binding NewTaskDescription}"
+                            TextColor="{StaticResource TextDark}" />
 
-                <Entry
-                    FontSize="14"
-                    Placeholder="Category"
-                    PlaceholderColor="#CCC"
-                    Text="{Binding NewTaskCategory}"
-                    TextColor="{StaticResource TextDark}" />
+                        <Entry
+                            FontSize="14"
+                            Placeholder="Category"
+                            PlaceholderColor="#CCC"
+                            Text="{Binding NewTaskCategory}"
+                            TextColor="{StaticResource TextDark}" />
 
-                <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
-                    <Entry
-                        Grid.Column="0"
-                        FontSize="14"
-                        Placeholder="Priority (1-5)"
-                        PlaceholderColor="#CCC"
-                        Text="{Binding NewTaskPriority}"
-                        TextColor="{StaticResource TextDark}"
-                        Keyboard="Numeric" />
+                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                            <Entry
+                                Grid.Column="0"
+                                FontSize="14"
+                                Placeholder="Priority (1-5)"
+                                PlaceholderColor="#CCC"
+                                Text="{Binding NewTaskPriority}"
+                                TextColor="{StaticResource TextDark}"
+                                Keyboard="Numeric" />
 
-                    <Picker
-                        Grid.Column="1"
-                        FontSize="14"
-                        ItemsSource="{Binding AvailableDays}"
-                        SelectedItem="{Binding SelectedDay}"
-                        TextColor="{StaticResource TextDark}"
-                        Title="Select Day" />
-                </Grid>
-
-                <Grid ColumnDefinitions="*, Auto">
-                    <Label
-                        Grid.Column="0"
-                        FontSize="12"
-                        Text="{Binding SelectedDay, StringFormat='Scheduled for: {0}'}"
-                        TextColor="#999"
-                        VerticalOptions="Center" />
-
-                    <Button
-                        Grid.Column="1"
-                        Margin="10,0,0,0"
-                        BackgroundColor="{StaticResource PrimaryDark}"
-                        Command="{Binding AddItemCommand}"
-                        CornerRadius="12"
-                        FontAttributes="Bold"
-                        HeightRequest="40"
-                        Text="Add Task"
-                        TextColor="{StaticResource White}"
-                        WidthRequest="100" />
-                </Grid>
-            </StackLayout>
-        </Border>
-
-        <CollectionView
-            Grid.Row="2"
-            Margin="0,10,0,0"
-            ItemsSource="{Binding Tasks.SubTasks}">
-
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="12" Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
-
-            <CollectionView.EmptyView>
-                <StackLayout
-                    HorizontalOptions="Center"
-                    Spacing="10"
-                    VerticalOptions="Center">
-                    <Label
-                        FontSize="18"
-                        HorizontalOptions="Center"
-                        Text="No tasks yet."
-                        TextColor="#CCC" />
-                </StackLayout>
-            </CollectionView.EmptyView>
-
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border
-                        Padding="15"
-                        BackgroundColor="{StaticResource White}"
-                        StrokeShape="RoundRectangle 15"
-                        StrokeThickness="0">
-
-                        <Border.Shadow>
-                            <Shadow
-                                Brush="Black"
-                                Opacity="0.05"
-                                Radius="5"
-                                Offset="0,2" />
-                        </Border.Shadow>
-
-                        <Grid RowDefinitions="Auto, Auto, Auto" Padding="0">
-                            <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto">
-                                <CheckBox
-                                    Grid.Column="0"
-                                    IsChecked="{Binding IsDone}"
-                                    Color="{StaticResource PrimaryDark}"
-                                    VerticalOptions="Center" />
-
-                                <StackLayout Grid.Column="1" Spacing="5" Margin="10,0">
-                                    <Label
-                                        FontSize="16"
-                                        FontAttributes="Bold"
-                                        LineBreakMode="TailTruncation"
-                                        Text="{Binding Name}"
-                                        TextColor="{StaticResource TextDark}" />
-                                    <Label
-                                        FontSize="12"
-                                        Text="{Binding Category}"
-                                        TextColor="#999"
-                                        IsVisible="{Binding Category, StringFormat='{0:L}'}" />
-                                </StackLayout>
-
-                                <Button
-                                    Grid.Column="2"
-                                    Margin="10"
-                                    BackgroundColor="{StaticResource PrimaryDark}"
-                                    Command="{Binding Source={x:Reference Page}, Path=BindingContext.DeleteItemCommand}"
-                                    CommandParameter="{Binding Id}"
-                                    CornerRadius="12"
-                                    FontAttributes="Bold"
-                                    HeightRequest="36"
-                                    Text="Delete"
-                                    TextColor="{StaticResource White}"
-                                    WidthRequest="75" />
-                            </Grid>
-
-                            <BoxView
-                                Grid.Row="1"
-                                Margin="0,8,0,8"
-                                BackgroundColor="#EEE"
-                                HeightRequest="1" />
-
-                            <Grid Grid.Row="2" ColumnDefinitions="*, *" RowSpacing="5" ColumnSpacing="10">
-                                <StackLayout Grid.Column="0" Spacing="3">
-                                    <Label
-                                        FontSize="10"
-                                        FontAttributes="Bold"
-                                        Text="PRIORITY"
-                                        TextColor="#999" />
-                                    <Label
-                                        FontSize="14"
-                                        Text="{Binding Priority}"
-                                        TextColor="{StaticResource TextDark}" />
-                                </StackLayout>
-
-                                <StackLayout Grid.Column="1" Spacing="3">
-                                    <Label
-                                        FontSize="10"
-                                        FontAttributes="Bold"
-                                        Text="SCHEDULED"
-                                        TextColor="#999" />
-                                    <Label
-                                        FontSize="12"
-                                        LineBreakMode="TailTruncation"
-                                        Text="{Binding ScheduledDate, StringFormat='{0:dd.MM.yyyy}'}"
-                                        TextColor="{StaticResource TextDark}" />
-                                </StackLayout>
-                            </Grid>
+                            <Picker
+                                Grid.Column="1"
+                                FontSize="14"
+                                ItemsSource="{Binding AvailableDays}"
+                                SelectedItem="{Binding SelectedDay}"
+                                TextColor="{StaticResource TextDark}"
+                                Title="Select Day" />
                         </Grid>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
 
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label
+                                Grid.Column="0"
+                                FontSize="12"
+                                Text="{Binding SelectedDay, StringFormat='Scheduled for: {0}'}"
+                                TextColor="#999"
+                                VerticalOptions="Center" />
+
+                            <Button
+                                Grid.Column="1"
+                                Margin="10,0,0,0"
+                                BackgroundColor="{StaticResource PrimaryDark}"
+                                Command="{Binding AddItemCommand}"
+                                CornerRadius="12"
+                                FontAttributes="Bold"
+                                HeightRequest="40"
+                                Text="Add Task"
+                                TextColor="{StaticResource White}"
+                                WidthRequest="100" />
+                        </Grid>
+                    </StackLayout>
+                </Border>
+
+                <!-- Tasks List using BindableLayout -->
+                <StackLayout
+                    BindableLayout.ItemsSource="{Binding Tasks.SubTasks}"
+                    Spacing="12"
+                    Padding="20,0">
+
+                    <BindableLayout.EmptyView>
+                        <Label
+                            Margin="0,20"
+                            FontSize="18"
+                            HorizontalOptions="Center"
+                            Text="No tasks yet."
+                            TextColor="#CCC" />
+                    </BindableLayout.EmptyView>
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Padding="15"
+                                BackgroundColor="{StaticResource White}"
+                                StrokeShape="RoundRectangle 15"
+                                StrokeThickness="0">
+
+                                <Border.Shadow>
+                                    <Shadow
+                                        Brush="Black"
+                                        Opacity="0.05"
+                                        Radius="5"
+                                        Offset="0,2" />
+                                </Border.Shadow>
+
+                                <Grid RowDefinitions="Auto, Auto, Auto" Padding="0">
+                                    <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto">
+                                        <CheckBox
+                                            Grid.Column="0"
+                                            IsChecked="{Binding IsDone}"
+                                            Color="{StaticResource PrimaryDark}"
+                                            VerticalOptions="Center" />
+
+                                        <StackLayout Grid.Column="1" Spacing="5" Margin="10,0">
+                                            <Label
+                                                FontSize="16"
+                                                FontAttributes="Bold"
+                                                LineBreakMode="TailTruncation"
+                                                Text="{Binding Name}"
+                                                TextColor="{StaticResource TextDark}" />
+                                            <Label
+                                                FontSize="12"
+                                                Text="{Binding Category}"
+                                                TextColor="#999" />
+                                        </StackLayout>
+
+                                        <Button
+                                            Grid.Column="2"
+                                            Margin="10"
+                                            BackgroundColor="{StaticResource PrimaryDark}"
+                                            Command="{Binding Source={x:Reference Page}, Path=BindingContext.DeleteItemCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            CornerRadius="12"
+                                            FontAttributes="Bold"
+                                            HeightRequest="36"
+                                            Text="Delete"
+                                            TextColor="{StaticResource White}"
+                                            WidthRequest="75" />
+                                    </Grid>
+
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Margin="0,8,0,8"
+                                        BackgroundColor="#EEE"
+                                        HeightRequest="1" />
+
+                                    <Grid Grid.Row="2" ColumnDefinitions="*, *" RowSpacing="5" ColumnSpacing="10">
+                                        <StackLayout Grid.Column="0" Spacing="3">
+                                            <Label
+                                                FontSize="10"
+                                                FontAttributes="Bold"
+                                                Text="PRIORITY"
+                                                TextColor="#999" />
+                                            <Label
+                                                FontSize="14"
+                                                Text="{Binding Priority}"
+                                                TextColor="{StaticResource TextDark}" />
+                                        </StackLayout>
+
+                                        <StackLayout Grid.Column="1" Spacing="3">
+                                            <Label
+                                                FontSize="10"
+                                                FontAttributes="Bold"
+                                                Text="SCHEDULED"
+                                                TextColor="#999" />
+                                            <Label
+                                                FontSize="12"
+                                                LineBreakMode="TailTruncation"
+                                                Text="{Binding ScheduledDate, StringFormat='{0:dd.MM.yyyy}'}"
+                                                TextColor="{StaticResource TextDark}" />
+                                        </StackLayout>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
+
+            </VerticalStackLayout>
+        </ScrollView>
     </Grid>
 </ContentPage>

@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="Elevate.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Elevate"
+    xmlns:views="clr-namespace:Elevate.Views"
+    x:Class="Elevate.AppShell"
     Title="Elevate"
     BackgroundColor="White"
     FlyoutBackgroundColor="#778873"
-    Shell.FlyoutBehavior="Locked"
     TitleColor="#778873">
 
-    <ShellContent
-        Title="Dashboard"
-        ContentTemplate="{DataTemplate local:DashboardPage}"
-        Route="DashboardPage" />
-
-    <ShellContent
-        Title="Weekly Calendar"
-        ContentTemplate="{DataTemplate local:WeeklyCalendarPage}"
-        Route="WeeklyCalendarPage" />
-
+    <!-- Alle Views MÜSSEN hier registriert sein -->
     <ShellContent
         Title="Todays Task"
         ContentTemplate="{DataTemplate local:TodaysTaskPage}"
@@ -36,8 +27,23 @@
         Route="CombineTaskPage" />
 
     <ShellContent
+        Title="Dashboard"
+        ContentTemplate="{DataTemplate local:DashboardPage}"
+        Route="DashboardPage" />
+
+    <ShellContent
+        Title="Weekly Calendar"
+        ContentTemplate="{DataTemplate views:WeeklyCalendarPage}"
+        Route="WeeklyCalendarPage" />
+
+    <ShellContent
         Title="Export"
         ContentTemplate="{DataTemplate local:ExportPage}"
         Route="ExportPage" />
+
+    <ShellContent 
+        Title="Häuser"
+        ContentTemplate="{DataTemplate views:CompletedHousesPage}"
+        Route="completedhouses" />
 
 </Shell>

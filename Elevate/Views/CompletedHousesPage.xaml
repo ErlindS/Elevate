@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Elevate.Views.CompletedHousesPage"
+             Title="Vollendete Häuser"
+             BackgroundColor="#F1F3E0">
+
+    <Grid RowDefinitions="Auto,*" Padding="20" RowSpacing="20">
+        <!-- Header Section -->
+        <StackLayout Grid.Row="0" Spacing="10">
+            <Label Text="Deine vollendeten Aufgaben als Häuser"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#333333" />
+            <Label x:Name="SummaryLabel"
+                   FontSize="16"
+                   TextColor="#778873" />
+        </StackLayout>
+
+        <!-- Houses Grid -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding CompletedTasks}"
+                        SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                 HorizontalItemSpacing="15"
+                                 VerticalItemSpacing="15" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="#A1BC98"
+                           CornerRadius="12"
+                           HasShadow="True"
+                           Padding="0"
+                           IsClippedToBounds="True"
+                           Background="#D2DCB6"
+                           WidthRequest="150"
+                           HeightRequest="200">
+                        <StackLayout Spacing="8" Padding="12" VerticalOptions="Center">
+                            <!-- House Visual -->
+                            <BoxView BackgroundColor="#778873"
+                                     WidthRequest="80"
+                                     HeightRequest="80"
+                                     CornerRadius="5"
+                                     HorizontalOptions="Center" />
+
+                            <!-- Task Name -->
+                            <Label Text="{Binding Name, StringFormat='{0}'}"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#333333"
+                                   LineBreakMode="TailTruncation"
+                                   MaxLines="2"
+                                   HorizontalTextAlignment="Center" />
+
+                            <!-- Task Category -->
+                            <Label Text="{Binding Category, StringFormat='Kategorie: {0}'}"
+                                   FontSize="10"
+                                   TextColor="#778873"
+                                   HorizontalTextAlignment="Center"
+                                   IsVisible="{Binding Category, Converter={StaticResource StringToBoolConverter}}" />
+
+                            <!-- Completion Date -->
+                            <Label FontSize="9"
+                                   TextColor="#A1BC98"
+                                   HorizontalTextAlignment="Center">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="Fertig: {0:dd.MM.yyyy}">
+                                        <Binding Path="ScheduledDate" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

@@ -1,6 +1,8 @@
 ﻿using Elevate.Services;
 using Elevate.ViewModels;
+using Elevate.Views;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Handlers;
 
 namespace Elevate
 {
@@ -15,6 +17,32 @@ namespace Elevate
                 {
                     //fonts.AddFont("Mulish-Italic-VariableFont_wght.ttf", "OpenSansRegular");
                     fonts.AddFont("MulishVariableFont.ttf", "OpenSansSemibold");
+                })
+                .ConfigureMauiHandlers(handlers =>
+                {
+#if WINDOWS
+                    ScrollViewHandler.Mapper.AppendToMapping("FixMouseWheelScroll", (handler, view) =>
+                    {
+                        var nativeScrollViewer = handler.PlatformView;
+                        System.Diagnostics.Debug.WriteLine($"[ScrollFix] Handler invoked, PlatformView type: {nativeScrollViewer?.GetType().FullName}");
+                        if (nativeScrollViewer != null)
+                        {
+                            nativeScrollViewer.AddHandler(
+                                Microsoft.UI.Xaml.UIElement.PointerWheelChangedEvent,
+                                new Microsoft.UI.Xaml.Input.PointerEventHandler((s, e) =>
+                                {
+                                    var properties = e.GetCurrentPoint(nativeScrollViewer).Properties;
+                                    var delta = properties.MouseWheelDelta;
+                                    var currentOffset = nativeScrollViewer.VerticalOffset;
+                                    System.Diagnostics.Debug.WriteLine($"[ScrollFix] Wheel delta={delta}, offset={currentOffset}");
+                                    nativeScrollViewer.ChangeView(null, currentOffset - delta, null);
+                                    e.Handled = true;
+                                }),
+                                true // handledEventsToo - critical for catching events swallowed by child controls
+                            );
+                        }
+                    });
+#endif
                 });
 
             //F1F3E0
@@ -37,6 +65,7 @@ namespace Elevate
             builder.Services.AddTransient<ExportViewModel>();
             builder.Services.AddTransient<DashboardViewModel>();
             builder.Services.AddTransient<WeeklyCalendarViewModel>();
+            builder.Services.AddSingleton<CompletedHousesViewModel>();
 
 
             //Pages
@@ -47,6 +76,7 @@ namespace Elevate
             builder.Services.AddTransient<ExportPage>();
             builder.Services.AddTransient<DashboardPage>();
             builder.Services.AddTransient<WeeklyCalendarPage>();
+            builder.Services.AddSingleton<CompletedHousesPage>();
 
 
 #if DEBUG

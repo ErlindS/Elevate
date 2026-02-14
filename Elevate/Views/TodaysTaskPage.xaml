@@ -15,275 +15,106 @@
         <Color x:Key="Warning">#FFA726</Color>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto, Auto, *" Padding="15">
+    <ScrollView
+        Orientation="Vertical"
+        VerticalScrollBarVisibility="Always"
+        HorizontalOptions="Fill"
+        VerticalOptions="Fill">
+        <VerticalStackLayout
+            Spacing="12"
+            Padding="0,0,0,30"
+            VerticalOptions="Start">
 
-        <!-- Header -->
-        <StackLayout Grid.Row="0" Margin="0,0,0,25" Spacing="15">
+            <!-- Header Section -->
+            <VerticalStackLayout Spacing="20" Padding="15,20,15,10">
 
-            <StackLayout Spacing="8">
-                <Label
-                    FontSize="28"
-                    FontAttributes="Bold"
-                    Text="Today's Tasks"
-                    TextColor="{StaticResource TextDark}" />
+                <VerticalStackLayout Spacing="8">
+                    <Label FontSize="28" FontAttributes="Bold" Text="Today's Tasks" TextColor="{StaticResource TextDark}" />
+                    <HorizontalStackLayout Spacing="8">
+                        <Label FontSize="16" Text="{Binding DayName}" TextColor="{StaticResource PrimaryDark}" FontAttributes="Bold" />
+                        <Label FontSize="16" Text="{Binding TodayDate}" TextColor="#999" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
 
-                <StackLayout Orientation="Horizontal" Spacing="8">
-                    <Label
-                        FontSize="16"
-                        Text="{Binding DayName}"
-                        TextColor="{StaticResource PrimaryDark}"
-                        FontAttributes="Bold" />
-                    <Label
-                        FontSize="16"
-                        Text="{Binding TodayDate}"
-                        TextColor="#999" />
-                </StackLayout>
-            </StackLayout>
+                <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10">
+                    <Border Grid.Column="0" BackgroundColor="{StaticResource White}" Padding="15" StrokeShape="RoundRectangle 12" StrokeThickness="1">
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label FontSize="10" FontAttributes="Bold" Text="TOTAL" TextColor="#999" HorizontalOptions="Center" />
+                            <Label FontSize="24" FontAttributes="Bold" Text="{Binding TotalTaskCount}" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
 
-            <!-- Statistics -->
-            <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10">
+                    <Border Grid.Column="1" BackgroundColor="{StaticResource White}" Padding="15" StrokeShape="RoundRectangle 12" StrokeThickness="1">
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label FontSize="10" FontAttributes="Bold" Text="COMPLETED" TextColor="#999" HorizontalOptions="Center" />
+                            <Label FontSize="24" FontAttributes="Bold" Text="{Binding CompletedTaskCount}" TextColor="{StaticResource Success}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
 
-                <Border
-                    Grid.Column="0"
-                    BackgroundColor="{StaticResource White}"
-                    Padding="15"
-                    StrokeShape="RoundRectangle 12"
-                    StrokeThickness="1">
-                    <Border.Shadow>
-                        <Shadow
-                            Brush="Black"
-                            Opacity="0.05"
-                            Radius="5"
-                            Offset="0,2" />
-                    </Border.Shadow>
-                    <StackLayout Spacing="8" HorizontalOptions="Center">
-                        <Label
-                            FontSize="10"
-                            FontAttributes="Bold"
-                            Text="TOTAL"
-                            TextColor="#999"
-                            HorizontalOptions="Center" />
-                        <Label
-                            FontSize="24"
-                            FontAttributes="Bold"
-                            Text="{Binding TotalTaskCount}"
-                            TextColor="{StaticResource PrimaryDark}"
-                            HorizontalOptions="Center" />
-                    </StackLayout>
+                    <Border Grid.Column="2" BackgroundColor="{StaticResource White}" Padding="15" StrokeShape="RoundRectangle 12" StrokeThickness="1">
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label FontSize="10" FontAttributes="Bold" Text="COMPLETION" TextColor="#999" HorizontalOptions="Center" />
+                            <Label FontSize="24" FontAttributes="Bold" Text="{Binding CompletionPercentage, StringFormat='{0:F0}%'}" TextColor="{StaticResource Warning}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <Border BackgroundColor="{StaticResource White}" Padding="15" StrokeShape="RoundRectangle 12" StrokeThickness="1">
+                    <VerticalStackLayout Spacing="10">
+                        <Label FontSize="12" FontAttributes="Bold" Text="Progress" TextColor="{StaticResource TextDark}" />
+                        <ProgressBar Progress="{Binding CompletionPercentage, Converter={StaticResource PercentageConverter}}" ProgressColor="{StaticResource Success}" />
+                    </VerticalStackLayout>
                 </Border>
 
-                <Border
-                    Grid.Column="1"
-                    BackgroundColor="{StaticResource White}"
-                    Padding="15"
-                    StrokeShape="RoundRectangle 12"
-                    StrokeThickness="1">
-                    <Border.Shadow>
-                        <Shadow
-                            Brush="Black"
-                            Opacity="0.05"
-                            Radius="5"
-                            Offset="0,2" />
-                    </Border.Shadow>
-                    <StackLayout Spacing="8" HorizontalOptions="Center">
-                        <Label
-                            FontSize="10"
-                            FontAttributes="Bold"
-                            Text="COMPLETED"
-                            TextColor="#999"
-                            HorizontalOptions="Center" />
-                        <Label
-                            FontSize="24"
-                            FontAttributes="Bold"
-                            Text="{Binding CompletedTaskCount}"
-                            TextColor="{StaticResource Success}"
-                            HorizontalOptions="Center" />
-                    </StackLayout>
-                </Border>
+                <Button BackgroundColor="{StaticResource PrimaryDark}" Command="{Binding RefreshTasksCommand}" CornerRadius="12" FontAttributes="Bold" HeightRequest="40" Text="Refresh Tasks" TextColor="{StaticResource White}" />
 
-                <Border
-                    Grid.Column="2"
-                    BackgroundColor="{StaticResource White}"
-                    Padding="15"
-                    StrokeShape="RoundRectangle 12"
-                    StrokeThickness="1">
-                    <Border.Shadow>
-                        <Shadow
-                            Brush="Black"
-                            Opacity="0.05"
-                            Radius="5"
-                            Offset="0,2" />
-                    </Border.Shadow>
-                    <StackLayout Spacing="8" HorizontalOptions="Center">
-                        <Label
-                            FontSize="10"
-                            FontAttributes="Bold"
-                            Text="COMPLETION"
-                            TextColor="#999"
-                            HorizontalOptions="Center" />
-                        <Label
-                            FontSize="24"
-                            FontAttributes="Bold"
-                            Text="{Binding CompletionPercentage, StringFormat='{0:F0}%'}"
-                            TextColor="{StaticResource Warning}"
-                            HorizontalOptions="Center" />
-                    </StackLayout>
-                </Border>
-            </Grid>
+            </VerticalStackLayout>
 
-            <!-- Progress Bar -->
-            <Border
-                BackgroundColor="{StaticResource White}"
-                Padding="15"
-                StrokeShape="RoundRectangle 12"
-                StrokeThickness="1">
-                <Border.Shadow>
-                    <Shadow
-                        Brush="Black"
-                        Opacity="0.05"
-                        Radius="5"
-                        Offset="0,2" />
-                </Border.Shadow>
-                <StackLayout Spacing="10">
+            <!-- Tasks List using BindableLayout -->
+            <StackLayout
+                BindableLayout.ItemsSource="{Binding TodaysTasks}"
+                Spacing="12"
+                Padding="15,0">
+
+                <BindableLayout.EmptyView>
                     <Label
-                        FontSize="12"
-                        FontAttributes="Bold"
-                        Text="Progress"
-                        TextColor="{StaticResource TextDark}" />
-                    <ProgressBar
-                        Progress="{Binding CompletionPercentage, Converter={StaticResource PercentageConverter}}"
-                        ProgressColor="{StaticResource Success}" />
-                </StackLayout>
-            </Border>
-        </StackLayout>
+                        Margin="0,20"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="No tasks for today."
+                        TextColor="#CCC" />
+                </BindableLayout.EmptyView>
 
-        <!-- Refresh Button -->
-        <StackLayout Grid.Row="1" Margin="0,0,0,15">
-            <Button
-                BackgroundColor="{StaticResource PrimaryDark}"
-                Command="{Binding RefreshTasksCommand}"
-                CornerRadius="12"
-                FontAttributes="Bold"
-                HeightRequest="40"
-                Text="Refresh Tasks"
-                TextColor="{StaticResource White}" />
-        </StackLayout>
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="15" BackgroundColor="{StaticResource White}" StrokeShape="RoundRectangle 15" StrokeThickness="0">
 
-        <!-- Tasks List -->
-        <ScrollView Grid.Row="2">
-            <StackLayout Spacing="12">
-
-                <!-- Tasks CollectionView -->
-                <CollectionView
-                    ItemsSource="{Binding TodaysTasks}"
-                    SelectionMode="None">
-
-                    <CollectionView.EmptyView>
-                        <StackLayout
-                            HorizontalOptions="Center"
-                            Spacing="12"
-                            VerticalOptions="Center">
-                            <Label
-                                FontSize="16"
-                                FontAttributes="Bold"
-                                HorizontalOptions="Center"
-                                Text="🎉 No tasks for today!"
-                                TextColor="{StaticResource PrimaryDark}" />
-                            <Label
-                                FontSize="12"
-                                HorizontalOptions="Center"
-                                Text="You're all set. Great job!"
-                                TextColor="#999" />
-                        </StackLayout>
-                    </CollectionView.EmptyView>
-
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="12" Orientation="Vertical" />
-                    </CollectionView.ItemsLayout>
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border
-                                Padding="15"
-                                BackgroundColor="{StaticResource White}"
-                                StrokeShape="RoundRectangle 15"
-                                StrokeThickness="0">
-
-                                <Border.Shadow>
-                                    <Shadow
-                                        Brush="Black"
-                                        Opacity="0.05"
-                                        Radius="5"
-                                        Offset="0,2" />
-                                </Border.Shadow>
-
-                                <Grid RowDefinitions="Auto, Auto, Auto" Padding="0">
-
-                                    <!-- Task Header Row -->
-                                    <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
-
-                                        <CheckBox
-                                            Grid.Column="0"
-                                            IsChecked="{Binding IsDone}"
-                                            Color="{StaticResource PrimaryDark}"
-                                            VerticalOptions="Center" />
-
-                                        <StackLayout Grid.Column="1" Spacing="4">
-                                            <Label
-                                                FontSize="14"
-                                                FontAttributes="Bold"
-                                                LineBreakMode="TailTruncation"
-                                                Text="{Binding Name}"
-                                                TextColor="{StaticResource TextDark}" />
-                                            <Label
-                                                FontSize="11"
-                                                Text="{Binding Category}"
-                                                TextColor="#999" />
-                                        </StackLayout>
-
-                                        <Label
-                                            Grid.Column="2"
-                                            FontSize="12"
-                                            FontAttributes="Bold"
-                                            Text="{Binding Priority, StringFormat='P{0}'}"
-                                            TextColor="{StaticResource PrimaryDark}"
-                                            VerticalOptions="Center" />
-
-                                    </Grid>
-
-                                    <!-- Divider -->
-                                    <BoxView
-                                        Grid.Row="1"
-                                        Margin="0,12,0,12"
-                                        BackgroundColor="#EEE"
-                                        HeightRequest="1" />
-
-                                    <!-- Task Details Row -->
-                                    <StackLayout Grid.Row="2" Spacing="8">
-
-                                        <StackLayout Spacing="3">
-                                            <Label
-                                                FontSize="10"
-                                                FontAttributes="Bold"
-                                                Text="DESCRIPTION"
-                                                TextColor="#999" />
-                                            <Label
-                                                FontSize="12"
-                                                LineBreakMode="WordWrap"
-                                                Text="{Binding Description}"
-                                                TextColor="{StaticResource TextDark}" />
-                                        </StackLayout>
-
-                                    </StackLayout>
-
+                            <Grid RowDefinitions="Auto, Auto, Auto" Padding="0">
+                                <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
+                                    <CheckBox Grid.Column="0" IsChecked="{Binding IsDone}" Color="{StaticResource PrimaryDark}" VerticalOptions="Center" />
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                        <Label FontSize="14" FontAttributes="Bold" LineBreakMode="TailTruncation" Text="{Binding Name}" TextColor="{StaticResource TextDark}" />
+                                        <Label FontSize="11" Text="{Binding Category}" TextColor="#999" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2" FontSize="12" FontAttributes="Bold" Text="{Binding Priority, StringFormat='P{0}'}" TextColor="{StaticResource PrimaryDark}" VerticalOptions="Center" />
                                 </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
 
+                                <BoxView Grid.Row="1" Margin="0,12,0,12" BackgroundColor="#EEE" HeightRequest="1" />
+
+                                <VerticalStackLayout Grid.Row="2" Spacing="3">
+                                    <Label FontSize="10" FontAttributes="Bold" Text="DESCRIPTION" TextColor="#999" />
+                                    <Label FontSize="12" LineBreakMode="WordWrap" Text="{Binding Description}" TextColor="{StaticResource TextDark}" />
+                                </VerticalStackLayout>
+                            </Grid>
+
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
             </StackLayout>
-        </ScrollView>
 
-    </Grid>
+            <!-- Extra bottom spacer for scroll bounce -->
+            <BoxView HeightRequest="50" Color="Transparent" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

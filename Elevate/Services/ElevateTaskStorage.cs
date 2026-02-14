@@ -75,13 +75,13 @@ namespace Elevate.Services
 
                 if (appState.SortedTasks != null)
                 {
-                    FixParents(appState.SortedTasks);
+                    //FixParents(appState.SortedTasks);
                     taskService.sortedTasks = appState.SortedTasks;
                 }
-
+                
                 if (appState.UnsortedTasks != null)
                 {
-                    FixParents(appState.UnsortedTasks);
+                    //FixParents(appState.UnsortedTasks);
                     taskService.unsortedTasks = appState.UnsortedTasks;
                 }
 

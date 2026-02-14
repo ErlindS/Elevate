@@ -43,16 +43,11 @@ namespace Elevate.ViewModels
             DayName = today.ToString("dddd");
             TodayDate = today.ToString("dd.MM.yyyy");
 
-            var leafTasks = GetAllLeafTasks(_taskService.unsortedTasks);
+            var allLeafTasks = GetAllLeafTasks(_taskService.unsortedTasks);
 
-            foreach (var task in leafTasks)
+            foreach (var task in allLeafTasks)
             {
-                if (task is ElevateTask elevateTask &&
-                    elevateTask.ScheduledDate.Date == today.Date &&
-                    elevateTask.SubTasks.Count == 0)
-                {
-                    TodaysTasks.Add(task);
-                }
+                TodaysTasks.Add(task);
             }
 
             CalculateStats();
