@@ -26,6 +26,9 @@ namespace Elevate.Models
         private string description;
 
         [ObservableProperty]
+        private List<string> fitcriteria = new();
+
+        [ObservableProperty]
         private string category;
 
         [ObservableProperty]

@@ -16,6 +16,7 @@
         ContentTemplate="{DataTemplate local:TodaysTaskPage}"
         Route="TodaysTaskPage" />
 
+
     <ShellContent
         Title="Add Task"
         ContentTemplate="{DataTemplate local:AddTaskPage}"
@@ -26,10 +27,10 @@
         ContentTemplate="{DataTemplate local:CombineTaskPage}"
         Route="CombineTaskPage" />
 
-    <ShellContent
+    <!-- <ShellContent
         Title="Dashboard"
         ContentTemplate="{DataTemplate local:DashboardPage}"
-        Route="DashboardPage" />
+        Route="DashboardPage" /> -->
 
     <ShellContent
         Title="Weekly Calendar"
@@ -41,9 +42,9 @@
         ContentTemplate="{DataTemplate local:ExportPage}"
         Route="ExportPage" />
 
-    <ShellContent 
+    <!-- <ShellContent 
         Title="Häuser"
         ContentTemplate="{DataTemplate views:CompletedHousesPage}"
-        Route="completedhouses" />
+        Route="completedhouses" /> -->
 
 </Shell>

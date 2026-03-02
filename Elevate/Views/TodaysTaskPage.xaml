@@ -25,7 +25,6 @@
             Padding="0,0,0,30"
             VerticalOptions="Start">
 
-            <!-- Header Section -->
             <VerticalStackLayout Spacing="20" Padding="15,20,15,10">
 
                 <VerticalStackLayout Spacing="8">
@@ -62,7 +61,7 @@
                 <Border BackgroundColor="{StaticResource White}" Padding="15" StrokeShape="RoundRectangle 12" StrokeThickness="1">
                     <VerticalStackLayout Spacing="10">
                         <Label FontSize="12" FontAttributes="Bold" Text="Progress" TextColor="{StaticResource TextDark}" />
-                        <ProgressBar Progress="{Binding CompletionPercentage, Converter={StaticResource PercentageConverter}}" ProgressColor="{StaticResource Success}" />
+                        <ProgressBar Progress="{Binding CompletionPercentage}" ProgressColor="{StaticResource Success}" />
                     </VerticalStackLayout>
                 </Border>
 
@@ -70,7 +69,6 @@
 
             </VerticalStackLayout>
 
-            <!-- Tasks List using BindableLayout -->
             <StackLayout
                 BindableLayout.ItemsSource="{Binding TodaysTasks}"
                 Spacing="12"
@@ -89,7 +87,8 @@
                     <DataTemplate>
                         <Border Padding="15" BackgroundColor="{StaticResource White}" StrokeShape="RoundRectangle 15" StrokeThickness="0">
 
-                            <Grid RowDefinitions="Auto, Auto, Auto" Padding="0">
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto" Padding="0">
+
                                 <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
                                     <CheckBox Grid.Column="0" IsChecked="{Binding IsDone}" Color="{StaticResource PrimaryDark}" VerticalOptions="Center" />
                                     <VerticalStackLayout Grid.Column="1" Spacing="4">
@@ -105,6 +104,22 @@
                                     <Label FontSize="10" FontAttributes="Bold" Text="DESCRIPTION" TextColor="#999" />
                                     <Label FontSize="12" LineBreakMode="WordWrap" Text="{Binding Description}" TextColor="{StaticResource TextDark}" />
                                 </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="3" Spacing="5" Margin="0,15,0,0">
+                                    <Label FontSize="10" FontAttributes="Bold" Text="FUNCTIONS / CRITERIA" TextColor="#999" />
+
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Fitcriteria}" Spacing="2">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <HorizontalStackLayout Spacing="8">
+                                                    <CheckBox Color="{StaticResource PrimaryDark}" VerticalOptions="Center" Scale="0.8" />
+                                                    <Label Text="{Binding .}" FontSize="12" TextColor="{StaticResource TextDark}" VerticalOptions="Center" />
+                                                </HorizontalStackLayout>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </VerticalStackLayout>
+
                             </Grid>
 
                         </Border>
@@ -112,7 +127,6 @@
                 </BindableLayout.ItemTemplate>
             </StackLayout>
 
-            <!-- Extra bottom spacer for scroll bounce -->
             <BoxView HeightRequest="50" Color="Transparent" />
 
         </VerticalStackLayout>

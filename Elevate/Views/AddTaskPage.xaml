@@ -50,15 +50,32 @@
                             FontSize="14"
                             Placeholder="Task Name *"
                             PlaceholderColor="#CCC"
+                            IsTextPredictionEnabled="True"
                             Text="{Binding NewTodoText}"
                             TextColor="{StaticResource TextDark}" />
 
-                        <Entry
+                        <Editor
                             FontSize="14"
                             Placeholder="Description"
                             PlaceholderColor="#CCC"
                             Text="{Binding NewTaskDescription}"
-                            TextColor="{StaticResource TextDark}" />
+                            TextColor="{StaticResource TextDark}"
+                            AutoSize="TextChanges" />
+
+                        <StackLayout BindableLayout.ItemsSource="{Binding FitCriteria}" Spacing="10">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Entry
+                                        FontSize="14"
+                                        Placeholder="Benötigte Funktion eingeben..."
+                                        PlaceholderColor="#CCC"
+                                        Text="{Binding Text}" 
+                                        TextColor="{StaticResource TextDark}"
+                                        ReturnCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CheckAndAddNewCriterionCommand}"
+                                        ReturnCommandParameter="{Binding .}"/>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
 
                         <Entry
                             FontSize="14"
@@ -155,6 +172,12 @@
                                                 LineBreakMode="TailTruncation"
                                                 Text="{Binding Name}"
                                                 TextColor="{StaticResource TextDark}" />
+
+                                            <Label 
+                                                FontSize="16"
+                                                FontAttributes="Bold"
+                                                Text="{Binding Description}"
+                                                TextColor="{StaticResource Gray300}" />
                                             <Label
                                                 FontSize="12"
                                                 Text="{Binding Category}"
