@@ -2,91 +2,108 @@
 using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
 using Elevate.Services;
+using System.Linq;
 
 namespace Elevate.ViewModels
 {
-
     public partial class CombineTaskViewModel : ObservableObject
     {
+        // 1. Removed [ObservableProperty] and new() - standard DI pattern
+        private readonly ElevateTaskService _taskService;
+
+        // Note: Renamed to standard camelCase for backing fields so the toolkit 
+        // generates UnsortedTasks and SortedTasks with capital T's.
         [ObservableProperty]
-        private ElevateTaskService _taskService = new();
+        private ElevateTask _unsortedTasks = new();
 
         [ObservableProperty]
-        private ElevateTask _unsortedtasks = new();
-
-        [ObservableProperty]
-        private ElevateTask _sortedtasks = new();
-
-        //move should move a task
-        //remove should remove a whole task
-        //base should use a task as base
-        //out takes the parent task as base
+        private ElevateTask _sortedTasks = new();
 
         public CombineTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
-            _unsortedtasks = taskService.unsortedTasks;
-            _sortedtasks = taskService.sortedTasks;
-            _sortedtasks.Name = "Sorted Tasks";
+
+            // Use the capital properties to trigger any initial UI bindings
+            UnsortedTasks = _taskService.unsortedTasks;
+            SortedTasks = _taskService.sortedTasks;
+            SortedTasks.Name = "Sorted Tasks";
         }
 
         [RelayCommand]
         private void AddItem()
         {
-
+            // To be implemented
         }
 
-        //Moves a command
         [RelayCommand]
         private void MoveTask(int id)
         {
-            ElevateTask? task = Unsortedtasks.SubTasks.FirstOrDefault(t => t.Id == id) as ElevateTask;
+            ElevateTask? task = UnsortedTasks.SubTasks?.FirstOrDefault(t => t.Id == id) as ElevateTask;
 
             if (task == null)
                 return;
 
-            if (Sortedtasks.SubTasks == null)
+            if (SortedTasks.SubTasks == null)
             {
-                Sortedtasks.SubTasks = new();
+                // Ensure we instantiate the observable collection properly
+                SortedTasks.SubTasks = new System.Collections.ObjectModel.ObservableCollection<IElevateTaskComponent>();
             }
 
-            Sortedtasks.SubTasks.Add(task);
+            SortedTasks.SubTasks.Add(task);
 
             if (task is ElevateTask elevateTask)
             {
-                elevateTask.ParentTask = TaskService.sortedTasks;
+                // FIX: Set parent to the CURRENT SortedTasks view, not the root service
+                elevateTask.ParentTask = SortedTasks;
             }
-            Unsortedtasks.SubTasks.Remove(task);
+
+            UnsortedTasks.SubTasks.Remove(task);
         }
 
         [RelayCommand]
         private void Base(int id)
         {
-            ElevateTask? task = Sortedtasks.SubTasks.FirstOrDefault(t => t.Id == id) as ElevateTask;
+            ElevateTask? task = SortedTasks.SubTasks?.FirstOrDefault(t => t.Id == id) as ElevateTask;
 
             if (task == null)
                 return;
 
-            Sortedtasks = task;
+            SortedTasks = task;
         }
 
         [RelayCommand]
         private void Out()
         {
-            if (Sortedtasks.ParentTask != null)
+            if (SortedTasks.ParentTask != null)
             {
-                Sortedtasks = (ElevateTask)Sortedtasks.ParentTask;
+                SortedTasks = (ElevateTask)SortedTasks.ParentTask;
             }
         }
 
         [RelayCommand]
         private void RemoveTask(int id)
         {
-            var task = Sortedtasks.SubTasks.FirstOrDefault(t => t.Id == id);
+            var task = SortedTasks.SubTasks?.FirstOrDefault(t => t.Id == id);
+
             if (task == null)
                 return;
-            TaskService.unsortedTasks.SubTasks.Add(task);
-            TaskService.sortedTasks.SubTasks.Remove(task);
+
+            // Make sure the unsorted list can receive it
+            if (UnsortedTasks.SubTasks == null)
+            {
+                UnsortedTasks.SubTasks = new System.Collections.ObjectModel.ObservableCollection<IElevateTaskComponent>();
+            }
+
+            UnsortedTasks.SubTasks.Add(task);
+
+            // FIX: Remove from the current view, not the global root
+            SortedTasks.SubTasks.Remove(task);
+
+            // FIX: Update parent pointer back to unsorted tasks
+            if (task is ElevateTask elevateTask)
+            {
+                elevateTask.ParentTask = UnsortedTasks;
+            }
         }
     }
 }

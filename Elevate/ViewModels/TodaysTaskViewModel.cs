@@ -80,6 +80,21 @@ namespace Elevate.ViewModels
             return leafTasks;
         }
 
+        [RelayCommand]
+        private void Base(int id)
+        {
+            ElevateTask? task = _taskService.GetTaskById(id);
+
+            if (task == null || task.SubTasks == null)
+                return;
+
+            // Use the uppercase property so the UI knows to update!
+            TodaysTasks = new ObservableCollection<IElevateTaskComponent>(task.SubTasks);
+
+            // Remember to recalculate your stats after changing the list
+            CalculateStats();
+        }
+
         private void CalculateStats()
         {
             TotalTaskCount = TodaysTasks.Count;

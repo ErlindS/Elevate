@@ -196,6 +196,7 @@
                                             Text="Delete"
                                             TextColor="{StaticResource White}"
                                             WidthRequest="75" />
+                                        
                                     </Grid>
 
                                     <BoxView

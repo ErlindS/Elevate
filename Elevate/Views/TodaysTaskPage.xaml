@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Elevate.TodaysTaskPage"
+    x:Name="Page1"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Today's Tasks"
@@ -69,6 +70,8 @@
 
             </VerticalStackLayout>
 
+
+             <!-- Task List-->
             <StackLayout
                 BindableLayout.ItemsSource="{Binding TodaysTasks}"
                 Spacing="12"
@@ -91,6 +94,15 @@
 
                                 <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
                                     <CheckBox Grid.Column="0" IsChecked="{Binding IsDone}" Color="{StaticResource PrimaryDark}" VerticalOptions="Center" />
+                                    <Button
+                                        BackgroundColor="{StaticResource PrimaryDark}"
+                                        Command="{Binding Source={x:Reference Page1}, Path=BindingContext.BaseCommand}"
+                                        CommandParameter="{Binding Id}"
+                                        CornerRadius="20"
+                                        FontAttributes="Bold"
+                                        HeightRequest="40"
+                                        Text="Base"
+                                        TextColor="{StaticResource White}" />
                                     <VerticalStackLayout Grid.Column="1" Spacing="4">
                                         <Label FontSize="14" FontAttributes="Bold" LineBreakMode="TailTruncation" Text="{Binding Name}" TextColor="{StaticResource TextDark}" />
                                         <Label FontSize="11" Text="{Binding Category}" TextColor="#999" />
