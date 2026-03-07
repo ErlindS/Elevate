@@ -11,17 +11,33 @@
         {
             if (Application.Current == null) return;
 
-            if (Application.Current.UserAppTheme == AppTheme.Dark)
+            bool switchToDark = Application.Current.UserAppTheme != AppTheme.Dark;
+
+            if (switchToDark)
+            {
+                Application.Current.UserAppTheme = AppTheme.Dark;
+                if (sender is Button btn)
+                    btn.Text = "☀️ Light Mode";
+            }
+            else
             {
                 Application.Current.UserAppTheme = AppTheme.Light;
                 if (sender is Button btn)
                     btn.Text = "🌙 Dark Mode";
             }
-            else
+
+            // Update TitleBar colors
+            var window = Application.Current.Windows.FirstOrDefault();
+            if (window != null)
             {
-                Application.Current.UserAppTheme = AppTheme.Dark;
-                if (sender is Button btn)
-                    btn.Text = "☀️ Light Mode";
+                App.UpdateTitleBar(window, switchToDark);
+
+#if WINDOWS
+                if (window.Handler?.PlatformView is Microsoft.UI.Xaml.Window winUIWindow)
+                {
+                    App.UpdateWindowsButtonColors(winUIWindow, switchToDark);
+                }
+#endif
             }
         }
     }

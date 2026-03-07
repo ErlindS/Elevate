@@ -5,13 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Dashboard"
     Shell.NavBarIsVisible="False"
-    BackgroundColor="{StaticResource PageBackground}">
+    BackgroundColor="{AppThemeBinding Light={StaticResource PageBackground}, Dark={StaticResource DarkPageBackground}}">
 
     <Grid RowDefinitions="Auto, Auto, Auto, *" Padding="0">
 
         <!-- Gradient Header -->
         <Border Grid.Row="0"
-                Background="{StaticResource AppGradientBrush}"
+                Background="{AppThemeBinding Light={StaticResource AppGradientBrush}, Dark={StaticResource DarkGradientBrush}}"
                 StrokeThickness="0"
                 StrokeShape="RoundRectangle 0,0,20,20"
                 Padding="20,30,20,20">
@@ -19,7 +19,7 @@
                 FontSize="28"
                 FontAttributes="Bold"
                 Text="Task Dashboard"
-                TextColor="{StaticResource CardBackground}" />
+                TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" />
         </Border>
 
         <!-- Stats -->
@@ -36,7 +36,7 @@
 
                 <Border
                     Grid.Column="0"
-                    BackgroundColor="{StaticResource CardBackground}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                     Padding="15"
                     StrokeShape="RoundRectangle 12"
                     StrokeThickness="1">
@@ -52,20 +52,20 @@
                             FontSize="10"
                             FontAttributes="Bold"
                             Text="TOTAL"
-                            TextColor="{StaticResource TextMuted}"
+                            TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}"
                             HorizontalOptions="Center" />
                         <Label
                             FontSize="24"
                             FontAttributes="Bold"
                             Text="{Binding TotalTaskCount}"
-                            TextColor="{StaticResource PrimaryDark}"
+                            TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                             HorizontalOptions="Center" />
                     </StackLayout>
                 </Border>
 
                 <Border
                     Grid.Column="1"
-                    BackgroundColor="{StaticResource CardBackground}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                     Padding="15"
                     StrokeShape="RoundRectangle 12"
                     StrokeThickness="1">
@@ -81,20 +81,20 @@
                             FontSize="10"
                             FontAttributes="Bold"
                             Text="COMPLETED"
-                            TextColor="{StaticResource TextMuted}"
+                            TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}"
                             HorizontalOptions="Center" />
                         <Label
                             FontSize="24"
                             FontAttributes="Bold"
                             Text="{Binding CompletedTaskCount}"
-                            TextColor="{StaticResource Success}"
+                            TextColor="{AppThemeBinding Light={StaticResource Success}, Dark={StaticResource DarkSuccess}}"
                             HorizontalOptions="Center" />
                     </StackLayout>
                 </Border>
 
                 <Border
                     Grid.Column="2"
-                    BackgroundColor="{StaticResource CardBackground}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                     Padding="15"
                     StrokeShape="RoundRectangle 12"
                     StrokeThickness="1">
@@ -110,13 +110,13 @@
                             FontSize="10"
                             FontAttributes="Bold"
                             Text="PENDING"
-                            TextColor="{StaticResource TextMuted}"
+                            TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}"
                             HorizontalOptions="Center" />
                         <Label
                             FontSize="24"
                             FontAttributes="Bold"
                             Text="{Binding PendingTaskCount}"
-                            TextColor="{StaticResource Warning}"
+                            TextColor="{AppThemeBinding Light={StaticResource Warning}, Dark={StaticResource DarkWarning}}"
                             HorizontalOptions="Center" />
                     </StackLayout>
                 </Border>
@@ -124,7 +124,7 @@
 
             <!-- Progress Bar -->
             <Border
-                BackgroundColor="{StaticResource CardBackground}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                 Padding="15"
                 StrokeShape="RoundRectangle 12"
                 StrokeThickness="1">
@@ -142,17 +142,17 @@
                             FontSize="12"
                             FontAttributes="Bold"
                             Text="Completion Rate"
-                            TextColor="{StaticResource TextDark}" />
+                            TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" />
                         <Label
                             Grid.Column="1"
                             FontSize="12"
                             FontAttributes="Bold"
                             Text="{Binding CompletionPercentage, StringFormat='{0:F1}%'}"
-                            TextColor="{StaticResource PrimaryDark}" />
+                            TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" />
                     </Grid>
                     <ProgressBar
                         Progress="{Binding CompletionPercentage, Converter={StaticResource PercentageConverter}}"
-                        ProgressColor="{StaticResource Success}" />
+                        ProgressColor="{AppThemeBinding Light={StaticResource Success}, Dark={StaticResource DarkSuccess}}" />
                 </StackLayout>
             </Border>
         </StackLayout>
@@ -165,30 +165,30 @@
             Margin="15,15,15,15">
 
             <Button
-                BackgroundColor="{StaticResource PrimaryDark}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                 Command="{Binding RefreshDataCommand}"
                 CornerRadius="12"
                 FontAttributes="Bold"
                 HeightRequest="40"
                 Text="Refresh"
-                TextColor="{StaticResource CardBackground}"
+                TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                 WidthRequest="100" />
 
             <Button
-                BackgroundColor="{StaticResource PrimaryDark}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                 Command="{Binding CopyJsonToClipboardCommand}"
                 CornerRadius="12"
                 FontAttributes="Bold"
                 HeightRequest="40"
                 Text="Copy JSON"
-                TextColor="{StaticResource CardBackground}" />
+                TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" />
         </StackLayout>
 
         <!-- JSON Viewer -->
         <Border
             Grid.Row="3"
             Margin="15,0,15,15"
-            BackgroundColor="{StaticResource CardBackground}"
+            BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
             Padding="15"
             StrokeShape="RoundRectangle 12"
             StrokeThickness="1">
@@ -205,7 +205,7 @@
                     FontSize="14"
                     FontAttributes="Bold"
                     Text="JSON Output"
-                    TextColor="{StaticResource TextDark}" />
+                    TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" />
 
                 <ScrollView>
                     <Label
@@ -213,7 +213,7 @@
                         FontSize="11"
                         LineBreakMode="WordWrap"
                         Text="{Binding JsonOutput}"
-                        TextColor="{StaticResource TextDark}" />
+                        TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" />
                 </ScrollView>
             </StackLayout>
         </Border>

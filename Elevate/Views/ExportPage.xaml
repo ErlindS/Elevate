@@ -5,13 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Name="Page4"
     Shell.NavBarIsVisible="False"
-    BackgroundColor="{StaticResource PageBackground}">
+    BackgroundColor="{AppThemeBinding Light={StaticResource PageBackground}, Dark={StaticResource DarkPageBackground}}">
 
     <ScrollView>
         <VerticalStackLayout Spacing="15">
             
             <!-- Gradient Header -->
-            <Border Background="{StaticResource AppGradientBrush}"
+            <Border Background="{AppThemeBinding Light={StaticResource AppGradientBrush}, Dark={StaticResource DarkGradientBrush}}"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 0,0,20,20"
                     Padding="20,30,20,20">
@@ -19,7 +19,7 @@
                     Text="Export &amp; Import" 
                     FontSize="28" 
                     FontAttributes="Bold"
-                    TextColor="{StaticResource CardBackground}"
+                    TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                     HorizontalOptions="Center"/>
             </Border>
 
@@ -28,13 +28,13 @@
                 StrokeShape="RoundRectangle 10"
                 Padding="15"
                 Margin="20,0"
-                BackgroundColor="{StaticResource StatusBackground}"
-                Stroke="{StaticResource PrimaryLight}">
+                BackgroundColor="{AppThemeBinding Light={StaticResource StatusBackground}, Dark={StaticResource DarkStatusBackground}}"
+                Stroke="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource DarkPrimaryLight}}">
                 <Label 
                     Text="{Binding StatusMessage}"
                     FontSize="14"
                     HorizontalTextAlignment="Center"
-                    TextColor="{StaticResource TextDark}"/>
+                    TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}"/>
             </Border>
 
             <!-- Quick Save/Load Section -->
@@ -42,7 +42,7 @@
                 Text="Quick Save/Load" 
                 FontSize="18" 
                 FontAttributes="Bold"
-                TextColor="{StaticResource TextDark}"
+                TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}"
                 Margin="20,10,20,5"/>
             
             <Label 
@@ -54,23 +54,23 @@
             <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="20,0">
                 <Button
                     Grid.Column="0"
-                    BackgroundColor="{StaticResource PrimaryDark}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                     Command="{Binding SaveCommand}"
                     CornerRadius="15"
                     FontAttributes="Bold"
                     HeightRequest="50"
-                    Text="💾 Save"
-                    TextColor="{StaticResource CardBackground}" />
+                    Text="?? Save"
+                    TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" />
 
                 <Button
                     Grid.Column="1"
-                    BackgroundColor="{StaticResource PrimaryLight}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource DarkPrimaryLight}}"
                     Command="{Binding LoadCommand}"
                     CornerRadius="15"
                     FontAttributes="Bold"
                     HeightRequest="50"
-                    Text="📂 Load"
-                    TextColor="{StaticResource CardBackground}" />
+                    Text="?? Load"
+                    TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" />
             </Grid>
 
             <!-- Custom File Section -->
@@ -78,7 +78,7 @@
                 Text="Custom File Location" 
                 FontSize="18" 
                 FontAttributes="Bold"
-                TextColor="{StaticResource TextDark}"
+                TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}"
                 Margin="20,20,20,5"/>
             
             <Label 
@@ -90,23 +90,23 @@
             <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="20,0">
                 <Button
                     Grid.Column="0"
-                    BackgroundColor="{StaticResource PrimaryDark}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                     Command="{Binding SaveToFileCommand}"
                     CornerRadius="15"
                     FontAttributes="Bold"
                     HeightRequest="50"
-                    Text="📤 Export..."
-                    TextColor="{StaticResource CardBackground}" />
+                    Text="?? Export..."
+                    TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" />
 
                 <Button
                     Grid.Column="1"
-                    BackgroundColor="{StaticResource PrimaryLight}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource DarkPrimaryLight}}"
                     Command="{Binding LoadFromFileCommand}"
                     CornerRadius="15"
                     FontAttributes="Bold"
                     HeightRequest="50"
-                    Text="📥 Import..."
-                    TextColor="{StaticResource CardBackground}" />
+                    Text="?? Import..."
+                    TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" />
             </Grid>
 
             <!-- PDF Export Section -->
@@ -114,7 +114,7 @@
                 Text="Reports" 
                 FontSize="18" 
                 FontAttributes="Bold"
-                TextColor="{StaticResource TextDark}"
+                TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}"
                 Margin="20,20,20,5"/>
             
             <Label 
@@ -125,13 +125,13 @@
 
             <Button
                 Margin="20,0"
-                BackgroundColor="{StaticResource PrimaryDark}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                 Command="{Binding GeneratePdfCommand}"
                 CornerRadius="15"
                 FontAttributes="Bold"
                 HeightRequest="50"
-                Text="📄 Export to PDF"
-                TextColor="{StaticResource CardBackground}" />
+                Text="?? Export to PDF"
+                TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" />
 
         </VerticalStackLayout>
     </ScrollView>

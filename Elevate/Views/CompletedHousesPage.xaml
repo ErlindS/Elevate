@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Elevate.Views.CompletedHousesPage"
              Title="Vollendete Häuser"
-             BackgroundColor="{StaticResource PageBackground}">
+             BackgroundColor="{AppThemeBinding Light={StaticResource PageBackground}, Dark={StaticResource DarkPageBackground}}">
 
     <Grid RowDefinitions="Auto,*" Padding="20" RowSpacing="20">
         <!-- Header Section -->
@@ -11,10 +11,10 @@
             <Label Text="Deine vollendeten Aufgaben als Häuser"
                    FontSize="24"
                    FontAttributes="Bold"
-                   TextColor="{StaticResource HouseText}" />
+                   TextColor="{AppThemeBinding Light={StaticResource HouseText}, Dark={StaticResource DarkHouseText}}" />
             <Label x:Name="SummaryLabel"
                    FontSize="16"
-                   TextColor="{StaticResource PrimaryDark}" />
+                   TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" />
         </StackLayout>
 
         <!-- Houses Grid -->
@@ -33,12 +33,12 @@
                            HasShadow="True"
                            Padding="0"
                            IsClippedToBounds="True"
-                           Background="{StaticResource HouseBackground}"
+                           Background="{AppThemeBinding Light={StaticResource HouseBackground}, Dark={StaticResource DarkHouseBackground}}"
                            WidthRequest="150"
                            HeightRequest="200">
                         <StackLayout Spacing="8" Padding="12" VerticalOptions="Center">
                             <!-- House Visual -->
-                            <BoxView BackgroundColor="{StaticResource PrimaryDark}"
+                            <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                                      WidthRequest="80"
                                      HeightRequest="80"
                                      CornerRadius="5"
@@ -48,7 +48,7 @@
                             <Label Text="{Binding Name, StringFormat='{0}'}"
                                    FontSize="12"
                                    FontAttributes="Bold"
-                                   TextColor="{StaticResource HouseText}"
+                                   TextColor="{AppThemeBinding Light={StaticResource HouseText}, Dark={StaticResource DarkHouseText}}"
                                    LineBreakMode="TailTruncation"
                                    MaxLines="2"
                                    HorizontalTextAlignment="Center" />
@@ -56,7 +56,7 @@
                             <!-- Task Category -->
                             <Label Text="{Binding Category, StringFormat='Kategorie: {0}'}"
                                    FontSize="10"
-                                   TextColor="{StaticResource PrimaryDark}"
+                                   TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                                    HorizontalTextAlignment="Center"
                                    IsVisible="{Binding Category, Converter={StaticResource StringToBoolConverter}}" />
 

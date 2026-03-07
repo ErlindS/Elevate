@@ -5,22 +5,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Weekly Planner"
     Shell.NavBarIsVisible="False"
-    BackgroundColor="{StaticResource PageBackground}">
+    BackgroundColor="{AppThemeBinding Light={StaticResource PageBackground}, Dark={StaticResource DarkPageBackground}}">
 
     <Grid RowDefinitions="Auto, *" Padding="0" RowSpacing="0">
 
         <!-- Navigation Header -->
-        <Border Grid.Row="0" Background="{StaticResource AppGradientBrush}" StrokeThickness="0" StrokeShape="RoundRectangle 0,0,20,20" Padding="15,20,15,15">
+        <Border Grid.Row="0" Background="{AppThemeBinding Light={StaticResource AppGradientBrush}, Dark={StaticResource DarkGradientBrush}}" StrokeThickness="0" StrokeShape="RoundRectangle 0,0,20,20" Padding="15,20,15,15">
         <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10">
             <Button
                 Grid.Column="0"
-                BackgroundColor="{StaticResource CardBackground}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                 Command="{Binding PreviousWeekCommand}"
                 CornerRadius="8"
                 FontAttributes="Bold"
                 HeightRequest="36"
-                Text="← Prev"
-                TextColor="{StaticResource PrimaryDark}"
+                Text="? Prev"
+                TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                 WidthRequest="75" />
 
             <Label
@@ -28,31 +28,31 @@
                 FontSize="16"
                 FontAttributes="Bold"
                 Text="{Binding WeekTitle}"
-                TextColor="{StaticResource CardBackground}"
+                TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                 HorizontalOptions="Center"
                 VerticalOptions="Center" />
 
             <Grid Grid.Column="2" ColumnDefinitions="Auto, Auto" ColumnSpacing="8">
                 <Button
                     Grid.Column="0"
-                    BackgroundColor="{StaticResource CardBackground}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                     Command="{Binding GoToTodayCommand}"
                     CornerRadius="8"
                     FontAttributes="Bold"
                     HeightRequest="36"
                     Text="Today"
-                    TextColor="{StaticResource Success}"
+                    TextColor="{AppThemeBinding Light={StaticResource Success}, Dark={StaticResource DarkSuccess}}"
                     WidthRequest="65" />
 
                 <Button
                     Grid.Column="1"
-                    BackgroundColor="{StaticResource CardBackground}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                     Command="{Binding NextWeekCommand}"
                     CornerRadius="8"
                     FontAttributes="Bold"
                     HeightRequest="36"
-                    Text="Next →"
-                    TextColor="{StaticResource PrimaryDark}"
+                    Text="Next ?"
+                    TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                     WidthRequest="75" />
             </Grid>
         </Grid>
@@ -66,61 +66,61 @@
                 <Grid ColumnDefinitions="50, 120, 120, 120, 120, 120, 120, 120, 200" ColumnSpacing="0" Padding="0" RowSpacing="0">
                     
                     <!-- Time Column Header -->
-                    <BoxView Grid.Column="0" BackgroundColor="{StaticResource CalendarGray}" HeightRequest="50" />
+                    <BoxView Grid.Column="0" BackgroundColor="{AppThemeBinding Light={StaticResource CalendarGray}, Dark={StaticResource DarkCalendarGray}}" HeightRequest="50" />
                     
                     <!-- Day Headers -->
-                    <Border Grid.Column="1" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="1" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="{Binding WeekDays[0].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[0].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[0].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[0].DayDate}" FontSize="10" TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="2" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="2" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="{Binding WeekDays[1].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[1].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[1].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[1].DayDate}" FontSize="10" TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="3" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="3" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="{Binding WeekDays[2].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[2].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[2].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[2].DayDate}" FontSize="10" TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="4" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="4" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="{Binding WeekDays[3].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[3].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[3].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[3].DayDate}" FontSize="10" TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="5" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="5" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="{Binding WeekDays[4].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[4].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[4].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[4].DayDate}" FontSize="10" TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="6" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="6" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="{Binding WeekDays[5].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[5].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[5].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[5].DayDate}" FontSize="10" TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="7" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="7" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="{Binding WeekDays[6].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[6].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[6].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[6].DayDate}" FontSize="10" TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
                     <!-- Projects Header -->
-                    <Border Grid.Column="8" BackgroundColor="{StaticResource PrimaryLight}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
-                        <Label Text="Projekte" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource CardBackground}" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Border Grid.Column="8" BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource DarkPrimaryLight}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="8">
+                        <Label Text="Projekte" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" HorizontalOptions="Center" VerticalOptions="Center" />
                     </Border>
                 </Grid>
 
@@ -131,21 +131,21 @@
                             <Grid ColumnDefinitions="50, 120, 120, 120, 120, 120, 120, 120, 200" ColumnSpacing="0" Padding="0" RowSpacing="0" HeightRequest="60">
                                 
                                 <!-- Hour Label -->
-                                <Border Grid.Column="0" BackgroundColor="{StaticResource CalendarGray}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4">
-                                    <Label Text="{Binding DisplayTime}" FontSize="9" TextColor="{StaticResource TextDark}" HorizontalOptions="Center" VerticalOptions="Center" />
+                                <Border Grid.Column="0" BackgroundColor="{AppThemeBinding Light={StaticResource CalendarGray}, Dark={StaticResource DarkCalendarGray}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4">
+                                    <Label Text="{Binding DisplayTime}" FontSize="9" TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
 
                                 <!-- Day Cells (7 Days) -->
-                                <Border Grid.Column="1" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="2" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="3" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="4" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="5" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="6" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="7" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="1" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
+                                <Border Grid.Column="2" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
+                                <Border Grid.Column="3" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
+                                <Border Grid.Column="4" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
+                                <Border Grid.Column="5" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
+                                <Border Grid.Column="6" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
+                                <Border Grid.Column="7" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
 
                                 <!-- Projects Column -->
-                                <Border Grid.Column="8" BackgroundColor="{StaticResource CalendarGray}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="8" BackgroundColor="{AppThemeBinding Light={StaticResource CalendarGray}, Dark={StaticResource DarkCalendarGray}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

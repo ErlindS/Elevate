@@ -5,17 +5,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Name="Page"
     Shell.NavBarIsVisible="False"
-    BackgroundColor="{StaticResource PageBackground}">
+    BackgroundColor="{AppThemeBinding Light={StaticResource PageBackground}, Dark={StaticResource DarkPageBackground}}">
 
     <!-- Use Grid to constrain ScrollView to page bounds -->
     <Grid RowDefinitions="Auto, *">
         <!-- Gradient Header -->
         <Border Grid.Row="0"
-                Background="{StaticResource AppGradientBrush}"
+                Background="{AppThemeBinding Light={StaticResource AppGradientBrush}, Dark={StaticResource DarkGradientBrush}}"
                 StrokeThickness="0"
                 StrokeShape="RoundRectangle 0,0,20,20"
                 Padding="20,30,20,20">
-            <Label FontSize="28" FontAttributes="Bold" Text="New Task" TextColor="{StaticResource CardBackground}" />
+            <Label FontSize="28" FontAttributes="Bold" Text="New Task" TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" />
         </Border>
 
         <ScrollView
@@ -29,7 +29,7 @@
                 <!-- Header / New Task Form -->
                 <Border
                     Margin="20,10,20,10"
-                    BackgroundColor="{StaticResource CardBackground}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                     StrokeShape="RoundRectangle 15"
                     StrokeThickness="1"
                     Padding="15">
@@ -47,22 +47,22 @@
                             FontSize="18"
                             FontAttributes="Bold"
                             Text="New Task"
-                            TextColor="{StaticResource TextDark}" />
+                            TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" />
 
                         <Entry
                             FontSize="14"
                             Placeholder="Task Name *"
-                            PlaceholderColor="{StaticResource TextPlaceholder}"
+                            PlaceholderColor="{AppThemeBinding Light={StaticResource TextPlaceholder}, Dark={StaticResource DarkTextPlaceholder}}"
                             IsTextPredictionEnabled="True"
                             Text="{Binding NewTodoText}"
-                            TextColor="{StaticResource TextDark}" />
+                            TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" />
 
                         <Editor
                             FontSize="14"
                             Placeholder="Description"
-                            PlaceholderColor="{StaticResource TextPlaceholder}"
+                            PlaceholderColor="{AppThemeBinding Light={StaticResource TextPlaceholder}, Dark={StaticResource DarkTextPlaceholder}}"
                             Text="{Binding NewTaskDescription}"
-                            TextColor="{StaticResource TextDark}"
+                            TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}"
                             AutoSize="TextChanges" />
 
                         <StackLayout BindableLayout.ItemsSource="{Binding FitCriteria}" Spacing="10">
@@ -71,9 +71,9 @@
                                     <Entry
                                         FontSize="14"
                                         Placeholder="Benötigte Funktion eingeben..."
-                                        PlaceholderColor="{StaticResource TextPlaceholder}"
+                                        PlaceholderColor="{AppThemeBinding Light={StaticResource TextPlaceholder}, Dark={StaticResource DarkTextPlaceholder}}"
                                         Text="{Binding Text}" 
-                                        TextColor="{StaticResource TextDark}"
+                                        TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}"
                                         ReturnCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CheckAndAddNewCriterionCommand}"
                                         ReturnCommandParameter="{Binding .}"/>
                                 </DataTemplate>
@@ -83,18 +83,18 @@
                         <Entry
                             FontSize="14"
                             Placeholder="Category"
-                            PlaceholderColor="{StaticResource TextPlaceholder}"
+                            PlaceholderColor="{AppThemeBinding Light={StaticResource TextPlaceholder}, Dark={StaticResource DarkTextPlaceholder}}"
                             Text="{Binding NewTaskCategory}"
-                            TextColor="{StaticResource TextDark}" />
+                            TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" />
 
                         <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
                             <Entry
                                 Grid.Column="0"
                                 FontSize="14"
                                 Placeholder="Priority (1-5)"
-                                PlaceholderColor="{StaticResource TextPlaceholder}"
+                                PlaceholderColor="{AppThemeBinding Light={StaticResource TextPlaceholder}, Dark={StaticResource DarkTextPlaceholder}}"
                                 Text="{Binding NewTaskPriority}"
-                                TextColor="{StaticResource TextDark}"
+                                TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}"
                                 Keyboard="Numeric" />
 
                             <Picker
@@ -102,7 +102,7 @@
                                 FontSize="14"
                                 ItemsSource="{Binding AvailableDays}"
                                 SelectedItem="{Binding SelectedDay}"
-                                TextColor="{StaticResource TextDark}"
+                                TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}"
                                 Title="Select Day" />
                         </Grid>
 
@@ -111,19 +111,19 @@
                                 Grid.Column="0"
                                 FontSize="12"
                                 Text="{Binding SelectedDay, StringFormat='Scheduled for: {0}'}"
-                                TextColor="{StaticResource TextMuted}"
+                                TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}"
                                 VerticalOptions="Center" />
 
                             <Button
                                 Grid.Column="1"
                                 Margin="10,0,0,0"
-                                BackgroundColor="{StaticResource PrimaryDark}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                                 Command="{Binding AddItemCommand}"
                                 CornerRadius="12"
                                 FontAttributes="Bold"
                                 HeightRequest="40"
                                 Text="Add Task"
-                                TextColor="{StaticResource CardBackground}"
+                                TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                                 WidthRequest="100" />
                         </Grid>
                     </StackLayout>
@@ -141,14 +141,14 @@
                             FontSize="18"
                             HorizontalOptions="Center"
                             Text="No tasks yet."
-                            TextColor="{StaticResource TextPlaceholder}" />
+                            TextColor="{AppThemeBinding Light={StaticResource TextPlaceholder}, Dark={StaticResource DarkTextPlaceholder}}" />
                     </BindableLayout.EmptyView>
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Border
                                 Padding="15"
-                                BackgroundColor="{StaticResource CardBackground}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                                 StrokeShape="RoundRectangle 15"
                                 StrokeThickness="0">
 
@@ -165,7 +165,7 @@
                                         <CheckBox
                                             Grid.Column="0"
                                             IsChecked="{Binding IsDone}"
-                                            Color="{StaticResource PrimaryDark}"
+                                            Color="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                                             VerticalOptions="Center" />
 
                                         <StackLayout Grid.Column="1" Spacing="5" Margin="10,0">
@@ -174,7 +174,7 @@
                                                 FontAttributes="Bold"
                                                 LineBreakMode="TailTruncation"
                                                 Text="{Binding Name}"
-                                                TextColor="{StaticResource TextDark}" />
+                                                TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" />
 
                                             <Label 
                                                 FontSize="16"
@@ -184,20 +184,20 @@
                                             <Label
                                                 FontSize="12"
                                                 Text="{Binding Category}"
-                                                TextColor="{StaticResource TextMuted}" />
+                                                TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}" />
                                         </StackLayout>
 
                                         <Button
                                             Grid.Column="2"
                                             Margin="10"
-                                            BackgroundColor="{StaticResource PrimaryDark}"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                                             Command="{Binding Source={x:Reference Page}, Path=BindingContext.DeleteItemCommand}"
                                             CommandParameter="{Binding Id}"
                                             CornerRadius="12"
                                             FontAttributes="Bold"
                                             HeightRequest="36"
                                             Text="Delete"
-                                            TextColor="{StaticResource CardBackground}"
+                                            TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                                             WidthRequest="75" />
                                         
                                     </Grid>
@@ -205,7 +205,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Margin="0,8,0,8"
-                                        BackgroundColor="{StaticResource Divider}"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Divider}, Dark={StaticResource DarkDivider}}"
                                         HeightRequest="1" />
 
                                     <Grid Grid.Row="2" ColumnDefinitions="*, *" RowSpacing="5" ColumnSpacing="10">
@@ -214,11 +214,11 @@
                                                 FontSize="10"
                                                 FontAttributes="Bold"
                                                 Text="PRIORITY"
-                                                TextColor="{StaticResource TextMuted}" />
+                                                TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}" />
                                             <Label
                                                 FontSize="14"
                                                 Text="{Binding Priority}"
-                                                TextColor="{StaticResource TextDark}" />
+                                                TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" />
                                         </StackLayout>
 
                                         <StackLayout Grid.Column="1" Spacing="3">
@@ -226,12 +226,12 @@
                                                 FontSize="10"
                                                 FontAttributes="Bold"
                                                 Text="SCHEDULED"
-                                                TextColor="{StaticResource TextMuted}" />
+                                                TextColor="{AppThemeBinding Light={StaticResource TextMuted}, Dark={StaticResource DarkTextMuted}}" />
                                             <Label
                                                 FontSize="12"
                                                 LineBreakMode="TailTruncation"
                                                 Text="{Binding ScheduledDate, StringFormat='{0:dd.MM.yyyy}'}"
-                                                TextColor="{StaticResource TextDark}" />
+                                                TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" />
                                         </StackLayout>
                                     </Grid>
                                 </Grid>
