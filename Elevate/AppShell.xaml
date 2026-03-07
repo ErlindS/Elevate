@@ -7,10 +7,26 @@
     x:Class="Elevate.AppShell"
     Title="Elevate"
     BackgroundColor="{StaticResource CardBackground}"
-    FlyoutBackgroundColor="{StaticResource FlyoutBackground}"
+    FlyoutBackgroundColor="{StaticResource CardBackground}"
     TitleColor="{StaticResource PrimaryDark}"
     FlyoutBehavior="Locked">
 
+    <!-- Flyout-Items: grüner Text auf weißem Hintergrund -->
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="Auto, *" Padding="15,10" ColumnSpacing="12">
+                <Image Source="{Binding FlyoutIcon}"
+                       HeightRequest="20"
+                       WidthRequest="20"
+                       VerticalOptions="Center" />
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       FontSize="15"
+                       TextColor="{StaticResource PrimaryDark}"
+                       VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
     <!-- Alle Views MÜSSEN hier registriert sein -->
     <ShellContent
         Title="Todays Task"
@@ -47,5 +63,22 @@
         Title="Häuser"
         ContentTemplate="{DataTemplate views:CompletedHousesPage}"
         Route="completedhouses" /> -->
+
+    <!-- Theme Toggle im Flyout Footer -->
+    <Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <Grid Padding="15,10" BackgroundColor="Transparent">
+                <Button x:Name="ThemeToggleBtn"
+                        Text="🌙 Dark Mode"
+                        BackgroundColor="{StaticResource PrimaryDark}"
+                        TextColor="{StaticResource CardBackground}"
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        FontSize="13"
+                        HeightRequest="40"
+                        Clicked="OnThemeToggleClicked" />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>
 
 </Shell>
