@@ -14,16 +14,47 @@
     <!-- Flyout-Items: grüner Text auf weißem Hintergrund -->
     <Shell.ItemTemplate>
         <DataTemplate>
-            <Grid ColumnDefinitions="Auto, *" Padding="15,10" ColumnSpacing="12">
-                <Image Source="{Binding FlyoutIcon}"
+            <Grid ColumnDefinitions="4, Auto, *" Padding="0,8,15,8" ColumnSpacing="10"
+                  BackgroundColor="Transparent">
+                <!-- Grüner Indikator-Balken -->
+                <BoxView x:Name="Indicator"
+                         Grid.Column="0"
+                         BackgroundColor="{StaticResource PrimaryDark}"
+                         CornerRadius="2"
+                         WidthRequest="4"
+                         VerticalOptions="Fill" />
+                <Image Grid.Column="1"
+                       Source="{Binding FlyoutIcon}"
                        HeightRequest="20"
                        WidthRequest="20"
-                       VerticalOptions="Center" />
-                <Label Grid.Column="1"
+                       VerticalOptions="Center"
+                       Margin="8,0,0,0" />
+                <Label Grid.Column="2"
                        Text="{Binding Title}"
                        FontSize="15"
+                       FontAttributes="Bold"
                        TextColor="{StaticResource PrimaryDark}"
                        VerticalOptions="Center" />
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="Indicator" Property="BoxView.IsVisible" Value="False" />
+                                    <Setter TargetName="Indicator" Property="BoxView.BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter TargetName="Indicator" Property="BoxView.IsVisible" Value="True" />
+                                    <Setter TargetName="Indicator" Property="BoxView.BackgroundColor" Value="{StaticResource PrimaryDark}" />
+                                    <Setter Property="BackgroundColor" Value="{StaticResource PageBackground}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
             </Grid>
         </DataTemplate>
     </Shell.ItemTemplate>

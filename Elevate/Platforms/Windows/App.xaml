@@ -5,4 +5,14 @@
     xmlns:maui="using:Microsoft.Maui"
     xmlns:local="using:Elevate.WinUI">
 
+    <maui:MauiWinUIApplication.Resources>
+        <ResourceDictionary>
+            <!-- NavigationView Indicator: Grün statt Blau -->
+            <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground" Color="#3B7A57" />
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelected" Color="#3B7A57" />
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPointerOver" Color="#3B7A57" />
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPressed" Color="#3B7A57" />
+        </ResourceDictionary>
+    </maui:MauiWinUIApplication.Resources>
+
 </maui:MauiWinUIApplication>
