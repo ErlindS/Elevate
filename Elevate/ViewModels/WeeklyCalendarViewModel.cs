@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Elevate.Models;
 using Elevate.Services;
@@ -6,10 +6,25 @@ using System.Collections.ObjectModel;
 
 namespace Elevate.ViewModels
 {
-    public class TimeSlot
+    public partial class TimeSlot : ObservableObject
     {
         public int Hour { get; set; }
         public string DisplayTime { get; set; }
+
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> day0Tasks = new();
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> day1Tasks = new();
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> day2Tasks = new();
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> day3Tasks = new();
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> day4Tasks = new();
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> day5Tasks = new();
+        [ObservableProperty]
+        private ObservableCollection<IElevateTaskComponent> day6Tasks = new();
     }
 
     public class DayColumn
@@ -73,6 +88,17 @@ namespace Elevate.ViewModels
         private void LoadWeeklyTasks()
         {
             WeekDays.Clear();
+            
+            foreach (var slot in TimeSlots)
+            {
+                slot.Day0Tasks.Clear();
+                slot.Day1Tasks.Clear();
+                slot.Day2Tasks.Clear();
+                slot.Day3Tasks.Clear();
+                slot.Day4Tasks.Clear();
+                slot.Day5Tasks.Clear();
+                slot.Day6Tasks.Clear();
+            }
 
             for (int i = 0; i < 7; i++)
             {
@@ -89,6 +115,21 @@ namespace Elevate.ViewModels
                     Date = date,
                     Tasks = dayTasks.ToList()
                 });
+
+                foreach (ElevateTask task in dayTasks)
+                {
+                    var slot = TimeSlots.FirstOrDefault(ts => ts.Hour == task.ScheduledDate.Hour);
+                    if (slot != null)
+                    {
+                        if (i == 0) slot.Day0Tasks.Add(task);
+                        else if (i == 1) slot.Day1Tasks.Add(task);
+                        else if (i == 2) slot.Day2Tasks.Add(task);
+                        else if (i == 3) slot.Day3Tasks.Add(task);
+                        else if (i == 4) slot.Day4Tasks.Add(task);
+                        else if (i == 5) slot.Day5Tasks.Add(task);
+                        else if (i == 6) slot.Day6Tasks.Add(task);
+                    }
+                }
             }
 
             UpdateWeekTitle();
@@ -127,6 +168,7 @@ namespace Elevate.ViewModels
             LoadWeeklyTasks();
         }
 
+        [RelayCommand]
         public void StartDrag(IElevateTaskComponent task)
         {
             _draggedTask = task;
@@ -155,7 +197,15 @@ namespace Elevate.ViewModels
                 elevateTask.ScheduledDate = newDateTime;
             }
 
-            // F�ge zur neuen Position hinzu
+            // Remove from SortedProjects list if it's there (so it disappears from the bottom horizontal bar)
+            if (SortedProjects.Contains(_draggedTask))
+            {
+                SortedProjects.Remove(_draggedTask);
+                // Also move it from sortedTasks root to unsortedTasks root so the calendar can find it if needed,
+                // or just leave it in sortedTasks. For now, since the calendar loads from both, it just needs the date updated.
+            }
+
+            // Füge zur neuen Position hinzu
             dayColumn.Tasks.Add(_draggedTask);
 
             _draggedTask = null;
@@ -165,14 +215,19 @@ namespace Elevate.ViewModels
         private ObservableCollection<IElevateTaskComponent> GetLeafTasksForDate(DateTime date)
         {
             var leafTasks = new ObservableCollection<IElevateTaskComponent>();
-            var allTasks = GetAllLeafTasks(_taskService.unsortedTasks);
+            
+            // Collect from both unsorted and sorted to find scheduled items
+            var allUnsorted = GetAllLeafTasks(_taskService.unsortedTasks);
+            var allSorted = GetAllLeafTasks(_taskService.sortedTasks);
+            
+            var allTasks = allUnsorted.Concat(allSorted).ToList();
 
             foreach (var task in allTasks)
             {
                 if (task is ElevateTask elevateTask &&
-                    elevateTask.ScheduledDate.Date == date.Date &&
-                    elevateTask.SubTasks.Count == 0)
+                    elevateTask.ScheduledDate.Date == date.Date)
                 {
+                    // Include leaf tasks OR tasks that are directly dragged into the calendar
                     leafTasks.Add(task);
                 }
             }

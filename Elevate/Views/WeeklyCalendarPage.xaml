@@ -7,7 +7,7 @@
     Shell.NavBarIsVisible="False"
     BackgroundColor="{AppThemeBinding Light={StaticResource PageBackground}, Dark={StaticResource DarkPageBackground}}">
 
-    <Grid RowDefinitions="Auto, *" Padding="0" RowSpacing="0">
+    <Grid RowDefinitions="Auto, *, Auto" Padding="0" RowSpacing="0">
 
         <!-- Navigation Header -->
         <Border Grid.Row="0" Background="{AppThemeBinding Light={StaticResource AppGradientBrush}, Dark={StaticResource DarkGradientBrush}}" StrokeThickness="0" StrokeShape="RoundRectangle 0,0,20,20" Padding="15,20,15,15">
@@ -135,14 +135,105 @@
                                     <Label Text="{Binding DisplayTime}" FontSize="9" TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
 
-                                <!-- Day Cells (7 Days) -->
-                                <Border Grid.Column="1" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
-                                <Border Grid.Column="2" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
-                                <Border Grid.Column="3" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
-                                <Border Grid.Column="4" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
-                                <Border Grid.Column="5" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
-                                <Border Grid.Column="6" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
-                                <Border Grid.Column="7" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
+                                <!-- Day Cells (7 Days) with Drop Support and Task Display -->
+                                <Border Grid.Column="1" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4">
+                                    <Border.GestureRecognizers>
+                                        <DropGestureRecognizer AllowDrop="True" Drop="OnTimeSlotDrop" />
+                                    </Border.GestureRecognizers>
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Day0Tasks}" Spacing="2">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" Padding="4" StrokeShape="RoundRectangle 4" StrokeThickness="0">
+                                                    <Label Text="{Binding Name}" FontSize="10" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" LineBreakMode="TailTruncation" HorizontalOptions="Center" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Border>
+                                <Border Grid.Column="2" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4">
+                                    <Border.GestureRecognizers>
+                                        <DropGestureRecognizer AllowDrop="True" Drop="OnTimeSlotDrop" />
+                                    </Border.GestureRecognizers>
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Day1Tasks}" Spacing="2">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" Padding="4" StrokeShape="RoundRectangle 4" StrokeThickness="0">
+                                                    <Label Text="{Binding Name}" FontSize="10" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" LineBreakMode="TailTruncation" HorizontalOptions="Center" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Border>
+                                <Border Grid.Column="3" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4">
+                                    <Border.GestureRecognizers>
+                                        <DropGestureRecognizer AllowDrop="True" Drop="OnTimeSlotDrop" />
+                                    </Border.GestureRecognizers>
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Day2Tasks}" Spacing="2">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" Padding="4" StrokeShape="RoundRectangle 4" StrokeThickness="0">
+                                                    <Label Text="{Binding Name}" FontSize="10" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" LineBreakMode="TailTruncation" HorizontalOptions="Center" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Border>
+                                <Border Grid.Column="4" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4">
+                                    <Border.GestureRecognizers>
+                                        <DropGestureRecognizer AllowDrop="True" Drop="OnTimeSlotDrop" />
+                                    </Border.GestureRecognizers>
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Day3Tasks}" Spacing="2">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" Padding="4" StrokeShape="RoundRectangle 4" StrokeThickness="0">
+                                                    <Label Text="{Binding Name}" FontSize="10" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" LineBreakMode="TailTruncation" HorizontalOptions="Center" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Border>
+                                <Border Grid.Column="5" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4">
+                                    <Border.GestureRecognizers>
+                                        <DropGestureRecognizer AllowDrop="True" Drop="OnTimeSlotDrop" />
+                                    </Border.GestureRecognizers>
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Day4Tasks}" Spacing="2">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" Padding="4" StrokeShape="RoundRectangle 4" StrokeThickness="0">
+                                                    <Label Text="{Binding Name}" FontSize="10" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" LineBreakMode="TailTruncation" HorizontalOptions="Center" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Border>
+                                <Border Grid.Column="6" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4">
+                                    <Border.GestureRecognizers>
+                                        <DropGestureRecognizer AllowDrop="True" Drop="OnTimeSlotDrop" />
+                                    </Border.GestureRecognizers>
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Day5Tasks}" Spacing="2">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" Padding="4" StrokeShape="RoundRectangle 4" StrokeThickness="0">
+                                                    <Label Text="{Binding Name}" FontSize="10" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" LineBreakMode="TailTruncation" HorizontalOptions="Center" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Border>
+                                <Border Grid.Column="7" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4">
+                                    <Border.GestureRecognizers>
+                                        <DropGestureRecognizer AllowDrop="True" Drop="OnTimeSlotDrop" />
+                                    </Border.GestureRecognizers>
+                                    <StackLayout BindableLayout.ItemsSource="{Binding Day6Tasks}" Spacing="2">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" Padding="4" StrokeShape="RoundRectangle 4" StrokeThickness="0">
+                                                    <Label Text="{Binding Name}" FontSize="10" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" LineBreakMode="TailTruncation" HorizontalOptions="Center" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Border>
 
                                 <!-- Projects Column -->
                                 <Border Grid.Column="8" BackgroundColor="{AppThemeBinding Light={StaticResource CalendarGray}, Dark={StaticResource DarkCalendarGray}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource GridLine}, Dark={StaticResource DarkGridLine}}" Padding="4" />
@@ -153,6 +244,28 @@
 
             </StackLayout>
         </ScrollView>
+
+        <!-- Unscheduled Subtasks (Draggable) -->
+        <Border Grid.Row="2" BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" StrokeThickness="1" Stroke="{AppThemeBinding Light={StaticResource Divider}, Dark={StaticResource DarkDivider}}" Padding="10">
+            <StackLayout Spacing="8">
+                <Label Text="Unscheduled Tasks" FontSize="14" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource DarkTextDark}}" />
+                <CollectionView ItemsSource="{Binding SortedProjects}" HeightRequest="80">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border StrokeShape="RoundRectangle 8" BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}" Padding="12,8" WidthRequest="150" StrokeThickness="0">
+                                <Border.GestureRecognizers>
+                                    <DragGestureRecognizer CanDrag="True" DragStartingCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.StartDragCommand}" DragStartingCommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{Binding Name}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}" VerticalOptions="Center" HorizontalOptions="Center" LineBreakMode="TailTruncation" />
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Border>
 
     </Grid>
 </ContentPage>
