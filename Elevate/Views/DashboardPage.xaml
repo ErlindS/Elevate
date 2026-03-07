@@ -4,30 +4,28 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Dashboard"
-    BackgroundColor="#F5F7F5">
+    BackgroundColor="{StaticResource PageBackground}">
 
-    <ContentPage.Resources>
-        <Color x:Key="PrimaryDark">#778873</Color>
-        <Color x:Key="PrimaryLight">#A1BC98</Color>
-        <Color x:Key="TextDark">#4A4A4A</Color>
-        <Color x:Key="White">#FFFFFF</Color>
-        <Color x:Key="Success">#66BB6A</Color>
-        <Color x:Key="Warning">#FFA726</Color>
-    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto, Auto, Auto, *" Padding="0">
 
-    <Grid RowDefinitions="Auto, Auto, *" Padding="15">
-
-        <!-- Header -->
-        <StackLayout
-            Grid.Row="0"
-            Margin="0,0,0,20"
-            Spacing="15">
-
+        <!-- Gradient Header -->
+        <Border Grid.Row="0"
+                Background="{StaticResource AppGradientBrush}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 0,0,20,20"
+                Padding="20,30,20,20">
             <Label
                 FontSize="28"
                 FontAttributes="Bold"
                 Text="Task Dashboard"
-                TextColor="{StaticResource TextDark}" />
+                TextColor="{StaticResource CardBackground}" />
+        </Border>
+
+        <!-- Stats -->
+        <StackLayout
+            Grid.Row="1"
+            Margin="15,15,15,0"
+            Spacing="15">
 
             <!-- Statistics Grid -->
             <Grid
@@ -37,7 +35,7 @@
 
                 <Border
                     Grid.Column="0"
-                    BackgroundColor="{StaticResource White}"
+                    BackgroundColor="{StaticResource CardBackground}"
                     Padding="15"
                     StrokeShape="RoundRectangle 12"
                     StrokeThickness="1">
@@ -53,7 +51,7 @@
                             FontSize="10"
                             FontAttributes="Bold"
                             Text="TOTAL"
-                            TextColor="#999"
+                            TextColor="{StaticResource TextMuted}"
                             HorizontalOptions="Center" />
                         <Label
                             FontSize="24"
@@ -66,7 +64,7 @@
 
                 <Border
                     Grid.Column="1"
-                    BackgroundColor="{StaticResource White}"
+                    BackgroundColor="{StaticResource CardBackground}"
                     Padding="15"
                     StrokeShape="RoundRectangle 12"
                     StrokeThickness="1">
@@ -82,7 +80,7 @@
                             FontSize="10"
                             FontAttributes="Bold"
                             Text="COMPLETED"
-                            TextColor="#999"
+                            TextColor="{StaticResource TextMuted}"
                             HorizontalOptions="Center" />
                         <Label
                             FontSize="24"
@@ -95,7 +93,7 @@
 
                 <Border
                     Grid.Column="2"
-                    BackgroundColor="{StaticResource White}"
+                    BackgroundColor="{StaticResource CardBackground}"
                     Padding="15"
                     StrokeShape="RoundRectangle 12"
                     StrokeThickness="1">
@@ -111,7 +109,7 @@
                             FontSize="10"
                             FontAttributes="Bold"
                             Text="PENDING"
-                            TextColor="#999"
+                            TextColor="{StaticResource TextMuted}"
                             HorizontalOptions="Center" />
                         <Label
                             FontSize="24"
@@ -125,7 +123,7 @@
 
             <!-- Progress Bar -->
             <Border
-                BackgroundColor="{StaticResource White}"
+                BackgroundColor="{StaticResource CardBackground}"
                 Padding="15"
                 StrokeShape="RoundRectangle 12"
                 StrokeThickness="1">
@@ -160,10 +158,10 @@
 
         <!-- Controls -->
         <StackLayout
-            Grid.Row="1"
+            Grid.Row="2"
             Orientation="Horizontal"
             Spacing="10"
-            Margin="0,0,0,15">
+            Margin="15,15,15,15">
 
             <Button
                 BackgroundColor="{StaticResource PrimaryDark}"
@@ -172,7 +170,7 @@
                 FontAttributes="Bold"
                 HeightRequest="40"
                 Text="Refresh"
-                TextColor="{StaticResource White}"
+                TextColor="{StaticResource CardBackground}"
                 WidthRequest="100" />
 
             <Button
@@ -182,13 +180,14 @@
                 FontAttributes="Bold"
                 HeightRequest="40"
                 Text="Copy JSON"
-                TextColor="{StaticResource White}" />
+                TextColor="{StaticResource CardBackground}" />
         </StackLayout>
 
         <!-- JSON Viewer -->
         <Border
-            Grid.Row="2"
-            BackgroundColor="{StaticResource White}"
+            Grid.Row="3"
+            Margin="15,0,15,15"
+            BackgroundColor="{StaticResource CardBackground}"
             Padding="15"
             StrokeShape="RoundRectangle 12"
             StrokeThickness="1">

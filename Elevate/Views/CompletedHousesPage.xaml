@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Elevate.Views.CompletedHousesPage"
              Title="Vollendete Häuser"
-             BackgroundColor="#F1F3E0">
+             BackgroundColor="{StaticResource PageBackground}">
 
     <Grid RowDefinitions="Auto,*" Padding="20" RowSpacing="20">
         <!-- Header Section -->
@@ -11,10 +11,10 @@
             <Label Text="Deine vollendeten Aufgaben als Häuser"
                    FontSize="24"
                    FontAttributes="Bold"
-                   TextColor="#333333" />
+                   TextColor="{StaticResource HouseText}" />
             <Label x:Name="SummaryLabel"
                    FontSize="16"
-                   TextColor="#778873" />
+                   TextColor="{StaticResource PrimaryDark}" />
         </StackLayout>
 
         <!-- Houses Grid -->
@@ -28,17 +28,17 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame BorderColor="#A1BC98"
+                    <Frame BorderColor="{StaticResource PrimaryLight}"
                            CornerRadius="12"
                            HasShadow="True"
                            Padding="0"
                            IsClippedToBounds="True"
-                           Background="#D2DCB6"
+                           Background="{StaticResource HouseBackground}"
                            WidthRequest="150"
                            HeightRequest="200">
                         <StackLayout Spacing="8" Padding="12" VerticalOptions="Center">
                             <!-- House Visual -->
-                            <BoxView BackgroundColor="#778873"
+                            <BoxView BackgroundColor="{StaticResource PrimaryDark}"
                                      WidthRequest="80"
                                      HeightRequest="80"
                                      CornerRadius="5"
@@ -48,7 +48,7 @@
                             <Label Text="{Binding Name, StringFormat='{0}'}"
                                    FontSize="12"
                                    FontAttributes="Bold"
-                                   TextColor="#333333"
+                                   TextColor="{StaticResource HouseText}"
                                    LineBreakMode="TailTruncation"
                                    MaxLines="2"
                                    HorizontalTextAlignment="Center" />
@@ -56,13 +56,13 @@
                             <!-- Task Category -->
                             <Label Text="{Binding Category, StringFormat='Kategorie: {0}'}"
                                    FontSize="10"
-                                   TextColor="#778873"
+                                   TextColor="{StaticResource PrimaryDark}"
                                    HorizontalTextAlignment="Center"
                                    IsVisible="{Binding Category, Converter={StaticResource StringToBoolConverter}}" />
 
                             <!-- Completion Date -->
                             <Label FontSize="9"
-                                   TextColor="#A1BC98"
+                                   TextColor="{StaticResource PrimaryLight}"
                                    HorizontalTextAlignment="Center">
                                 <Label.Text>
                                     <MultiBinding StringFormat="Fertig: {0:dd.MM.yyyy}">

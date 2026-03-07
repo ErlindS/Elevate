@@ -6,9 +6,10 @@
     xmlns:views="clr-namespace:Elevate.Views"
     x:Class="Elevate.AppShell"
     Title="Elevate"
-    BackgroundColor="White"
-    FlyoutBackgroundColor="#778873"
-    TitleColor="#778873">
+    BackgroundColor="{StaticResource CardBackground}"
+    FlyoutBackgroundColor="{StaticResource FlyoutBackground}"
+    TitleColor="{StaticResource PrimaryDark}"
+    FlyoutBehavior="Locked">
 
     <!-- Alle Views MÜSSEN hier registriert sein -->
     <ShellContent

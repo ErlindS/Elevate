@@ -4,19 +4,21 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Name="Page"
-    BackgroundColor="#F5F7F5">
-
-    <ContentPage.Resources>
-        <Color x:Key="PrimaryDark">#778873</Color>
-        <Color x:Key="PrimaryLight">#A1BC98</Color>
-        <Color x:Key="TextDark">#4A4A4A</Color>
-        <Color x:Key="White">#FFFFFF</Color>
-        <Color x:Key="Error">#E57373</Color>
-    </ContentPage.Resources>
+    BackgroundColor="{StaticResource PageBackground}">
 
     <!-- Use Grid to constrain ScrollView to page bounds -->
-    <Grid>
+    <Grid RowDefinitions="Auto, *">
+        <!-- Gradient Header -->
+        <Border Grid.Row="0"
+                Background="{StaticResource AppGradientBrush}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 0,0,20,20"
+                Padding="20,30,20,20">
+            <Label FontSize="28" FontAttributes="Bold" Text="New Task" TextColor="{StaticResource CardBackground}" />
+        </Border>
+
         <ScrollView
+            Grid.Row="1"
             Orientation="Vertical"
             VerticalScrollBarVisibility="Always">
             <VerticalStackLayout
@@ -26,7 +28,7 @@
                 <!-- Header / New Task Form -->
                 <Border
                     Margin="20,10,20,10"
-                    BackgroundColor="{StaticResource White}"
+                    BackgroundColor="{StaticResource CardBackground}"
                     StrokeShape="RoundRectangle 15"
                     StrokeThickness="1"
                     Padding="15">
@@ -49,7 +51,7 @@
                         <Entry
                             FontSize="14"
                             Placeholder="Task Name *"
-                            PlaceholderColor="#CCC"
+                            PlaceholderColor="{StaticResource TextPlaceholder}"
                             IsTextPredictionEnabled="True"
                             Text="{Binding NewTodoText}"
                             TextColor="{StaticResource TextDark}" />
@@ -57,7 +59,7 @@
                         <Editor
                             FontSize="14"
                             Placeholder="Description"
-                            PlaceholderColor="#CCC"
+                            PlaceholderColor="{StaticResource TextPlaceholder}"
                             Text="{Binding NewTaskDescription}"
                             TextColor="{StaticResource TextDark}"
                             AutoSize="TextChanges" />
@@ -68,7 +70,7 @@
                                     <Entry
                                         FontSize="14"
                                         Placeholder="Benötigte Funktion eingeben..."
-                                        PlaceholderColor="#CCC"
+                                        PlaceholderColor="{StaticResource TextPlaceholder}"
                                         Text="{Binding Text}" 
                                         TextColor="{StaticResource TextDark}"
                                         ReturnCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CheckAndAddNewCriterionCommand}"
@@ -80,7 +82,7 @@
                         <Entry
                             FontSize="14"
                             Placeholder="Category"
-                            PlaceholderColor="#CCC"
+                            PlaceholderColor="{StaticResource TextPlaceholder}"
                             Text="{Binding NewTaskCategory}"
                             TextColor="{StaticResource TextDark}" />
 
@@ -89,7 +91,7 @@
                                 Grid.Column="0"
                                 FontSize="14"
                                 Placeholder="Priority (1-5)"
-                                PlaceholderColor="#CCC"
+                                PlaceholderColor="{StaticResource TextPlaceholder}"
                                 Text="{Binding NewTaskPriority}"
                                 TextColor="{StaticResource TextDark}"
                                 Keyboard="Numeric" />
@@ -108,7 +110,7 @@
                                 Grid.Column="0"
                                 FontSize="12"
                                 Text="{Binding SelectedDay, StringFormat='Scheduled for: {0}'}"
-                                TextColor="#999"
+                                TextColor="{StaticResource TextMuted}"
                                 VerticalOptions="Center" />
 
                             <Button
@@ -120,7 +122,7 @@
                                 FontAttributes="Bold"
                                 HeightRequest="40"
                                 Text="Add Task"
-                                TextColor="{StaticResource White}"
+                                TextColor="{StaticResource CardBackground}"
                                 WidthRequest="100" />
                         </Grid>
                     </StackLayout>
@@ -138,14 +140,14 @@
                             FontSize="18"
                             HorizontalOptions="Center"
                             Text="No tasks yet."
-                            TextColor="#CCC" />
+                            TextColor="{StaticResource TextPlaceholder}" />
                     </BindableLayout.EmptyView>
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Border
                                 Padding="15"
-                                BackgroundColor="{StaticResource White}"
+                                BackgroundColor="{StaticResource CardBackground}"
                                 StrokeShape="RoundRectangle 15"
                                 StrokeThickness="0">
 
@@ -181,7 +183,7 @@
                                             <Label
                                                 FontSize="12"
                                                 Text="{Binding Category}"
-                                                TextColor="#999" />
+                                                TextColor="{StaticResource TextMuted}" />
                                         </StackLayout>
 
                                         <Button
@@ -194,7 +196,7 @@
                                             FontAttributes="Bold"
                                             HeightRequest="36"
                                             Text="Delete"
-                                            TextColor="{StaticResource White}"
+                                            TextColor="{StaticResource CardBackground}"
                                             WidthRequest="75" />
                                         
                                     </Grid>
@@ -202,7 +204,7 @@
                                     <BoxView
                                         Grid.Row="1"
                                         Margin="0,8,0,8"
-                                        BackgroundColor="#EEE"
+                                        BackgroundColor="{StaticResource Divider}"
                                         HeightRequest="1" />
 
                                     <Grid Grid.Row="2" ColumnDefinitions="*, *" RowSpacing="5" ColumnSpacing="10">
@@ -211,7 +213,7 @@
                                                 FontSize="10"
                                                 FontAttributes="Bold"
                                                 Text="PRIORITY"
-                                                TextColor="#999" />
+                                                TextColor="{StaticResource TextMuted}" />
                                             <Label
                                                 FontSize="14"
                                                 Text="{Binding Priority}"
@@ -223,7 +225,7 @@
                                                 FontSize="10"
                                                 FontAttributes="Bold"
                                                 Text="SCHEDULED"
-                                                TextColor="#999" />
+                                                TextColor="{StaticResource TextMuted}" />
                                             <Label
                                                 FontSize="12"
                                                 LineBreakMode="TailTruncation"

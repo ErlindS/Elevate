@@ -19,6 +19,9 @@ namespace Elevate.ViewModels
         [ObservableProperty]
         private ElevateTask _sortedTasks = new();
 
+        [ObservableProperty]
+        private ElevateTask _currentProjectLevelTask = new();
+
         public CombineTaskViewModel(ElevateTaskService taskService)
         {
             _taskService = taskService;
@@ -27,18 +30,15 @@ namespace Elevate.ViewModels
             UnsortedTasks = _taskService.unsortedTasks;
             SortedTasks = _taskService.sortedTasks;
             SortedTasks.Name = "Sorted Tasks";
+            CurrentProjectLevelTask = SortedTasks; // Start by showing the sorted tasks
         }
 
-        [RelayCommand]
-        private void AddItem()
-        {
-            // To be implemented
-        }
 
+        // here is the add task method
         [RelayCommand]
         private void MoveTask(int id)
         {
-            ElevateTask? task = UnsortedTasks.SubTasks?.FirstOrDefault(t => t.Id == id) as ElevateTask;
+            ElevateTask? task = UnsortedTasks.SubTasks.FirstOrDefault(t => t.Id == id) as ElevateTask;
 
             if (task == null)
                 return;
@@ -49,12 +49,11 @@ namespace Elevate.ViewModels
                 SortedTasks.SubTasks = new System.Collections.ObjectModel.ObservableCollection<IElevateTaskComponent>();
             }
 
-            SortedTasks.SubTasks.Add(task);
+            CurrentProjectLevelTask.SubTasks.Add(task);
 
             if (task is ElevateTask elevateTask)
             {
-                // FIX: Set parent to the CURRENT SortedTasks view, not the root service
-                elevateTask.ParentTask = SortedTasks;
+                elevateTask.ParentTask = CurrentProjectLevelTask;
             }
 
             UnsortedTasks.SubTasks.Remove(task);
@@ -63,27 +62,27 @@ namespace Elevate.ViewModels
         [RelayCommand]
         private void Base(int id)
         {
-            ElevateTask? task = SortedTasks.SubTasks?.FirstOrDefault(t => t.Id == id) as ElevateTask;
+            ElevateTask? task = CurrentProjectLevelTask.SubTasks?.FirstOrDefault(t => t.Id == id) as ElevateTask;
 
             if (task == null)
                 return;
 
-            SortedTasks = task;
+            CurrentProjectLevelTask = task;
         }
 
         [RelayCommand]
         private void Out()
         {
-            if (SortedTasks.ParentTask != null)
+            if (CurrentProjectLevelTask.ParentTask != null)
             {
-                SortedTasks = (ElevateTask)SortedTasks.ParentTask;
+                CurrentProjectLevelTask = (ElevateTask)CurrentProjectLevelTask.ParentTask;
             }
         }
 
         [RelayCommand]
         private void RemoveTask(int id)
         {
-            var task = SortedTasks.SubTasks?.FirstOrDefault(t => t.Id == id);
+            var task = CurrentProjectLevelTask.SubTasks?.FirstOrDefault(t => t.Id == id);
 
             if (task == null)
                 return;
@@ -97,7 +96,7 @@ namespace Elevate.ViewModels
             UnsortedTasks.SubTasks.Add(task);
 
             // FIX: Remove from the current view, not the global root
-            SortedTasks.SubTasks.Remove(task);
+            CurrentProjectLevelTask.SubTasks.Remove(task);
 
             // FIX: Update parent pointer back to unsorted tasks
             if (task is ElevateTask elevateTask)

@@ -4,31 +4,22 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Weekly Planner"
-    BackgroundColor="#F5F7F5">
-
-    <ContentPage.Resources>
-        <Color x:Key="PrimaryDark">#778873</Color>
-        <Color x:Key="PrimaryLight">#A1BC98</Color>
-        <Color x:Key="TextDark">#4A4A4A</Color>
-        <Color x:Key="White">#FFFFFF</Color>
-        <Color x:Key="Success">#66BB6A</Color>
-        <Color x:Key="Gray">#F0F0F0</Color>
-        <Color x:Key="GridLine">#E0E0E0</Color>
-    </ContentPage.Resources>
+    BackgroundColor="{StaticResource PageBackground}">
 
     <Grid RowDefinitions="Auto, *" Padding="0" RowSpacing="0">
 
         <!-- Navigation Header -->
-        <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10" Padding="15" BackgroundColor="{StaticResource White}">
+        <Border Grid.Row="0" Background="{StaticResource AppGradientBrush}" StrokeThickness="0" StrokeShape="RoundRectangle 0,0,20,20" Padding="15,20,15,15">
+        <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10">
             <Button
                 Grid.Column="0"
-                BackgroundColor="{StaticResource PrimaryDark}"
+                BackgroundColor="{StaticResource CardBackground}"
                 Command="{Binding PreviousWeekCommand}"
                 CornerRadius="8"
                 FontAttributes="Bold"
                 HeightRequest="36"
                 Text="← Prev"
-                TextColor="{StaticResource White}"
+                TextColor="{StaticResource PrimaryDark}"
                 WidthRequest="75" />
 
             <Label
@@ -36,34 +27,35 @@
                 FontSize="16"
                 FontAttributes="Bold"
                 Text="{Binding WeekTitle}"
-                TextColor="{StaticResource TextDark}"
+                TextColor="{StaticResource CardBackground}"
                 HorizontalOptions="Center"
                 VerticalOptions="Center" />
 
             <Grid Grid.Column="2" ColumnDefinitions="Auto, Auto" ColumnSpacing="8">
                 <Button
                     Grid.Column="0"
-                    BackgroundColor="{StaticResource Success}"
+                    BackgroundColor="{StaticResource CardBackground}"
                     Command="{Binding GoToTodayCommand}"
                     CornerRadius="8"
                     FontAttributes="Bold"
                     HeightRequest="36"
                     Text="Today"
-                    TextColor="{StaticResource White}"
+                    TextColor="{StaticResource Success}"
                     WidthRequest="65" />
 
                 <Button
                     Grid.Column="1"
-                    BackgroundColor="{StaticResource PrimaryDark}"
+                    BackgroundColor="{StaticResource CardBackground}"
                     Command="{Binding NextWeekCommand}"
                     CornerRadius="8"
                     FontAttributes="Bold"
                     HeightRequest="36"
                     Text="Next →"
-                    TextColor="{StaticResource White}"
+                    TextColor="{StaticResource PrimaryDark}"
                     WidthRequest="75" />
             </Grid>
         </Grid>
+        </Border>
 
         <!-- Main Schedule Grid -->
         <ScrollView Grid.Row="1" Orientation="Both">
@@ -73,61 +65,61 @@
                 <Grid ColumnDefinitions="50, 120, 120, 120, 120, 120, 120, 120, 200" ColumnSpacing="0" Padding="0" RowSpacing="0">
                     
                     <!-- Time Column Header -->
-                    <BoxView Grid.Column="0" BackgroundColor="{StaticResource Gray}" HeightRequest="50" />
+                    <BoxView Grid.Column="0" BackgroundColor="{StaticResource CalendarGray}" HeightRequest="50" />
                     
                     <!-- Day Headers -->
-                    <Border Grid.Column="1" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="1" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
                             <Label Text="{Binding WeekDays[0].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[0].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[0].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="2" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="2" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
                             <Label Text="{Binding WeekDays[1].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[1].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[1].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="3" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="3" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
                             <Label Text="{Binding WeekDays[2].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[2].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[2].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="4" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="4" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
                             <Label Text="{Binding WeekDays[3].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[3].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[3].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="5" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="5" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
                             <Label Text="{Binding WeekDays[4].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[4].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[4].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="6" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="6" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
                             <Label Text="{Binding WeekDays[5].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[5].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[5].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
-                    <Border Grid.Column="7" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
+                    <Border Grid.Column="7" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
                         <StackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
                             <Label Text="{Binding WeekDays[6].DayName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}" HorizontalOptions="Center" />
-                            <Label Text="{Binding WeekDays[6].DayDate}" FontSize="10" TextColor="#999" HorizontalOptions="Center" />
+                            <Label Text="{Binding WeekDays[6].DayDate}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
                         </StackLayout>
                     </Border>
                     
                     <!-- Projects Header -->
                     <Border Grid.Column="8" BackgroundColor="{StaticResource PrimaryLight}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="8">
-                        <Label Text="Projekte" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Label Text="Projekte" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource CardBackground}" HorizontalOptions="Center" VerticalOptions="Center" />
                     </Border>
                 </Grid>
 
@@ -138,21 +130,21 @@
                             <Grid ColumnDefinitions="50, 120, 120, 120, 120, 120, 120, 120, 200" ColumnSpacing="0" Padding="0" RowSpacing="0" HeightRequest="60">
                                 
                                 <!-- Hour Label -->
-                                <Border Grid.Column="0" BackgroundColor="{StaticResource Gray}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4">
+                                <Border Grid.Column="0" BackgroundColor="{StaticResource CalendarGray}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4">
                                     <Label Text="{Binding DisplayTime}" FontSize="9" TextColor="{StaticResource TextDark}" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
 
                                 <!-- Day Cells (7 Days) -->
-                                <Border Grid.Column="1" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="2" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="3" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="4" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="5" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="6" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
-                                <Border Grid.Column="7" BackgroundColor="{StaticResource White}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="1" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="2" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="3" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="4" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="5" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="6" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="7" BackgroundColor="{StaticResource CardBackground}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
 
                                 <!-- Projects Column -->
-                                <Border Grid.Column="8" BackgroundColor="{StaticResource Gray}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
+                                <Border Grid.Column="8" BackgroundColor="{StaticResource CalendarGray}" StrokeThickness="1" Stroke="{StaticResource GridLine}" Padding="4" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

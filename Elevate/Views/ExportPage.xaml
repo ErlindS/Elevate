@@ -4,34 +4,30 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Name="Page4"
-    BackgroundColor="#F5F7F5">
-
-    <ContentPage.Resources>
-        <Color x:Key="PrimaryDark">#778873</Color>
-        <Color x:Key="PrimaryLight">#A1BC98</Color>
-        <Color x:Key="TextDark">#4A4A4A</Color>
-        <Color x:Key="White">#FFFFFF</Color>
-        <Color x:Key="Success">#4CAF50</Color>
-        <Color x:Key="Error">#E57373</Color>
-    </ContentPage.Resources>
+    BackgroundColor="{StaticResource PageBackground}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Spacing="15">
             
-            <!-- Header -->
-            <Label 
-                Text="Export &amp; Import" 
-                FontSize="28" 
-                FontAttributes="Bold"
-                TextColor="{StaticResource PrimaryDark}"
-                HorizontalOptions="Center"
-                Margin="0,0,0,10"/>
+            <!-- Gradient Header -->
+            <Border Background="{StaticResource AppGradientBrush}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 0,0,20,20"
+                    Padding="20,30,20,20">
+                <Label 
+                    Text="Export &amp; Import" 
+                    FontSize="28" 
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource CardBackground}"
+                    HorizontalOptions="Center"/>
+            </Border>
 
             <!-- Status Message -->
             <Border 
                 StrokeShape="RoundRectangle 10"
                 Padding="15"
-                BackgroundColor="#E8F5E9"
+                Margin="20,0"
+                BackgroundColor="{StaticResource StatusBackground}"
                 Stroke="{StaticResource PrimaryLight}">
                 <Label 
                     Text="{Binding StatusMessage}"
@@ -46,15 +42,15 @@
                 FontSize="18" 
                 FontAttributes="Bold"
                 TextColor="{StaticResource TextDark}"
-                Margin="0,10,0,5"/>
+                Margin="20,10,20,5"/>
             
             <Label 
                 Text="Save and load from default app location"
                 FontSize="12"
-                TextColor="{StaticResource TextDark}"
-                Opacity="0.7"/>
+                Opacity="0.7"
+                Margin="20,0"/>
 
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="20,0">
                 <Button
                     Grid.Column="0"
                     BackgroundColor="{StaticResource PrimaryDark}"
@@ -63,7 +59,7 @@
                     FontAttributes="Bold"
                     HeightRequest="50"
                     Text="💾 Save"
-                    TextColor="{StaticResource White}" />
+                    TextColor="{StaticResource CardBackground}" />
 
                 <Button
                     Grid.Column="1"
@@ -73,7 +69,7 @@
                     FontAttributes="Bold"
                     HeightRequest="50"
                     Text="📂 Load"
-                    TextColor="{StaticResource White}" />
+                    TextColor="{StaticResource CardBackground}" />
             </Grid>
 
             <!-- Custom File Section -->
@@ -82,15 +78,15 @@
                 FontSize="18" 
                 FontAttributes="Bold"
                 TextColor="{StaticResource TextDark}"
-                Margin="0,20,0,5"/>
+                Margin="20,20,20,5"/>
             
             <Label 
                 Text="Import from or export to a specific file"
                 FontSize="12"
-                TextColor="{StaticResource TextDark}"
-                Opacity="0.7"/>
+                Opacity="0.7"
+                Margin="20,0"/>
 
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="20,0">
                 <Button
                     Grid.Column="0"
                     BackgroundColor="{StaticResource PrimaryDark}"
@@ -99,7 +95,7 @@
                     FontAttributes="Bold"
                     HeightRequest="50"
                     Text="📤 Export..."
-                    TextColor="{StaticResource White}" />
+                    TextColor="{StaticResource CardBackground}" />
 
                 <Button
                     Grid.Column="1"
@@ -109,7 +105,7 @@
                     FontAttributes="Bold"
                     HeightRequest="50"
                     Text="📥 Import..."
-                    TextColor="{StaticResource White}" />
+                    TextColor="{StaticResource CardBackground}" />
             </Grid>
 
             <!-- PDF Export Section -->
@@ -118,22 +114,23 @@
                 FontSize="18" 
                 FontAttributes="Bold"
                 TextColor="{StaticResource TextDark}"
-                Margin="0,20,0,5"/>
+                Margin="20,20,20,5"/>
             
             <Label 
                 Text="Generate a printable task report"
                 FontSize="12"
-                TextColor="{StaticResource TextDark}"
-                Opacity="0.7"/>
+                Opacity="0.7"
+                Margin="20,0"/>
 
             <Button
+                Margin="20,0"
                 BackgroundColor="{StaticResource PrimaryDark}"
                 Command="{Binding GeneratePdfCommand}"
                 CornerRadius="15"
                 FontAttributes="Bold"
                 HeightRequest="50"
                 Text="📄 Export to PDF"
-                TextColor="{StaticResource White}" />
+                TextColor="{StaticResource CardBackground}" />
 
         </VerticalStackLayout>
     </ScrollView>

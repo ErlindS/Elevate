@@ -3,15 +3,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Name="Page2"
-    BackgroundColor="#F5F7F5">
-
-    <ContentPage.Resources>
-        <Color x:Key="PrimaryDark">#778873</Color>
-        <Color x:Key="PrimaryLight">#A1BC98</Color>
-        <Color x:Key="TextDark">#4A4A4A</Color>
-        <Color x:Key="White">#FFFFFF</Color>
-        <Color x:Key="Error">#E57373</Color>
-    </ContentPage.Resources>
+    BackgroundColor="{StaticResource PageBackground}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -30,7 +22,7 @@
             Grid.Column="0"
             Margin="10"
             LineBreakMode="WordWrap"
-            Text="{Binding SortedTasks.Name}" 
+            Text="{Binding CurrentProjectLevelTask.Name}" 
             TextColor="{StaticResource TextDark}"
             VerticalOptions="Center" />
 
@@ -45,41 +37,34 @@
             FontAttributes="Bold"
             HeightRequest="40"
             Text="Out"
-            TextColor="{StaticResource White}" />
+            TextColor="{StaticResource CardBackground}" />
 
         <CollectionView
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Margin="0,10,0,0"
-            ItemsSource="{Binding SortedTasks.SubTasks}">
+            ItemsSource="{Binding CurrentProjectLevelTask.SubTasks}">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10">
                         <Border
                             Padding="15"
-                            BackgroundColor="{StaticResource White}"
-                            Stroke="#A1BC98"
+                            BackgroundColor="{StaticResource CardBackground}"
+                            Stroke="{StaticResource PrimaryLight}"
                             StrokeShape="RoundRectangle 10"
                             StrokeThickness="1">
-                            <Grid ColumnDefinitions="Auto, *, *, *, *">
+                            <Grid ColumnDefinitions="*, *, *">
 
                                 <Label
                                     Grid.Column="0"
-                                    LineBreakMode="WordWrap"
-                                    Text="{Binding Id}"
-                                    TextColor="{StaticResource TextDark}"
-                                    VerticalOptions="Center" />
-
-                                <Label
-                                    Grid.Column="1"
                                     LineBreakMode="WordWrap"
                                     Text="{Binding Name}"
                                     TextColor="{StaticResource TextDark}"
                                     VerticalOptions="Center" />
 
                                 <Button
-                                    Grid.Column="2"
+                                    Grid.Column="1"
                                     Margin="10"
                                     BackgroundColor="{StaticResource PrimaryDark}"
                                     Command="{Binding Source={x:Reference Page2}, Path=BindingContext.BaseCommand}"
@@ -88,10 +73,10 @@
                                     FontAttributes="Bold"
                                     HeightRequest="40"
                                     Text="Base"
-                                    TextColor="{StaticResource White}" />
+                                    TextColor="{StaticResource CardBackground}" />
 
                                 <Button
-                                    Grid.Column="3"
+                                    Grid.Column="2"
                                     Margin="10"
                                     BackgroundColor="{StaticResource PrimaryDark}"
                                     Command="{Binding Source={x:Reference Page2}, Path=BindingContext.RemoveTaskCommand}"
@@ -100,7 +85,7 @@
                                     FontAttributes="Bold"
                                     HeightRequest="40"
                                     Text="Remove"
-                                    TextColor="{StaticResource White}" />
+                                    TextColor="{StaticResource CardBackground}" />
                             </Grid>
                         </Border>
                     </Grid>
@@ -127,8 +112,8 @@
                     <Grid Padding="10">
                         <Border
                             Padding="15"
-                            BackgroundColor="{StaticResource White}"
-                            Stroke="#A1BC98"
+                            BackgroundColor="{StaticResource CardBackground}"
+                            Stroke="{StaticResource PrimaryLight}"
                             StrokeShape="RoundRectangle 10"
                             StrokeThickness="1">
                             <Grid ColumnDefinitions="Auto, *">
@@ -143,7 +128,7 @@
                                     FontAttributes="Bold"
                                     HeightRequest="40"
                                     Text="Add"
-                                    TextColor="{StaticResource White}"
+                                    TextColor="{StaticResource CardBackground}"
                                     WidthRequest="80" />
 
                                 <Label

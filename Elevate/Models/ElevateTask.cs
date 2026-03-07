@@ -40,5 +40,9 @@ namespace Elevate.Models
 
         [ObservableProperty]
         private ObservableCollection<IElevateTaskComponent> subTasks = new();
+
+
+        //[ObservableProperty]
+        //private bool addSubtask
     }
 }
