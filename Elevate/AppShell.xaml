@@ -57,6 +57,11 @@
         Route="WeeklyCalendarPage" />
 
     <ShellContent
+    Title="TestingDragAndDrop"
+    ContentTemplate="{DataTemplate views:TestingDragAndDropPage}" 
+    Route="TestingDragAndDropPage" />
+
+    <ShellContent
         Title="Export"
         ContentTemplate="{DataTemplate local:ExportPage}"
         Route="ExportPage" />
@@ -71,7 +76,7 @@
         <DataTemplate>
             <Grid Padding="15,10" BackgroundColor="Transparent">
                 <Button x:Name="ThemeToggleBtn"
-                        Text="🌙 Dark Mode"
+                        Text="Dark Mode"
                         BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource DarkPrimaryDark}}"
                         TextColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
                         CornerRadius="12"

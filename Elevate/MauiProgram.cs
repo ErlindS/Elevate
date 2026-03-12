@@ -65,6 +65,7 @@ namespace Elevate
             builder.Services.AddTransient<ExportViewModel>();
             builder.Services.AddTransient<DashboardViewModel>();
             builder.Services.AddTransient<WeeklyCalendarViewModel>();
+            builder.Services.AddTransient<TestingDragAndDropViewModel>();
             builder.Services.AddSingleton<CompletedHousesViewModel>();
 
 
@@ -76,6 +77,7 @@ namespace Elevate
             builder.Services.AddTransient<ExportPage>();
             builder.Services.AddTransient<DashboardPage>();
             builder.Services.AddTransient<WeeklyCalendarPage>();
+            builder.Services.AddTransient<TestingDragAndDropPage>();
             builder.Services.AddSingleton<CompletedHousesPage>();
 
 
